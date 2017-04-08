@@ -1,0 +1,41 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cms Users</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Password</th>
+      <th>Gender</th>
+      <th>Phone number</th>
+      <th>Address</th>
+      <th>Role</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cms_users.each do |cms_user| %>
+      <tr>
+        <td><%= cms_user.name %></td>
+        <td><%= cms_user.email %></td>
+        <td><%= cms_user.password %></td>
+        <td><%= cms_user.gender %></td>
+        <td><%= cms_user.phone_number %></td>
+        <td><%= cms_user.address %></td>
+        <td><%= cms_user.role %></td>
+        <td><%= cms_user.position %></td>
+        <td><%= link_to 'Show', cms_user %></td>
+        <td><%= link_to 'Edit', edit_cms_user_path(cms_user) %></td>
+        <td><%= link_to 'Destroy', cms_user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cms User', new_cms_user_path %>

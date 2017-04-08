@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @cms_user.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @cms_user.email %>
+</p>
+
+<p>
+  <strong>Password:</strong>
+  <%= @cms_user.password %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @cms_user.gender %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @cms_user.phone_number %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @cms_user.address %>
+</p>
+
+<p>
+  <strong>Role:</strong>
+  <%= @cms_user.role %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @cms_user.position %>
+</p>
+
+<%= link_to 'Edit', edit_cms_user_path(@cms_user) %> |
+<%= link_to 'Back', cms_users_path %>
