@@ -1,0 +1,28 @@
+= form_for :user do |f|
+  .row.modal-body
+    .md-col-5
+      |name:
+
+      = f.text_field :name
+      br
+      |email:
+      = f.text_field :email
+      br
+      |password:
+      = f.text_field :password
+      br
+      |gender:
+      = f.text_field :gender
+      br
+      |phone_number:
+      = f.text_field :phone_number
+      br
+      |address:
+      = f.text_field :address
+      br
+      |role:
+      = f.text_field :role
+      / br
+    .md-col-1
+      |position:
+      = f.text_field :position
