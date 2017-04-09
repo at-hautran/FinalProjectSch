@@ -1,4 +1,4 @@
-class Cms::SessionsController < ApplicationController
+class Cms::SessionsController < Cms::ApplicationController
   def new
   end
 

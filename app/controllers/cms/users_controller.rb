@@ -1,4 +1,4 @@
-class Cms::UsersController < ApplicationController
+class Cms::UsersController < Cms::ApplicationController
   def new
     @user = User.new
   end
