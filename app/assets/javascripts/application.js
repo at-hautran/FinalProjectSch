@@ -18,3 +18,4 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require cms/users
+//= require customers
