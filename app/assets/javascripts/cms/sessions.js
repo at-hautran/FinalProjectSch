@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  $("a").click(function(){
+  $("#login_user").click(function(){
      $("#sessionloginform").submit();
   });
 });

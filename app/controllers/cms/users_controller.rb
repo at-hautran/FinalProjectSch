@@ -18,7 +18,6 @@ class Cms::UsersController < Cms::ApplicationController
   end
 
   def update
-    binding.pry
     @user = User.find(user_params[:id])
     if @user.update_attributes(user_params)
       redirect_to cms_users_path(id: @user.id)

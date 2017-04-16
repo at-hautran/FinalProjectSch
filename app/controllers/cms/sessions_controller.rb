@@ -3,11 +3,12 @@ class Cms::SessionsController < Cms::ApplicationController
   end
 
   def create
-    binding.pry
     user = User.find_by(email: login_params[:email])
-    if user.password == login_params[:password]
+    if user.present? && user.password == login_params[:password]
       init_sessions
       redirect_to new_cms_sessions_url
+    else
+      render :new
     end
   end
 
@@ -15,6 +16,6 @@ class Cms::SessionsController < Cms::ApplicationController
   end
 
   def login_params
-    params.permit(:username, :password)
+    params.permit(:email, :password)
   end
 end
