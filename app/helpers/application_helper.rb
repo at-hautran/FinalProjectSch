@@ -1,6 +1,5 @@
 module ApplicationHelper
-
-  def init_sessions user
+  def init_session user
     session[:id] = user.id
   end
 
@@ -14,5 +13,9 @@ module ApplicationHelper
 
   def logout user
     session.delete(user.id)
+  end
+
+  def requestlogin?
+    current_user.nil? ? true : false
   end
 end

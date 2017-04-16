@@ -5,7 +5,7 @@ class Cms::SessionsController < Cms::ApplicationController
   def create
     user = User.find_by(email: login_params[:email])
     if user.present? && user.password == login_params[:password]
-      init_sessions
+      init_session(user)
       redirect_to new_cms_sessions_url
     else
       render :new
