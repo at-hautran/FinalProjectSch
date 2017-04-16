@@ -21,19 +21,20 @@
       <div class="row main">
         <div class="panel-heading">
                  <div class="panel-title text-center">
-                    <h1 class="title">Create new user</h1>
+                    <h1 class="title">Edit user <%=@user.user_name %></h1>
                     <hr />
                   </div>
               </div>
         <div class="main-login main-center">
           <form action="../users", method="post" class="form-horizontal" method="post" action="#">
+            <input type="hidden" name="_method" value="put" />
+            <input type="hidden" name="user[id]" value="<%= @user.id %>">
 
-            <div class="form-group">
-              <label for="name" class="cols-sm-2 control-label">User Name</label>
+            <div class="form-group">              <label for="name" class="cols-sm-2 control-label">User Name</label>
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="user[user_name]" id="name"  placeholder="Name"/>
+                  <input type="text" value= "<%= @user.user_name %>" class="form-control" name="user[user_name]" id="name"  placeholder="Name"/>
                 </div>
               </div>
             </div>
@@ -43,7 +44,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="user[email]" id="email"  placeholder="Email"/>
+                  <input type="text" value= "<%= @user.email %>" class="form-control" name="user[email]" id="email"  placeholder="Email"/>
                 </div>
               </div>
             </div>
@@ -53,7 +54,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="user[password]" id="password"  placeholder="Password"/>
+                  <input type="password" value="<%=@user.password%>" class="form-control" name="user[password]" id="password"  placeholder="Password"/>
                 </div>
               </div>
             </div>
@@ -63,7 +64,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="user[confirm_password]" id="confirm"  placeholder="Confirm Password"/>
+                  <input type="password" value="<%=@user.confirm_password%>" class="form-control" name="user[confirm_password]" id="confirm"  placeholder="Confirm Password"/>
                 </div>
               </div>
             </div>
@@ -73,7 +74,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="date" class="form-control" name="user[birthday]" id="birthday"  placeholder="birthday"/>
+                  <input type="date", value="<%=@user.birthday%>" class="form-control" name="user[birthday]" id="birthday"  placeholder="birthday"/>
                 </div>
               </div>
             </div>
@@ -85,7 +86,7 @@
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
                   <!-- <input type="password" class="form-control" name="gender" id="confirm"  placeholder="Confirm your Password"/> -->
                   <select class="selectpicker form-control", name="user[gender]">
-                    <option value="" disabled selected>Gender</option>
+                    <option value="<%= @user.gender if @user.present?" disabled selected>Gender</option>
                     <option>Male</option>
                     <option>Female</option>
                   </select>
@@ -136,7 +137,7 @@
 
 
             <div class="form-group ">
-              <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+              <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Update</button>
             </div>
             <div class="login-register">
                     <a href="index.php">Login</a>

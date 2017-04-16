@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   namespace :cms do
     root 'sessions#new'
-    resource :sessions
     resource :users
+    resource :sessions
   end
   root 'homepages#home'
   # get 'homepages/booking', to: 'homepages#booking'
