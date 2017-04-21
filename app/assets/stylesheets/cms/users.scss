@@ -699,7 +699,7 @@ header {
 }
 
 // Css for user profile
-body{padding-top:30px;}
+// body{padding-top:30px;}
 .glyphicon {  margin-bottom: 10px;margin-right: 10px;}
 
 small {
@@ -735,20 +735,20 @@ color: #999;
 }
 
 /* -- Demo style ------------------------------- */
-html, body {
-  position: relative;
-  min-height: 100%;
-  height: 100%;
-}
+// html, body {
+//   position: relative;
+//   min-height: 100%;
+//   height: 100%;
+// }
 
-html {
-  position: relative;
-  overflow-x: hidden;
-  margin: 16px;
-  padding: 0;
-  min-height: 100%;
-  font-size: 62.5%; // For rem units support
-}
+// html {
+//   position: relative;
+//   overflow-x: hidden;
+//   margin: 16px;
+//   padding: 0;
+//   min-height: 100%;
+//   font-size: 62.5%; // For rem units support
+// }
 
 body {
   font-family: 'RobotoDraft', 'Roboto', 'Helvetica Neue, Helvetica, Arial', sans-serif;
