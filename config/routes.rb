@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :sessions
     resources :rooms
   end
+  resources :customers
   root 'homepages#home'
   # get 'homepages/booking', to: 'homepages#booking'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
