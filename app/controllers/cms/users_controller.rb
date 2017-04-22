@@ -6,7 +6,7 @@ class Cms::UsersController < Cms::ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to cms_users_path(id: @user.id)
+      redirect_to cms_user_path(id: @user.id)
       flash[:success] = "New user was created"
     else
       render :new
