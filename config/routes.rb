@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     root 'sessions#new'
     resources :users
     resources :sessions
+    resources :rooms
   end
   root 'homepages#home'
   # get 'homepages/booking', to: 'homepages#booking'

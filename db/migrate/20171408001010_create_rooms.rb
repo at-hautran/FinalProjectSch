@@ -5,7 +5,7 @@ class CreateRooms < ActiveRecord::Migration[5.0]
       t.string :type
       t.integer :price
       t.integer :adults
-      t.integer :children
+      t.integer :childrens
 
       t.timestamps
     end

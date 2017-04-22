@@ -12,16 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20171408001010) do
 
-  create_table "cms_rooms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "type"
-    t.integer  "price"
-    t.integer  "adults"
-    t.integer  "children"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "customers", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -33,6 +23,16 @@ ActiveRecord::Schema.define(version: 20171408001010) do
     t.string   "country"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string   "name"
+    t.string   "type"
+    t.integer  "price"
+    t.integer  "adults"
+    t.integer  "childrens"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
