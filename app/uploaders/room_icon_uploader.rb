@@ -1,5 +1,7 @@
 class RoomIconUploader < CarrierWave::Uploader::Base
 
+  include CarrierWave::MiniMagick
+
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -16,6 +18,14 @@ class RoomIconUploader < CarrierWave::Uploader::Base
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
+  #
+
+  process resize_to_fit: [300, 300]
+
+  version :thumb do
+    process resize_to_fill: [200,200]
+  end
+
   #   # For Rails 3.1+ asset pipeline compatibility:
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
