@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :sessions
     resources :rooms
   end
+  resources :rooms, only: %w[show index]
   resources :customers
   root 'homepages#home'
   # get 'homepages/booking', to: 'homepages#booking'
