@@ -1,7 +1,11 @@
 (function($){
+  console.log($(".form-group"))
   function floatLabel(inputType){
+    alert($(inputType));
+    console.log($(".floatLabel"));
     $(inputType).each(function(){
       var $this = $(this);
+      alert("a");
       // on focus add cladd active to label
       $this.focus(function(){
         $this.next().addClass("active");
