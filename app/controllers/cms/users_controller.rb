@@ -39,7 +39,8 @@ class Cms::UsersController < Cms::ApplicationController
   private
 
     def user_params
-      params.require(:user).permit(:id, :user_name, :email, :password, :confirm, :birthday, :phone_number, :address, :role, :position)
+      params.require(:user).permit(:id, :user_name, :email, :password, :confirm,
+                                   :birthday, :phone_number, :address, :role, :position)
     end
 
 end
