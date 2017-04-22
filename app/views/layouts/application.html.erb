@@ -4,9 +4,9 @@
     <title>FinalProjectSch</title>
     <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' if controller_name != 'customers' %>
-    <% if controller_name == 'customers' %>
-      <%= stylesheet_link_tag    'customers', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' if controller_name != 'bookings' %>
+    <% if controller_name == 'bookings' %>
+      <%= stylesheet_link_tag    'bookings', media: 'all', 'data-turbolinks-track': 'reload' %>
     <% end %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>

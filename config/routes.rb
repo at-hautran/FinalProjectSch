@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     resources :sessions
     resources :rooms
   end
+
+  resources :bookings
   resources :customers
   root 'homepages#home'
   # get 'homepages/booking', to: 'homepages#booking'
