@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :bookings
   resources :rooms, only: %w[show index]
-  resources :customers, only: %w[show index]
+  resources :customers
   root 'homepages#home'
   # get 'homepages/booking', to: 'homepages#booking'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
