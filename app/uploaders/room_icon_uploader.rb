@@ -23,7 +23,7 @@ class RoomIconUploader < CarrierWave::Uploader::Base
   process resize_to_fit: [300, 300]
 
   version :thumb do
-    process resize_to_fill: [200,200]
+    process resize_to_fill: [200,300]
   end
 
   #   # For Rails 3.1+ asset pipeline compatibility:
