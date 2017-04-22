@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  check_in: 2017-04-22 13:00:38
+  check_out: 2017-04-22 13:00:38
+  room_id: 1
+  customer_id: 1
+  status: MyString
+
+two:
+  check_in: 2017-04-22 13:00:38
+  check_out: 2017-04-22 13:00:38
+  room_id: 1
+  customer_id: 1
+  status: MyString
