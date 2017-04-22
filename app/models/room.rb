@@ -1,4 +1,4 @@
 class Room < ApplicationRecord
   has_many :booking
-  mount_uploader :icon, AvatarUploader
+  mount_uploader :icon, RoomIconUploader
 end
