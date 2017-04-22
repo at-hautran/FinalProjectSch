@@ -1,0 +1,2 @@
+module Cms::RoomsHelper
+end
