@@ -26,8 +26,9 @@
                   </div>
               </div>
         <div class="main-login main-center">
-          <form action="../rooms", method="post" class="form-horizontal" method="post" action="#">
-
+          <%= form_for [:cms, @room], class: "form-horizontal" do |room| %>
+            <%= render partial: 'cms/errors/errors', locals: {errors: @room.errors} %>
+            <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errros].present? %>
             <div class="form-group">
               <label for="name" class="cols-sm-2 control-label">Name</label>
               <div class="cols-sm-10">
@@ -43,7 +44,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="room[type]" id="email"  placeholder="Email"/>
+                  <input type="text" class="form-control" name="room[room_type]" id="email"  placeholder="Type"/>
                 </div>
               </div>
             </div>
@@ -53,7 +54,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="room[adults]" id="password"  placeholder="Password"/>
+                  <input type="text" class="form-control" name="room[adults]" id="password"  placeholder="Adults"/>
                 </div>
               </div>
             </div>
@@ -63,7 +64,7 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="room[childrens]" id="confirm"  placeholder="Confirm Password"/>
+                  <input type="text" class="form-control" name="room[childrens]" id="confirm"  placeholder="Childrens"/>
                 </div>
               </div>
             </div>
@@ -73,15 +74,15 @@
               <div class="cols-sm-10">
                 <div class="input-group">
                   <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <textarea rows="5" type="" class="form-control" name="room[price]" id="confirm"  placeholder="Address"/></textarea>
+                  <input type = "text" rows="5" type="" class="form-control" name="room[price]" id="confirm"  placeholder="Price"/>
                 </div>
               </div>
             </div>
-
+            <%= room.file_field :room_icon %>
             <div class="form-group ">
               <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Create Room</button>
             </div>
-          </form>
+          <% end %>
         </div>
       </div>
     </div>

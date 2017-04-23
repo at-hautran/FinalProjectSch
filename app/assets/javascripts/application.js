@@ -19,3 +19,4 @@
 //= require bootstrap-sprockets
 //= require cms/users
 //= require customers
+//= require cms/rooms
