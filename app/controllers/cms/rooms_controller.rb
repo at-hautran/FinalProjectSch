@@ -33,12 +33,12 @@ class Cms::RoomsController < Cms::ApplicationController
   end
 
   def index
-    @rooms = Room.all
+    @rooms = Room.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   private
 
     def room_params
-      params.require(:room).permit(:name, :type, :adults, :childrens, :price)
+      params.require(:room).permit(:name, :room_type, :adults, :childrens, :price, :room_icon)
     end
 end
