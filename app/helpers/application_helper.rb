@@ -1,4 +1,6 @@
 module ApplicationHelper
+
+  BOOKING_STATUS = %w[waitting deny accept closed]
   def init_session user
     session[:id] = user.id
   end
@@ -11,8 +13,8 @@ module ApplicationHelper
     current_user.nil? ? false : true
   end
 
-  def logout user
-    session.delete(user.id)
+  def logout
+    session.delete(:id)
   end
 
   def requestlogin?

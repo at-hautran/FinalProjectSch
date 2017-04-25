@@ -20,3 +20,4 @@
 //= require cms/users
 //= require customers
 //= require cms/rooms
+//= require cms/bookings

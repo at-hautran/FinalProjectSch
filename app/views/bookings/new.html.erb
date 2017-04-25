@@ -1,4 +1,4 @@
-<form action="">
+<form action="../bookings" method="post">
   <!--  General -->
   <div class="form-group">
     <h2 class="heading">Booking & contact</h2>
@@ -7,111 +7,85 @@
       <label for="name">Name</label>
     </div>
     <div class="controls">
-      <input type="text" id="email" class="floatLabel" name="email">
+      <input type="text" id="email" class="floatLabel" name="customer[email]">
       <label for="customer[email]">Email</label>
     </div>
     <div class="controls">
       <input type="tel" id="phone" class="floatLabel" name="customer[phonenumber]">
       <label for="phone">Phone</label>
     </div>
-      <div class="grid">
-        <div class="col-2-3">
-          <div class="controls">
-           <input type="text" id="street" class="floatLabel" name="customer[street]">
-           <label for="street">Street</label>
-          </div>
-        </div>
-        <div class="col-1-3">
-          <div class="controls">
-            <input type="number" id="street-number" class="floatLabel" name="customer[street_number]">
-            <label for="street-number">Number</label>
-          </div>
+    <div class="grid">
+      <div class="col-2-3">
+        <div class="controls">
+          <input type="text" id="street" class="floatLabel" name="customer[street]">
+          <label for="street">Street</label>
         </div>
       </div>
-      <div class="grid">
-        <div class="col-2-3">
-          <div class="controls">
-            <input type="text" id="city" class="floatLabel" name="customer[city]">
-            <label for="city">City</label>
-          </div>
-        </div>
-        <div class="col-1-3">
-          <div class="controls">
-            <input type="text" id="post-code" class="floatLabel" name="customer[post_code]">
-            <label for="post-code">Post Code</label>
-          </div>
+      <div class="col-1-3">
+        <div class="controls">
+          <input type="number" id="street-number" class="floatLabel" name="customer[number_street]">
+          <label for="street-number">Number</label>
         </div>
       </div>
-      <div class="controls">
-        <input type="text" id="country" class="floatLabel" name="customer[country]">
-        <label for="country">Country</label>
+    </div>
+    <div class="grid">
+      <div class="col-2-3">
+        <div class="controls">
+          <input type="text" id="city" class="floatLabel" name="customer[city]">
+          <label for="city">City</label>
+        </div>
       </div>
+      <div class="col-1-3">
+        <div class="controls">
+          <input type="text" id="post-code" class="floatLabel" name="customer[postcode]">
+          <label for="post-code">Post Code</label>
+        </div>
+      </div>
+    </div>
+    <div class="controls">
+      <input type="text" id="country" class="floatLabel" name="customer[country]">
+      <label for="country">Country</label>
+    </div>
   </div>
   <!--  Details -->
   <div class="form-group">
     <h2 class="heading">Details</h2>
     <div class="grid">
-    <div class="col-1-4 col-1-4-sm">
-      <div class="controls">
-        <input type="date" id="arrive" class="floatLabel" name="arrive" value="">
-        <label for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Arrive</label>
-      </div>
-    </div>
-    <div class="col-1-4 col-1-4-sm">
-      <div class="controls">
-        <input type="date" id="depart" class="floatLabel" name="depart" />
-        <label for="depart" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Depart</label>
-      </div>
-    </div>
-      </div>
-      <div class="grid">
-    <div class="col-1-3 col-1-3-sm">
-      <div class="controls">
-        <i class="fa fa-sort"></i>
-        <select class="floatLabel">
-          <option value="blank"></option>
-          <option value="1">1</option>
-          <option value="2" selected>2</option>
-          <option value="3">3</option>
-        </select>
-        <label for="fruit"><i class="fa fa-male"></i>&nbsp;&nbsp;People</label>
-      </div>
-    </div>
-    <div class="col-1-3 col-1-3-sm">
-    <div class="controls">
-      <i class="fa fa-sort"></i>
-      <select class="floatLabel">
-        <option value="blank"></option>
-        <option value="deluxe" selected>With Bathroom</option>
-        <option value="Zuri-zimmer">Without Bathroom</option>
-      </select>
-      <label for="fruit">Room</label>
-     </div>
-    </div>
-
-    <div class="col-1-3 col-1-3-sm">
-    <div class="controls">
-      <i class="fa fa-sort"></i>
-      <select class="floatLabel">
-        <option value="blank"></option>
-        <option value="single-bed">Zweibett</option>
-        <option value="double-bed" selected>Doppelbett</option>
-      </select>
-      <label for="fruit">Bedding</label>
-     </div>
-    </div>
-
-     </div>
-      <div class="grid">
-        <p class="info-text">Please describe your needs e.g. Extra beds, children's cots</p>
-        <br>
+      <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <textarea name="comments" class="floatLabel" id="comments"></textarea>
-          <label for="comments">Comments</label>
-          </div>
-            <button type="submit" value="Submit" class="col-1-4">Submit</button>
+          <input type="text" id="arrive" class="floatLabel" name="booking[room_name]" value="<%= @room.name %>">
+          <input type="hidden" id="arrive" class="floatLabel" name="booking[room_id]" value="<%= @room.id %>">
+          <label for="arrive" class="active"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Room</label>
+        </div>
       </div>
-  </div> <!-- /.form-group -->
+    </div>
+
+    <div class="grid">
+      <div class="col-1-4 col-1-4-sm">
+        <div class="controls">
+          <input type="date" id="arrive" class="floatLabel" name="booking[check_in]" value="">
+          <label for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Check in</label>
+        </div>
+      </div>
+      <div class="col-1-4 col-1-4-sm">
+        <div class="controls">
+          <input type="date" id="depart" class="floatLabel" name="booking[check_out]" />
+          <label for="depart" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Check out</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <p class="info-text">Please describe your needs e.g. Extra beds, children's cots</p>
+      <br>
+      <div class="controls">
+        <textarea name="booking[comments]" class="floatLabel" id="comments"></textarea>
+        <label for="comments">Comments</label>
+      </div>
+      <button type="submit" value="Submit" class="col-1-4">Submit</button>
+    </div>
+  </div>
+  <!-- /.form-group -->
 </form>
 <script type="text/javascript">
   (function($){
@@ -133,5 +107,6 @@
   }
   // just add a class of "floatLabel to the input field!"
   floatLabel(".floatLabel");
-})(jQuery);
+  })(jQuery);
 </script>
+

@@ -17,9 +17,11 @@ ActiveRecord::Schema.define(version: 20171408001012) do
     t.datetime "check_out"
     t.integer  "room_id"
     t.integer  "customer_id"
-    t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string   "status",      default: "f"
+    t.string   "comments"
+    t.integer  "user_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "customers", force: :cascade do |t|

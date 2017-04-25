@@ -18,12 +18,13 @@ class Cms::RoomsController < Cms::ApplicationController
   end
 
   def update
-    @room = Room.find(Room_params[:id])
+    binding.pry
+    @room = Room.find(params[:id])
     if @room.update_attributes(room_params)
-      redirect_to cms_Rooms_path(id: @room.id)
+      redirect_to cms_rooms_path(id: @room.id)
       flash[:success] = "Update success"
     else
-      render :new
+      redirect_to cms_rooms_path
       flash[:error] = "update fail"
     end
   end
@@ -36,9 +37,16 @@ class Cms::RoomsController < Cms::ApplicationController
     @rooms = Room.order(created_at: :desc).page(params[:page]).per(10)
   end
 
+  def destroy
+    room = Room.find(params[:id])
+    if room.destroy
+      redirect_to cms_rooms_path
+    end
+  end
+
   private
 
     def room_params
-      params.require(:room).permit(:name, :room_type, :adults, :childrens, :price, :room_icon)
+      params.require(:room).permit(:id, :name, :room_type, :adults, :childrens, :price, :room_icon)
     end
 end

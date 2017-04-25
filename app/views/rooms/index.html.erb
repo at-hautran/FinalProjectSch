@@ -1,88 +1,86 @@
-<div id="demo">
-  <h1>All rooms</h1>
+<div class="container">
+  <div class="row">
 
-  <!-- Responsive table starts here -->
-  <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
-  <div class="table-responsive-vertical shadow-z-1">
-  <!-- Table starts here -->
-  <table id="table" class="table table-hover table-mc-light-blue">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Adults</th>
-          <th>Childrens</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-      <% @rooms.each do |room| %>
-        <tr>
-          <td data-title="Name"><%= room.name %></td>
-          <td data-title="Name"><%= room.type %></td>
-          <td data-title="Name"><%= room.adults %></td>
-          <td data-title="Name"><%= room.childrens %></td>
-          <td data-title="Name"><%= room.price %></td>
-          <td data-title="Link">
-            <a href="/cms/rooms/<%= room.id %>/edit" target="_blank">Book</a>
-          </td>
-        </tr>
+    <section class="content">
+      <a href="../cms/rooms/new" class="btn btn-primary btn-lg">New Room</a>
+      <% if @rooms.present? %>
+        <h1>Rooms</h1>
+        <div class="col-md-10">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="pull-right">
+              </div>
+              <div class="table-container">
+                <table class="table table-filter">
+                  <tbody>
+                    <% @rooms.each do |room| %>
+                      <tr data-status="pendiente">
+                        <td>
+                          <div class="media">
+                            <a href="#" class="pull-left">
+                              <%= image_tag room.room_icon.thumb.url if room.room_icon.present? %>
+                            </a>
+                            <div class="media-body">
+                              <span class="pull-right pendiente">Price</span>
+                              <h4 class="title">
+                                <%= room.name %>
+                                <span class="media-meta pull-right"><%= room.price %>$</span>
+                              </h4>
+                              <p class="summary">c</p>
+                            </div>
+                            <div>
+                              <div>adults: <%= room.adults%></div>
+
+                              <div>children: <%= room.childrens %></div>
+                            </div>
+                            <div>
+                              <a href="../cms/rooms/<%=room.id%>" data-method="delete" class="btn btn-danger btn-lg" style="float:right"><span class="glyphicon glyphicon-trash"></span>delete</a>
+
+                              <a href="../cms/rooms/<%=room.id%>/edit" class="btn btn-primary btn-lg" style="float:right;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+                              <a href="../bookings/new?room_id=<%=room.id%>" class="btn btn-info btn-lg" style="float:right">Book room</a>
+                            </div>
+                          </div>
+                          <hr>
+                        </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+                <%= paginate @rooms %>
+              </div>
+            </div>
+          </div>
+        </div>
       <% end %>
-      </tbody>
-    </table>
+    </section>
+
+  </div>
+</div>
+
+<div class="container">
+  <h2>Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 
-  <!-- Table Constructor change table classes, you don't need it in your project -->
-  <div style="width: 45%; display: inline-block; vertical-align: top">
-  <h2>Table Constructor</h2>
-  <p>
-    <label for="table-bordered">Style: bordered</label>
-    <select id="table-bordered" name="table-bordered">
-      <option selected value="">No</option>
-      <option value="table-bordered">Yes</option>
-    </select>
-  </p>
-  <p>
-    <label for="table-striped">Style: striped</label>
-    <select id="table-striped" name="table-striped">
-      <option selected value="">No</option>
-      <option value="table-striped">Yes</option>
-    </select>
-  </p>
-  <p>
-    <label for="table-hover">Style: hover</label>
-    <select id="table-hover" name="table-hover">
-      <option value="">No</option>
-      <option selected value="table-hover">Yes</option>
-    </select>
-  </p>
-  <p>
-    <label for="table-color">Style: color</label>
-    <select id="table-color" name="table-color">
-      <option value="">Default</option>
-      <option value="table-mc-red">Red</option>
-      <option value="table-mc-pink">Pink</option>
-      <option value="table-mc-purple">Purple</option>
-      <option value="table-mc-deep-purple">Deep Purple</option>
-      <option value="table-mc-indigo">Indigo</option>
-      <option value="table-mc-blue">Blue</option>
-      <option selected value="table-mc-light-blue">Light Blue</option>
-      <option value="table-mc-cyan">Cyan</option>
-      <option value="table-mc-teal">Teal</option>
-      <option value="table-mc-green">Green</option>
-      <option value="table-mc-light-green">Light Green</option>
-      <option value="table-mc-lime">Lime</option>
-      <option value="table-mc-yellow">Yellow</option>
-      <option value="table-mc-amber">Amber</option>
-      <option value="table-mc-orange">Orange</option>
-      <option value="table-mc-deep-orange">Deep Orange</option>
-    </select>
-  </p>
-  </div>
-  <div style="width: 45%; display: inline-block; vertical-align: top; margin-left: 30px;">
-    <h2>Description</h2>
-    <p>Tested on Win8.1 with browsers: Chrome 37, Firefox 32, Opera 25, IE 11, Safari 5.1.7</p>
-    <p>You can use this table in Bootstrap (v3) projects. Material Design Responsive Table CSS-style will override basic bootstrap style.</p>
-    <p class="mdt-subhead-2"><strong>Donate:</strong> You can support me via <a class="paypal" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=s%2ekupletsky%40gmail%2ecom&amp;lc=US&amp;item_name=Material%20Design%20Responsive%20Table&amp;currency_code=USD&amp;bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">PayPal</a>, <a class="webmoney" href="https://funding.webmoney.ru/material-design-iconic-font/donate">WebMoney</a> or <a class="gratipay" href="http://gratipay.com/zavoloklom/" target="_blank">Gratipay</a></p>
-  </div>
 </div>
