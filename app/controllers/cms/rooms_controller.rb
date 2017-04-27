@@ -18,7 +18,6 @@ class Cms::RoomsController < Cms::ApplicationController
   end
 
   def update
-    binding.pry
     @room = Room.find(params[:id])
     if @room.update_attributes(room_params)
       redirect_to cms_rooms_path(id: @room.id)
