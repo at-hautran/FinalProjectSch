@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+
+    <!-- Website CSS style -->
+    <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+    <!-- Website Font style -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+    <title>Admin</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row main">
+        <div class="panel-heading">
+                 <div class="panel-title text-center">
+                    <h1 class="title">Create new room</h1>
+                    <hr />
+                  </div>
+              </div>
+        <div class="main-login main-center">
+          <%= form_for [:cms, @room], class: "form-horizontal" do |room| %>
+            <%= render partial: 'cms/errors/errors', locals: {errors: @room.errors} %>
+            <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errros].present? %>
+            <div class="form-group">
+              <label for="name" class="cols-sm-2 control-label">Name</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                  <%= room.text_field :name, class: "form-control", placeholder: "Name" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="email" class="cols-sm-2 control-label">Type</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                  <%= room.text_field :room_type, class: "form-control", placeholder: "Type" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="cols-sm-2 control-label">Adults</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                  <%= room.text_field :adults, class: "form-control", placeholder: "Adults" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">Childrens</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                  <%= room.text_field :childrens, class: "form-control", placeholder: "Childrens" %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="confirm" class="cols-sm-2 control-label">Price</label>
+              <div class="cols-sm-10">
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                  <%= room.text_field :price, class: "form-control", placeholder: "Price" %>
+                </div>
+              </div>
+            </div>
+            <%= room.file_field :room_icon %>
+            <div class="form-group ">
+              <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Create Room</button>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+  </body>
+</html>

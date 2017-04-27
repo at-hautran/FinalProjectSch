@@ -1,12 +1,13 @@
 Rails.application.routes.draw do
   namespace :cms do
     root 'sessions#new'
+    resources :bookings
     resources :users
     resources :sessions
     resources :rooms
   end
 
-  resources :bookings
+  resources :bookings, only: %w[new create show]
   resources :rooms, only: %w[show index]
   resources :customers
   root 'homepages#home'

@@ -6,7 +6,7 @@ class Cms::SessionsController < Cms::ApplicationController
     user = User.find_by(email: login_params[:email])
     if user.present? && user.password == login_params[:password]
       init_session(user)
-      redirect_to new_cms_sessions_url
+      redirect_to cms_root_path
     else
       render :new
     end

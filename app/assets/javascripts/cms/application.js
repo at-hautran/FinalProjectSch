@@ -13,14 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+
+
+//= require magicsuggest-1.3.1
+//= require jquery.autocomplete.min
 //= require_tree .
 //
 //= require jquery
 //= require bootstrap-sprockets
-//= require cms/users
-//= require customers
-//= require cms/rooms
-//= require cms/bookings
-//= require rooms
-//= require jquery.autocomplete.min
-//= require magicsuggest-1.3.1
+
+//= require jquery-ui
+//
