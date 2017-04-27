@@ -141,10 +141,9 @@
 <input id="autocomplete" value= "a" name="room_name" class="form-control pop_room_name autocomplete " type="text" placeholder="Room name">
 <script type="text/javascript">
 jQuery(function($) {
-  var arrayArticles = gon.names;
-  $a = [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ];
+  var rooms = gon.names;
   $( "#autocomplete" ).autocomplete({
-    source: arrayArticles,
+    lookup: rooms,
 });
   });
 </script>

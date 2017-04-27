@@ -2,6 +2,8 @@
   <!--  General -->
   <div class="form-group">
     <h2 class="heading">Booking & contact</h2>
+    <%= render partial: 'cms/errors/errors', locals: {errors: @booking.errors} if @booking.present? %>
+    <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errros].present? %>
     <div class="controls">
       <input type="text" id="name" class="floatLabel" name="customer[name]">
       <label for="name">Name</label>
