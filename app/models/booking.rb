@@ -6,6 +6,8 @@ class Booking < ApplicationRecord
   validate :check_check_out_greater_than_check_in
   validate :check_plan_present
 
+  has_secure_password
+
   def check_check_out_greater_than_check_in
     return if check_out.blank? || check_in.blank?
     if check_out < check_in
@@ -14,7 +16,6 @@ class Booking < ApplicationRecord
   end
 
   def check_plan_present
-    binding.pry
     errors.add(:check_in, "must be set") if check_in.blank?
     errors.add(:check_out, "must be set") if check_out.blank?
   end

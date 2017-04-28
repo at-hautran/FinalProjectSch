@@ -5,16 +5,16 @@ class BookingsController < ApplicationController
   end
 
   def create
-    # Booking.book_ticket(customer_params, booking_params)
     customer = Customer.create customer_params
     @booking = customer.bookings.build booking_params
     @booking.status = 'waiting'
+    # UserMailer.welcome_email(customer).deliver
     # if current_user && current_user.role == 'admin'
     #   booking.user_id = current_user.id
     #   booking.status = 'accept'
     # end
     if @booking.save
-      redirect_to
+      redirect_to bookings
     else
       @room = Room.find(booking_params[:room_id])
       render action: :new
