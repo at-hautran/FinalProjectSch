@@ -62,46 +62,17 @@
       <h4 class="modal-title custom_align namepop" id="Heading">Suggest Rooms</h4>
     </div>
     <input type="hidden" name="_method" value="put" />
-    <div class="modal-body">
-      <lable>Name</lable>
-      <div class="form-group">
-        <input name= "name" class="form-control pop_customer_name" type="text" placeholder="Customer Name">
-      </div>
-      <lable>Phone number</lable>
-      <div class="form-group">
-        <input name="phonenumber" class="form-control pop_customer_phone" type="text" placeholder="Phone Number">
-      </div>
-      <lable>Email</lable>
-      <div class="form-group">
-        <input name="email" class="form-control pop_customer_email" type="text" placeholder="Email">
-      </div>
-      <lable>Country</lable>
-      <div class="form-group">
-        <input name="country" class="form-control pop_customer_country" type="text" placeholder="Country">
-      </div>
-      <lable>Room name</lable>
-      <div class="form-group">
-        <input name="room_name" class="form-control pop_room_name " type="text" placeholder="Room name">
-      </div>
-      <lable>Check in</lable>
-      <div class="form-group">
-        <input name="check_in" class="form-control pop_check_in " type="date" placeholder="Check in">
-      </div>
-      <lable>Check out</lable>
-      <div class="form-group">
-        <input class="form-control pop_check_out " type="date" placeholder="Check out">
-        <lable>Status</lable>
-        <div class="form-group">
-          <select name="status" class="form-control pop_status ">
-          <%= options_for_select(ApplicationHelper::BOOKING_STATUS, "a")%>
-          </select>
-          <!-- <input class="form-control pop_status " type="text" placeholder="Status"> -->
-        </div>
-      </div>
-      <div class="form-group"></div>
-    </div>
+    <p>Adults:</p>
+    <input type="text" name="adults">
+    <p>Childrens:</p>
+    <input type="text" name="childrens">
+    <p>Price</p>
+    <select>
+      <option value = "-1">Descrease</option>
+      <option value = "1">Increase</option>
+    </select>
     <div class="modal-footer ">
-      <button type="submit" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+      <button type="submit" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span>Find Rooms</button>
     </div>
   </form>
 </div>

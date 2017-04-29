@@ -6,7 +6,7 @@ class Booking < ApplicationRecord
   validate :check_check_out_greater_than_check_in
   validate :check_plan_present
 
-  has_secure_password
+  # has_secure_password
 
   def check_check_out_greater_than_check_in
     return if check_out.blank? || check_in.blank?
