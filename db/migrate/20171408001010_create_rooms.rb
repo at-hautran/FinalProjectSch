@@ -6,6 +6,7 @@ class CreateRooms < ActiveRecord::Migration[5.0]
       t.integer :price
       t.integer :adults
       t.integer :childrens
+      t.integer :user_id
 
       t.timestamps
     end
