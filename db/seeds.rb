@@ -5,4 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-User.create(name: 'a', password: '123456')
+(1..100).each do |i|
+  Room.create(name: "a#{i}", price: "500")
+end
+User.create(email: 'a', password: '123456')

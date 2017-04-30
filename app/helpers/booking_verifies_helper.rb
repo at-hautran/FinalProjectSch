@@ -1,0 +1,2 @@
+module BookingVerifiesHelper
+end

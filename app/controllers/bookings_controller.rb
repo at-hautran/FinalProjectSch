@@ -5,7 +5,6 @@ class BookingsController < ApplicationController
   end
 
   def create
-    # Booking.book_ticket(customer_params, booking_params)
     customer = Customer.create customer_params
     @booking = customer.bookings.build booking_params
     @booking.status = 'waiting'
@@ -14,7 +13,9 @@ class BookingsController < ApplicationController
     #   booking.status = 'accept'
     # end
     if @booking.save
-      redirect_to
+      booking_no = customer.bookings.count
+      VerifyBookMailer.verify_email(@booking, booking_no).deliver
+      redirect_to bookings
     else
       @room = Room.find(booking_params[:room_id])
       render action: :new

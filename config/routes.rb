@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     resources :rooms
   end
 
+  get '/booking/verify/success' => 'booking_verifies#success'
+  resources :booking_verifies, only: :edit
   resources :bookings, only: %w[new create show]
   resources :rooms, only: %w[show index]
   resources :customers
