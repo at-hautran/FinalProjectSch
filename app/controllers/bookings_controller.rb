@@ -8,12 +8,13 @@ class BookingsController < ApplicationController
     customer = Customer.create customer_params
     @booking = customer.bookings.build booking_params
     @booking.status = 'waiting'
-    # UserMailer.welcome_email(customer).deliver
     # if current_user && current_user.role == 'admin'
     #   booking.user_id = current_user.id
     #   booking.status = 'accept'
     # end
     if @booking.save
+      booking_no = customer.bookings.count
+      VerifyBookMailer.verify_email(@booking, booking_no).deliver
       redirect_to bookings
     else
       @room = Room.find(booking_params[:room_id])

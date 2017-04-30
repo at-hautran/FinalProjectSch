@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001013) do
+ActiveRecord::Schema.define(version: 20171408001014) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -39,11 +39,15 @@ ActiveRecord::Schema.define(version: 20171408001013) do
     t.datetime "check_out"
     t.integer  "room_id"
     t.integer  "customer_id"
-    t.string   "status",      default: "watting"
+    t.string   "status",              default: "watting"
     t.string   "comments"
     t.integer  "user_id"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.string   "verification_digest"
+    t.boolean  "verified",            default: false
+    t.integer  "booking_no"
+    t.datetime "verified_at"
   end
 
   create_table "customers", force: :cascade do |t|

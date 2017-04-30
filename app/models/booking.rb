@@ -2,6 +2,8 @@ class Booking < ApplicationRecord
   belongs_to :customer
   belongs_to :room
   belongs_to :user
+  attr_accessor :remember_token, :verification_token
+  before_create :create_verification_digest
 
   validate :check_check_out_greater_than_check_in
   validate :check_plan_present
@@ -18,5 +20,30 @@ class Booking < ApplicationRecord
   def check_plan_present
     errors.add(:check_in, "must be set") if check_in.blank?
     errors.add(:check_out, "must be set") if check_out.blank?
+  end
+
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
+  end
+
+  private
+
+  def Booking.new_token
+    SecureRandom.urlsafe_base64
+  end
+
+  def Booking.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end
+
+
+  def create_verification_digest
+    self.verification_token  = Booking.new_token
+    self.verification_digest = Booking.digest(verification_token)
+    # Create the token and digest.
   end
 end
