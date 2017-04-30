@@ -44,7 +44,8 @@ gem 'whenever', :require => false
 
 gem "audited", "~> 4.4"
 
-gem "jquery-ui-rails"
+gem 'gon'
+gem 'rabl-rails'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
