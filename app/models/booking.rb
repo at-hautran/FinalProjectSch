@@ -7,6 +7,7 @@ class Booking < ApplicationRecord
 
   validate :check_check_out_greater_than_check_in
   validate :check_plan_present
+  audited
 
   # has_secure_password
 
