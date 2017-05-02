@@ -61,7 +61,9 @@
     <h4 class="modal-title custom_align namepop" id="Heading">Edit Booking</h4>
   </div>
   <%= render 'find_empty_rooms' %>
-  <div class="suggest_rooms_result"></div>
+  <div class="suggest_rooms_result">
+  <%= render partial: 'cms/rooms/room_items', locals: {rooms: Room.all} %>
+  </div>
 </div>
 </body>
 </html>
