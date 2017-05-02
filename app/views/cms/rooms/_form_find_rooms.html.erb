@@ -1,0 +1,41 @@
+<form id ="update-bookings" action = "/cms/rooms" method="get" accept-charset="UTF-8">
+  <input type="hidden" name="booking_edit" value="true">
+
+  <div class="col-md-10">
+    <div class='col-md-3'>
+      <div class='col-md-3'>
+        <p>Childrens:</p><br>
+        <p>Adults:</p><br>
+        <p>Price</p>
+      </div>
+      <div class="col-md-9">
+        <input style='text-align: left;' type="text" name="adults"><br><br>
+        <input type="text" name="childrens"><br><br>
+        <select name="price">
+          <option value = "-1">Descrease</option>
+          <option value = "1">Increase</option>
+        </select>
+      </div>
+    </div>
+    <div class='col-md-4'>
+      <div class='col-md-5'>
+        <p>Check in:</p><br>
+        <p>Check out:</p><br>
+        <p>Status:</p>
+      </div>
+      <div class="col-md-7">
+        <input type="date" name="check_in"><br><br>
+        <input type="date" name="check_out"><br><br>
+        <label class="radio-inline">
+          <input type="radio" name="in_use">In Use
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="empty">Empty
+        </label>
+      </div>
+    </div>
+    <div class='col-md-3'>
+      <button type='submit' type="button" class="btn btn-primary">Find Rooms</button>
+    </div>
+  </div>
+</form>
