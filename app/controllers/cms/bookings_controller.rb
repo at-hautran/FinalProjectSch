@@ -53,7 +53,7 @@ class Cms::BookingsController < Cms::ApplicationController
       self.room = Room.find_by(name: params[:room_name])
       self.current_booking = Booking.find(params[:id])
       flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], self.current_booking.id)
-      flash[:errors] += Room.check_number_people(room, booking_params[:adults], booking_params[:childrens])
+      flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
       # if room.adults < booking_params[:adults] || room.childrens < booking_params[:childrens]
     end
 end

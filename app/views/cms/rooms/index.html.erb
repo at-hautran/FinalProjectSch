@@ -11,12 +11,13 @@
               <div class="pull-right">
               </div>
               <div class="table-container">
-                <table class="table table-filter">
-                  <tbody>
-                    <%= render partial: "/cms/rooms/room_items", locals: {rooms: @rooms} %>
-                  </tbody>
-                </table>
-                <%= paginate @rooms %>
+                <!-- <table class="table table-filter"> -->
+                  <!-- <tbody> -->
+                  <div class="suggest_rooms_result">
+                    <%= render partial: "cms/bookings/empty_rooms", locals: {rooms: @rooms} %>
+                  </div>
+                  <!-- </tbody> -->
+                <!-- </table> -->
               </div>
             </div>
           </div>

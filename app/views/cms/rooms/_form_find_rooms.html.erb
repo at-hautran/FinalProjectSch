@@ -1,5 +1,4 @@
-<form id ="update-bookings" action = "/cms/rooms" method="get" accept-charset="UTF-8">
-  <input type="hidden" name="booking_edit" value="true">
+<form id ="update-bookings" action = "/cms/rooms" method="get" accept-charset="UTF-8" data-remote="true">
 
   <div class="col-md-10">
     <div class='col-md-3'>
@@ -18,7 +17,7 @@
       </div>
     </div>
     <div class='col-md-4'>
-      <div class='col-md-5'>
+      <div class='col-md-5' style="text-align: right;">
         <p>Check in:</p><br>
         <p>Check out:</p><br>
         <p>Status:</p>
@@ -39,3 +38,9 @@
     </div>
   </div>
 </form>
+
+<style type="text/css">
+  p {
+    margin: 0 0 5px;
+  }
+</style>

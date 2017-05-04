@@ -74,9 +74,9 @@ class Room < ApplicationRecord
       end
     end
 
-    def self.check_number_people(room, adults, childrens)
+    def self.check_number_peoples(room, booking_adults, booking_childrens)
       errors = {}
-      errors[:number_people] = "number adults must be less than #{room.adults}\n"
-      errors[:number_people] += "number childrens must be less than #{room.childrens}\n"
+      errors[:number_adults] = "number adults must be less than #{room.adults}\n" if room.adults < booking_adults
+      errors[:number_childrens] = "number childrens must be less than #{room.childrens}\n" if room.childrens < booking_childrens
     end
 end

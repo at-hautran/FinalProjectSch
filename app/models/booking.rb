@@ -44,5 +44,5 @@ class Booking < ApplicationRecord
     self.verification_token  = Booking.new_token
     self.verification_digest = Booking.digest(verification_token)
     # Create the token and digest.
-  end
+end
 end
