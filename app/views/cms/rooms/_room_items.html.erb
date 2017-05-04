@@ -1,4 +1,4 @@
-<% @rooms.each do |room| %>
+<% rooms.each do |room| %>
 <tr data-status="pendiente">
   <td>
     <div class="media">
@@ -18,13 +18,12 @@
         <div>children: <%= room.childrens %></div>
       </div>
       <div>
-        <a href="../cms/rooms/<%=room.id%>" data-method="delete" class="btn btn-danger btn-lg" style="float:right"><span class="glyphicon glyphicon-trash"></span>delete</a>
-        <a href="../cms/rooms/<%=room.id%>/edit" class="btn btn-primary btn-lg" style="float:right;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-        <a href="../bookings/new?room_id=<%=room.id%>" class="btn btn-info btn-lg" style="float:right">Book room</a>
+        <a href="../cms/rooms/<%=room.id%>" data-method="delete" class="btn btn-danger" style="float:right"><span class="glyphicon glyphicon-trash"></span>delete</a>
+        <a href="../cms/rooms/<%=room.id%>/edit" class="btn btn-primary" style="float:right;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
+        <a href="../bookings/new?room_id=<%=room.id%>" class="btn btn-info" style="float:right"><span class="glyphicon glyphicon-edit"></span>Book</a>
       </div>
     </div>
     <hr>
   </td>
 </tr>
 <% end %>
-

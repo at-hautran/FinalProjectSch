@@ -5,8 +5,8 @@ class Booking < ApplicationRecord
   attr_accessor :remember_token, :verification_token
   before_create :create_verification_digest
 
-  validate :check_check_out_greater_than_check_in
-  validate :check_plan_present
+  # validate :check_check_out_greater_than_check_in
+  # validate :check_plan_present
 
   # has_secure_password
 
@@ -40,10 +40,9 @@ class Booking < ApplicationRecord
     BCrypt::Password.create(string, cost: cost)
   end
 
-
   def create_verification_digest
     self.verification_token  = Booking.new_token
     self.verification_digest = Booking.digest(verification_token)
     # Create the token and digest.
-  end
+end
 end

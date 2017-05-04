@@ -1,86 +1,29 @@
 <div class="container">
   <div class="row">
-
     <section class="content">
-      <a href="../cms/rooms/new" class="btn btn-primary btn-lg">New Room</a>
+      <a href="../cms/rooms/new" class="btn btn-primary">New Room</a>
+      <%= render 'form_find_rooms' %>
+      <hr>
       <% if @rooms.present? %>
-        <h1>Rooms</h1>
         <div class="col-md-10">
           <div class="panel panel-default">
             <div class="panel-body">
               <div class="pull-right">
               </div>
               <div class="table-container">
-                <table class="table table-filter">
-                  <tbody>
-                    <% @rooms.each do |room| %>
-                      <tr data-status="pendiente">
-                        <td>
-                          <div class="media">
-                            <a href="#" class="pull-left">
-                              <%= image_tag room.room_icon.thumb.url if room.room_icon.present? %>
-                            </a>
-                            <div class="media-body">
-                              <span class="pull-right pendiente">Price</span>
-                              <h4 class="title">
-                                <%= room.name %>
-                                <span class="media-meta pull-right"><%= room.price %>$</span>
-                              </h4>
-                              <p class="summary">c</p>
-                            </div>
-                            <div>
-                              <div>adults: <%= room.adults%></div>
-
-                              <div>children: <%= room.childrens %></div>
-                            </div>
-                            <div>
-                              <a href="../cms/rooms/<%=room.id%>" data-method="delete" class="btn btn-danger btn-lg" style="float:right"><span class="glyphicon glyphicon-trash"></span>delete</a>
-
-                              <a href="../cms/rooms/<%=room.id%>/edit" class="btn btn-primary btn-lg" style="float:right;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-                              <a href="../bookings/new?room_id=<%=room.id%>" class="btn btn-info btn-lg" style="float:right">Book room</a>
-                            </div>
-                          </div>
-                          <hr>
-                        </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-                <%= paginate @rooms %>
+                <!-- <table class="table table-filter"> -->
+                  <!-- <tbody> -->
+                  <div class="suggest_rooms_result">
+                    <%= render partial: "cms/bookings/empty_rooms", locals: {rooms: @rooms} %>
+                  </div>
+                  <!-- </tbody> -->
+                <!-- </table> -->
               </div>
             </div>
           </div>
         </div>
       <% end %>
     </section>
-
   </div>
 </div>
 
-<div class="container">
-  <h2>Modal Example</h2>
-  <!-- Trigger the modal with a button -->
-  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal1">Open Modal</button>
-
-  <!-- Modal -->
-  <div class="modal fade" id="myModal1" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
-        </div>
-        <div class="modal-body">
-          <p>Some text in the modal.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</div>
