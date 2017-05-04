@@ -33,7 +33,23 @@ class Cms::RoomsController < Cms::ApplicationController
   end
 
   def index
-    @rooms = Room.order(created_at: :desc).page(params[:page]).per(10)
+    if params[:check_in].present? && params[:check_out].present? || params[:booking_edit].present?
+      @rooms = Room.get_emptys(params[:check_in], params[:check_out])      if params[:empty].present? || params[:booking_edit].present?
+      @rooms = Room.get_are_usings(params[:check_in], params[:check_out])  if params[:in_use].present?
+    else
+      @rooms = Room.all
+    end
+    if params[:price].present?
+      @rooms = @rooms.order(:price)                              if params[:price] == 1
+      @rooms = @rooms.order(price: :desc)                        if params[:price] == -1
+    end
+    @rooms = @rooms.where("adults > ?", params[:adults])         if params[:adults].present?
+    @rooms = @rooms.where("childrens > ?", params[:childrens]) if params[:childrens].present?
+    @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def destroy

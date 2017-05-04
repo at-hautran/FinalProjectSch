@@ -24,3 +24,4 @@
 //= require rooms
 //= require jquery.autocomplete.min
 //= require magicsuggest-1.3.1
+//= require pagination.js

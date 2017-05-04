@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20171408001014) do
   create_table "bookings", force: :cascade do |t|
     t.datetime "check_in"
     t.datetime "check_out"
+    t.integer  "childrens"
+    t.integer  "adults"
     t.integer  "room_id"
     t.integer  "customer_id"
     t.string   "status",              default: "watting"
@@ -76,7 +78,7 @@ ActiveRecord::Schema.define(version: 20171408001014) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "user_name"
+    t.string   "username"
     t.string   "email"
     t.string   "password"
     t.string   "confirm_password"

@@ -5,6 +5,9 @@ Rails.application.routes.draw do
     resources :users
     resources :sessions
     resources :rooms
+    get 'histories/bookings' => 'bookings#history_index'
+    get 'histories/bookings/:id' => 'bookings#histories'
+
   end
 
   get '/booking/verify/success' => 'booking_verifies#success'
