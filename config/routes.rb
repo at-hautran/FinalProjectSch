@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     resources :rooms
     get 'histories/bookings' => 'bookings#history_index'
     get 'histories/bookings/:id' => 'bookings#histories'
+    get 'bookings/:id/bill' => 'bookings#bill'
 
   end
 

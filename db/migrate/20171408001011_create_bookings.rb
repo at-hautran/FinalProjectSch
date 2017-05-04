@@ -7,6 +7,7 @@ class CreateBookings < ActiveRecord::Migration[5.0]
       t.integer :adults
       t.integer :room_id
       t.integer :customer_id
+      t.integer :total_price
       t.string :status, default: :watting
       t.string :comments
       t.integer :user_id

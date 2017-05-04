@@ -2,6 +2,7 @@ class Booking < ApplicationRecord
   belongs_to :customer
   belongs_to :room
   belongs_to :user
+  self.table_name = 'bookings'
   attr_accessor :remember_token, :verification_token
   before_create :create_verification_digest
 
@@ -46,5 +47,9 @@ class Booking < ApplicationRecord
     self.verification_token  = Booking.new_token
     self.verification_digest = Booking.digest(verification_token)
     # Create the token and digest.
-end
+  end
+
+  def self.delete_unverifies
+    Booking.where("verified IS ? AND strftime('%Y-%m-%d %H:%M:%S', created_at) <= ?", false, Time.zone.now - 1.minute).delete_all
+  end
 end

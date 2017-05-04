@@ -34,6 +34,10 @@ class Cms::BookingsController < Cms::ApplicationController
     @histories = @booking.audits
   end
 
+  def bill
+    @booking = Booking.find(params[:id])
+  end
+
   private
 
     def customer_params
@@ -46,6 +50,8 @@ class Cms::BookingsController < Cms::ApplicationController
     end
 
     def booking_update_params
+      total_days = (booking_params[:check_out].to_time - booking_params[:check_in].to_time)/(1.day)
+      booking_params.merge(total_price: total_days*room.price)
       booking_params.merge(room_id: room.id)
     end
 
