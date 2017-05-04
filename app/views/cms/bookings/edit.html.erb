@@ -12,7 +12,6 @@
       <h4 class="modal-title custom_align namepop" id="Heading">Edit Booking</h4>
     </div>
     <div class="modal-body">
-    <% binding.pry %>
       <%= render partial: 'cms/errors/errors', locals: {errors: @booking.errors} if @booking.present? %>
       <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errors].present? %>
       <lable>Name</lable>
@@ -54,7 +53,7 @@
       <lable>Status</lable>
       <div class="form-group">
         <select name="booking[status]" value="@booking.status" class="form-control pop_status ">
-        <%= options_for_select(ApplicationHelper::BOOKING_STATUS, "a")%>
+        <%= options_for_select(ApplicationHelper::BOOKING_STATUS, @booking.status)%>
         </select>
         <!-- <input class="form-control pop_status " type="text" placeholder="Status"> -->
       </div>
@@ -69,7 +68,7 @@
 <div class="col-md-7">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
-    <h4 class="modal-title custom_align namepop" id="Heading">Edit Booking</h4>
+    <h4 class="modal-title custom_align namepop" id="Heading">Empty Room</h4>
   </div>
     <%= render 'form_find_empty_rooms' %>
   <div class="suggest_rooms_result">

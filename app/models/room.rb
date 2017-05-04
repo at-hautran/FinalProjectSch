@@ -30,8 +30,8 @@ class Room < ApplicationRecord
               OR (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
               OR (STRFTIME('%Y-%m-%d', check_in) >= ? AND STRFTIME('%Y-%m-%d', check_out) <= ?)
           )
-        ) AS empty_rooms
-      ON rooms.id = empty_rooms.id
+        ) AS conflict_schedule_rooms
+      ON rooms.id = conflict_schedule_rooms.id
     SQL
     santitize_sql = sanitize_sql_for_conditions([sql,
                                                 check_in.to_date, check_in.to_date,

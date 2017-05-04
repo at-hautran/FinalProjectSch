@@ -5,6 +5,8 @@ class Booking < ApplicationRecord
   attr_accessor :remember_token, :verification_token
   before_create :create_verification_digest
 
+  audited
+  self.non_audited_columns = [:updated_at, :create_at, :verification_digest, :verified, :booking_no, :verified_at]
   # validate :check_check_out_greater_than_check_in
   # validate :check_plan_present
 

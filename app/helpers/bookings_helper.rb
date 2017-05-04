@@ -10,7 +10,7 @@ module BookingsHelper
     concat hidden_field_tag '', booking.check_in.strftime("%Y-%m-%d"), type: :date, class: :check_in
     concat hidden_field_tag '', booking.check_out.strftime("%Y-%m-%d"), type: :date, class: :check_out
     concat hidden_field_tag '', booking.status, class: :status
-    concat hidden_field_tag '', booking.user.user_name, class: :user_name if booking.user.present?
+    concat hidden_field_tag '', booking.user.username, class: :user_name if booking.user.present?
     yield if block_given?
   end
 end

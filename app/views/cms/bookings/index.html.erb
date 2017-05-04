@@ -5,7 +5,7 @@
       <div class="table-responsive">
         <table id="mytable" class="table table-bordred table-striped">
           <thead>
-            <th><input type="checkbox" id="checkall" /></th>
+            <th>Id</th>
             <th>Name</th>
             <th>phone</th>
             <th>Email</th>
@@ -24,7 +24,7 @@
             <% @bookings.each do |booking| %>
             <% customer = booking.customer %>
             <tr class = "closesst1">
-              <td><input type="checkbox" class="checkthis" /></td>
+              <td><%= booking.id %></td>
               <td class="name1"><%= customer.name %></td>
               <td><%= customer.phonenumber %></td>
               <td><%= customer.email %></td>
@@ -35,7 +35,7 @@
               <td><%= booking.adults %></td>
               <td><%= booking.childrens %></td>
               <td><%= booking.status%></td>
-              <td><%= booking.user.user_name if booking.user.present? %></td>
+              <td><%= booking.user.username if booking.user.present? %></td>
               <td>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                   <button onclick="location.href='bookings/<%=booking.id%>/edit';" class="btn btn-primary btn-xs modalpop" data-title="Edit" >
@@ -53,15 +53,7 @@
           </tbody>
         </table>
         <div class="clearfix"></div>
-        <ul class="pagination pull-right">
-          <li class="disabled"><a href="#"><span class="glyphicon glyphicon-chevron-left"></span></a></li>
-          <li class="active"><a href="#">1</a></li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span></a></li>
-        </ul>
+        <%= paginate @bookings %>
       </div>
     </div>
   </div>

@@ -11,7 +11,6 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def update
     if flash[:errors].blank?
-      binding.pry
       current_booking.update_attributes(booking_update_params)
       flash[:success] = "update success"
     else
@@ -22,16 +21,17 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def edit
     @booking = Booking.find(params[:id])
+    # @avaiable_bookings = Booking.where(room_id: @booking.room_id)
   end
 
   def index
-    @bookings = Booking.except_booked(params[:check_in], params[:check_out]) if params[:check_in].present? && params[:check_out].present?
-    @bookings = Booking.all                                         if params[:check_in].blank? && params[:check_out].blank?
-    @bookings = @bookings.where(status: params[:status])            if params[:status].present?
-    @bookings = @bookings.where("adults > ?", params[:adults])      if params[:adults].present?
-    @bookings = @bookngs.where("childrens > ?", params[:childrens]) if params[:childrens].present?
-    @bookings = @bookings.order(:price)                             if params[:price].present? && params[:price] == 1
-    @bookings = @bookings.order(price: :desc)                       if params[:price].present? && params[:price] == -1
+    @bookings = Booking.all
+    @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
+  end
+
+  def histories
+    @booking = Booking.find(params[:id])
+    @histories = @booking.audits
   end
 
   private
@@ -42,7 +42,7 @@ class Cms::BookingsController < Cms::ApplicationController
     end
 
     def booking_params
-      params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :comments)
+      params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :status, :comments)
     end
 
     def booking_update_params
