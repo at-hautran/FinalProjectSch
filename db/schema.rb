@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20171408001014) do
   create_table "bookings", force: :cascade do |t|
     t.datetime "check_in"
     t.datetime "check_out"
+    t.integer  "childrens"
+    t.integer  "adults"
     t.integer  "room_id"
     t.integer  "customer_id"
     t.string   "status",              default: "watting"

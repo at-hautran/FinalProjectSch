@@ -5,47 +5,58 @@
 </head>
 <body>
 <div class="col-md-5">
-  <form id ="update-bookings" action = "" method="post">
+  <form id ="update-bookings" action = "/cms/bookings/<%=@booking.id%>" method="post">
+    <input type="hidden" name="_method" value="put" />
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
       <h4 class="modal-title custom_align namepop" id="Heading">Edit Booking</h4>
     </div>
-    <input type="hidden" name="_method" value="put" />
     <div class="modal-body">
+    <% binding.pry %>
+      <%= render partial: 'cms/errors/errors', locals: {errors: @booking.errors} if @booking.present? %>
+      <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errors].present? %>
       <lable>Name</lable>
       <div class="form-group">
-        <input name= "name" class="form-control pop_customer_name" type="text" value="<%=@booking.customer.name %>" placeholder="Customer Name">
+        <input name= "name" class="form-control pop_customer_name" type="text" value="<%=@booking.customer.name %>" placeholder="Customer Name" disabled>
       </div>
       <lable>Phone number</lable>
       <div class="form-group">
-        <input name="phonenumber" class="form-control pop_customer_phone" type="text" value="<%=@booking.customer.phonenumber%>" placeholder="Phone Number">
+        <input name="phonenumber" class="form-control pop_customer_phone" type="text" value="<%=@booking.customer.phonenumber%>" placeholder="Phone Number" disabled>
       </div>
       <lable>Email</lable>
       <div class="form-group">
-        <input name="email" class="form-control pop_customer_email" type="text" value="<%= @booking.customer.email%>" placeholder="Email">
+        <input name="email" class="form-control pop_customer_email" type="text" value="<%= @booking.customer.email%>" placeholder="Email" disabled>
       </div>
       <lable>Country</lable>
       <div class="form-group">
-        <input name="country" class="form-control pop_customer_country" type="text" value="<%=@booking.customer.country%>" placeholder="Country">
+        <input name="country" class="form-control pop_customer_country" type="text" value="<%=@booking.customer.country%>" placeholder="Country" disabled>
       </div>
       <lable>Room name</lable>
       <div class="form-group">
         <input name="room_name" class="form-control pop_room_name " type="text" value="<%=@booking.room.name%>" placeholder="Room name">
       </div>
+      <lable>Adults</lable>
+      <div class="form-group">
+        <input name="booking[adults]" class="form-control pop_room_name " type="text" value="<%=@booking.adults%>" placeholder="Room name">
+      </div>
+      <lable>Childrens</lable>
+      <div class="form-group">
+        <input name="booking[childrens]" class="form-control pop_room_name " type="text" value="<%=@booking.childrens%>" placeholder="Room name">
+      </div>
       <lable>Check in</lable>
       <div class="form-group">
-        <input name="check_in" class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime("%Y-%m-%d")%>" placeholder="Check in">
+        <input name="booking[check_in]" class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime("%Y-%m-%d")%>" placeholder="Check in">
       </div>
       <lable>Check out</lable>
       <div class="form-group">
-        <input class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime("%Y-%m-%d")%>" placeholder="Check out">
-        <lable>Status</lable>
-        <div class="form-group">
-          <select name="status" value="@booking.status" class="form-control pop_status ">
-          <%= options_for_select(ApplicationHelper::BOOKING_STATUS, "a")%>
-          </select>
-          <!-- <input class="form-control pop_status " type="text" placeholder="Status"> -->
-        </div>
+        <input name="booking[check_out]" class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime("%Y-%m-%d")%>" placeholder="Check out">
+      </div>
+      <lable>Status</lable>
+      <div class="form-group">
+        <select name="booking[status]" value="@booking.status" class="form-control pop_status ">
+        <%= options_for_select(ApplicationHelper::BOOKING_STATUS, "a")%>
+        </select>
+        <!-- <input class="form-control pop_status " type="text" placeholder="Status"> -->
       </div>
       <div class="form-group"></div>
     </div>
@@ -60,9 +71,9 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
     <h4 class="modal-title custom_align namepop" id="Heading">Edit Booking</h4>
   </div>
-  <%= render 'find_empty_rooms' %>
+    <%= render 'form_find_empty_rooms' %>
   <div class="suggest_rooms_result">
-  <%= render partial: 'cms/rooms/room_items', locals: {rooms: Room.all} %>
+ <!--  <%= render partial: 'cms/rooms/room_items', locals: {rooms: Room.all} %> -->
   </div>
 </div>
 </body>

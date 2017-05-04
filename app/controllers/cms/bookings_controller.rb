@@ -1,4 +1,8 @@
 class Cms::BookingsController < Cms::ApplicationController
+  before_action :check_room_can_use, only: :update
+  attr_accessor :room
+  attr_accessor :current_booking
+
   def index
     @bookings = Booking.includes(:user, :customer, :room).all.page(params[:page]).per(20)
     gon.rooms = Room.incremental_search Room.all
@@ -6,15 +10,18 @@ class Cms::BookingsController < Cms::ApplicationController
   end
 
   def update
+    if flash[:errors].blank?
+      binding.pry
+      current_booking.update_attributes(booking_update_params)
+      flash[:success] = "update success"
+    else
+      flash[:fails] = "update errors"
+    end
+    redirect_to edit_cms_booking_path(params[:id])
   end
 
-  def customer_params
-    params.require(:customer).permit(:name, :email, :phonenumber, :street,
-                                     :number_street, :city, :postcode, :country)
-  end
-
-  def booking_params
-    params.require(:booking).permit(:check_in, :check_out, :room_name, :comments)
+  def edit
+    @booking = Booking.find(params[:id])
   end
 
   def index
@@ -27,7 +34,26 @@ class Cms::BookingsController < Cms::ApplicationController
     @bookings = @bookings.order(price: :desc)                       if params[:price].present? && params[:price] == -1
   end
 
-  def edit
-    @booking = Booking.find(params[:id])
-  end
+  private
+
+    def customer_params
+      params.require(:customer).permit(:name, :email, :phonenumber, :street,
+                                       :number_street, :city, :postcode, :country)
+    end
+
+    def booking_params
+      params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :comments)
+    end
+
+    def booking_update_params
+      booking_params.merge(room_id: room.id)
+    end
+
+    def check_room_can_use
+      self.room = Room.find_by(name: params[:room_name])
+      self.current_booking = Booking.find(params[:id])
+      flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], self.current_booking.id)
+      flash[:errors] += Room.check_number_people(room, booking_params[:adults], booking_params[:childrens])
+      # if room.adults < booking_params[:adults] || room.childrens < booking_params[:childrens]
+    end
 end

@@ -13,19 +13,70 @@ class Room < ApplicationRecord
     end
   end
 
-  def self.get_empty_room(check_in, check_out, using_room_ids=-1)
-    using_room_ids = self.get_using_room(check_in, check_out).uniq.pluck(:id) || -1
+  def self.get_emptys(check_in, check_out, using_room_ids=-1)
+    using_room_ids = self.get_are_usings(check_in, check_out).pluck(:id).uniq || -1
     self.where.not(id: using_room_ids)
   end
 
-  def self.get_using_room(check_in, check_out)
-    statement_check_room_cannot_use = "(check_in <= ? AND check_out >= ?)
-                                    OR (check_in <= ? AND check_out >= ?)
-                                    OR (check_in >= ? AND check_out <= ?)"
-    room_cannot_use_santitize = sanitize_sql_for_conditions([statement_check_room_cannot_use,
-                                 check_in, check_in,
-                                 check_out, check_out,
-                                 check_in, check_out])
-    Booking.where(room_cannot_use_santitize).pluck(:room_id).uniq || -1
+  def self.get_are_usings(check_in, check_out)
+    sql = <<-SQL
+      INNER JOIN (
+        SELECT *
+        FROM rooms
+        WHERE rooms.id IN(
+          SELECT distinct room_id
+          FROM bookings
+          WHERE  (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
+              OR (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
+              OR (STRFTIME('%Y-%m-%d', check_in) >= ? AND STRFTIME('%Y-%m-%d', check_out) <= ?)
+          )
+        ) AS empty_rooms
+      ON rooms.id = empty_rooms.id
+    SQL
+    santitize_sql = sanitize_sql_for_conditions([sql,
+                                                check_in.to_date, check_in.to_date,
+                                                check_out.to_date, check_out.to_date,
+                                                check_in.to_date, check_out.to_date])
+    Room.joins(santitize_sql)
+    # statement_check_room_cannot_use = "(check_in <= ? AND check_out >= ?)
+    #                                   OR (check_in <= ? AND check_out >= ?)
+    #                                   OR (check_in >= ? AND check_out <= ?)"
+    # room_cannot_use_santitize       = sanitize_sql_for_conditions([statement_check_room_cannot_use,
+    #                                   check_in, check_in,
+    #                                   check_out, check_out,
+    #                                   check_in, check_out])
+    # Booking.where(room_cannot_use_santitize).uniq
   end
+
+    def self.check_schedule(room, check_in, check_out, current_booking_id)
+      # Return true if can book this room
+      sql = <<-SQL
+        SELECT *
+        FROM (
+          SELECT *
+          FROM bookings
+          WHERE bookings.id != ? AND room_id = ?
+          ) AS not_in_booking
+        WHERE  (STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
+              OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
+              OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) >= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) <= ?)
+      SQL
+      santitize_sql = sanitize_sql_for_conditions([sql,
+                                                current_booking_id, room.id,
+                                                check_in.to_date, check_in.to_date,
+                                                check_out.to_date, check_out.to_date,
+                                                check_in.to_date, check_out.to_date])
+      booking = Booking.find_by_sql(santitize_sql).first
+      if booking.present?
+        errors = {}
+        errors[booking.id] = "Conflict time with booking id = #{booking.id} \n
+                              check_in: #{booking.check_in}, check_out: #{booking.check_out}\n"
+      end
+    end
+
+    def self.check_number_people(room, adults, childrens)
+      errors = {}
+      errors[:number_people] = "number adults must be less than #{room.adults}\n"
+      errors[:number_people] += "number childrens must be less than #{room.childrens}\n"
+    end
 end

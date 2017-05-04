@@ -8,10 +8,6 @@ class BookingsController < ApplicationController
     customer = Customer.create customer_params
     @booking = customer.bookings.build booking_params
     @booking.status = 'waiting'
-    # if current_user && current_user.role == 'admin'
-    #   booking.user_id = current_user.id
-    #   booking.status = 'accept'
-    # end
     if @booking.save
       booking_no = customer.bookings.count
       VerifyBookMailer.verify_email(@booking, booking_no).deliver
@@ -39,6 +35,6 @@ class BookingsController < ApplicationController
   end
 
   def booking_params
-    params.require(:booking).permit(:check_in, :check_out, :room_id, :comments)
+    params.require(:booking).permit(:childrens, :adults, :check_in, :check_out, :room_id, :comments)
   end
 end

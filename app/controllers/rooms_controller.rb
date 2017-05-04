@@ -2,7 +2,6 @@ class RoomsController < ApplicationController
 
   def index
     if params[:check_in] && params[:check_out].present?
-      binding.pry
       @rooms = Room.get_room_can_use(check_in, check_out, except_room_ids=-1)
       @rooms = Room.all.page(params[:page]).per(10)
       @rooms = @rooms.where(status: params[:status])            if params[:status].present?

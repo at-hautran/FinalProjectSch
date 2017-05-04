@@ -34,8 +34,8 @@ class Cms::RoomsController < Cms::ApplicationController
 
   def index
     if params[:check_in].present? && params[:checkout].present? || params[:booking_edit].present?
-      @rooms = Room.get_empty_room(params[:check_in], params[:check_out])          if params[:empty].present? || params[:booking_edit].present?
-      @rooms = Room.get_using_room(params[:check_in], params[:check_out])          if params[:in_use].present?
+      @rooms = Room.get_emptys(params[:check_in], params[:check_out])          if params[:empty].present? || params[:booking_edit].present?
+      @rooms = Room.get_are_usings(params[:check_in], params[:check_out])          if params[:in_use].present?
     else
       @rooms = Room.all
     end
