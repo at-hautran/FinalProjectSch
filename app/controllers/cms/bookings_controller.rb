@@ -4,9 +4,8 @@ class Cms::BookingsController < Cms::ApplicationController
   attr_accessor :current_booking
 
   def index
-    @bookings = Booking.includes(:user, :customer, :room).all.page(params[:page]).per(20)
-    gon.rooms = Room.incremental_search Room.all
-    gon.names = "aaaaa"
+    @bookings = Booking.all
+    @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
   end
 
   def update
@@ -24,10 +23,6 @@ class Cms::BookingsController < Cms::ApplicationController
     # @avaiable_bookings = Booking.where(room_id: @booking.room_id)
   end
 
-  def index
-    @bookings = Booking.all
-    @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
-  end
 
   def histories
     @booking = Booking.find(params[:id])
@@ -36,6 +31,14 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def bill
     @booking = Booking.find(params[:id])
+  end
+
+  def csv_bills
+    @bookings = Booking.all
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.csv { send_data @bookings.to_csv(%w(name phonenumber room_id email country check_in check_out adults childrens)) }
+    end
   end
 
   private

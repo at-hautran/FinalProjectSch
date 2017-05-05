@@ -5,10 +5,13 @@ Rails.application.routes.draw do
     resources :users
     resources :sessions
     resources :rooms
+
+    resources :customers
     get 'histories/bookings' => 'bookings#history_index'
     get 'histories/bookings/:id' => 'bookings#histories'
     get 'bookings/:id/bill' => 'bookings#bill'
-
+    get 'csv_bill', to: 'bookings#csv_bills', as: :foo_export
+    get 'customers/:id/bookings' => 'customers#bookings'
   end
 
   get '/booking/verify/success' => 'booking_verifies#success'

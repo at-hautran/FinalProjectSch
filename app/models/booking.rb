@@ -1,3 +1,4 @@
+require 'csv'
 class Booking < ApplicationRecord
   belongs_to :customer
   belongs_to :room
@@ -5,6 +6,7 @@ class Booking < ApplicationRecord
   self.table_name = 'bookings'
   attr_accessor :remember_token, :verification_token
   before_create :create_verification_digest
+  scope :booking, ->(customer_id) {where(customer_id: customer_id)}
 
   audited
   self.non_audited_columns = [:updated_at, :create_at, :verification_digest, :verified, :booking_no, :verified_at]
@@ -31,6 +33,17 @@ class Booking < ApplicationRecord
     BCrypt::Password.new(digest).is_password?(token)
   end
 
+  def self.to_csv(attributes = column_names, options = {})
+    CSV.generate(options) do |csv|
+      csv.add_row attributes
+      # Iterate through all the rows.
+      all.includes(:room, :customer).each do |foo|
+        values = foo.attributes.merge(foo.customer.attributes).merge(foo.room.attributes).slice(*attributes).values
+        csv.add_row values
+      end
+    end
+  end
+
   private
 
   def Booking.new_token
@@ -51,5 +64,9 @@ class Booking < ApplicationRecord
 
   def self.delete_unverifies
     Booking.where("verified IS ? AND strftime('%Y-%m-%d %H:%M:%S', created_at) <= ?", false, Time.zone.now - 1.minute).delete_all
+  end
+
+  def self.delete_expire_accept
+    Booking.where("verified IS > AND strftime('%Y-%m-%d %H:%M:%S', verified_at) <= ?", true, Time.zone.now - 2.minute).delete_all
   end
 end

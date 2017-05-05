@@ -15,6 +15,7 @@
       <%= render partial: 'cms/errors/errors', locals: {errors: @booking.errors} if @booking.present? %>
       <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errors].present? %>
       <lable>Name</lable>
+      <% room = @booking.room %>
       <div class="form-group">
         <input name= "name" class="form-control pop_customer_name" type="text" value="<%=@booking.customer.name %>" placeholder="Customer Name" disabled>
       </div>
@@ -32,7 +33,7 @@
       </div>
       <lable>Room name</lable>
       <div class="form-group">
-        <input name="room_name" class="form-control pop_room_name " type="text" value="<%=@booking.room.name%>" placeholder="Room name">
+        <input name="room_name" class="form-control pop_room_name " type="text" value="<%=room.name%>" placeholder="Room name">
       </div>
       <lable>Adults</lable>
       <div class="form-group">
@@ -44,11 +45,15 @@
       </div>
       <lable>Check in</lable>
       <div class="form-group">
-        <input name="booking[check_in]" class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime("%Y-%m-%d")%>" placeholder="Check in">
+        <input name="booking[check_in]" id = 'check_in' class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime("%Y-%m-%d")%>" placeholder="Check in">
       </div>
       <lable>Check out</lable>
       <div class="form-group">
-        <input name="booking[check_out]" class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime("%Y-%m-%d")%>" placeholder="Check out">
+        <input name="booking[check_out]" id = 'check_out' class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime("%Y-%m-%d")%>" placeholder="Check out">
+      </div>
+      <lable>Total Price</lable>
+      <div class="form-group">
+        <input disabled class="form-control pop_room_name " type="text" value="<%=((@booking.check_out - @booking.check_in)/1.day)*room.price%>$" placeholder="Room name">
       </div>
       <lable>Status</lable>
       <div class="form-group">
@@ -77,3 +82,16 @@
 </div>
 </body>
 </html>
+<!-- <script type="text/javascript">
+  $("#check_in").change(function(){
+    alert($("#check_in").val() - $("#check_out").val());
+    alert($('#check_in').val());
+
+  });
+  $("#check_out").change(function(){
+  });
+  function setPrice(){
+    check_in = new Date($('#check_in'));
+    check_out = new Date($('#check_out'));
+  }
+</script> -->

@@ -1,0 +1,24 @@
+<form class="form-horizontal" action="/cms/customers">
+<fieldset>
+
+<div class="form-group">
+  <label class="col-md-1 control-label" for="location">Email</label>
+  <div class="col-md-2">
+  <input id="location" name="email" value="<%=params[:email]%>" type="text" placeholder="Email" class="form-control input-md">
+  </div>
+  <label class="col-md-1 control-label" for="location">Country</label>
+  <div class="col-md-2">
+  <input id="location" name="country" value="<%=params[:country]%>" type="text" placeholder="Country" class="form-control input-md">
+  </div>
+  <label class="col-md-1 control-label" for="location">Postcode</label>
+  <div class="col-md-2">
+  <input id="location" name="postcode" value="<%=params[:postcode]%>" type="text" placeholder="Postcode" class="form-control input-md">
+  </div>
+  <label class="col-md-1 control-label" for="submit"></label>
+  <div class="col-md-1">
+    <button id= "submit" name="submit" class="btn btn-primary">Search</button>
+  </div>
+</div>
+
+</fieldset>
+</form>

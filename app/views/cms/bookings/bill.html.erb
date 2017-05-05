@@ -56,19 +56,20 @@
             <table class="table table-condensed">
               <thead>
                 <tr>
-                  <td><strong>Item</strong></td>
+                  <td><strong>Room</strong></td>
                   <td class="text-center"><strong>Price</strong></td>
-                  <td class="text-center"><strong>Quantity</strong></td>
+                  <td class="text-center"><strong>Days</strong></td>
                   <td class="text-right"><strong>Totals</strong></td>
                 </tr>
               </thead>
               <tbody>
                 <!-- foreach ($order->lineItems as $line) or some such thing here -->
                 <tr>
-                  <td>BS-200</td>
+                  <% room = @booking.room %>
+                  <td><%= room.name %></td>
                   <td class="text-center"><%=@booking.room.price%></td>
                   <td class="text-center"><%=(@booking.check_out - @booking.check_in)/1.day%></td>
-                  <td class="text-right"><%=@booking.total_price%></td>
+                  <td class="text-right"><%=((@booking.check_out - @booking.check_in)/1.day)*room.price%>$</td>
                 </tr>
               </tbody>
             </table>
