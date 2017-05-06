@@ -23,3 +23,7 @@ Things you may want to cover:
 
 * ...
 # FinalProjectSch
+
+
+
+rvmsudo rails server -p 80 (run rails with port 80)
