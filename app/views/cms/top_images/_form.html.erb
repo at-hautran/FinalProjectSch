@@ -1,0 +1,34 @@
+<%= form_for [:cms, top_image], html: {class: 'form-horizontal'} do |f| %>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">Image</label>
+
+    <div class="col-md-6">
+      <%= image_top_tag(top_image) %>
+      <%= f.file_field :top_icon, class: ' form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label">title</label>
+
+    <div class="col-md-3">
+      <%= f.text_field :title, class: 'form-control', placeholder: 'title' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">content</label>
+      <div class="col-md-3">
+        <%= f.text_area :content, class: 'form-control', placeholder: 'content' %>
+        <span class="help-block"></span>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label"></label>
+      <div class="col-md-3">
+        <%= f.submit 'update' %>
+      </div>
+  </div>
+
+<% end %>

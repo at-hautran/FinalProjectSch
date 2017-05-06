@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  top_icon: MyString
+  title: MyString
+  content: MyString
+  selected: false
+
+two:
+  top_icon: MyString
+  title: MyString
+  content: MyString
+  selected: false

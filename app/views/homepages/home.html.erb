@@ -21,7 +21,60 @@
     <!-- Header -->
     <header class="w3-display-container w3-content" style="max-width:1500px;">
       <!-- <base href="https://www.w3schools.com" target="_blank"> -->
-      <img class="w3-image" src="http://localhost:3000/intercontinental-nha-trang-4040415545-4x3.jpg" alt="The Hotel" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
+      <!-- <img class="w3-image" src="http://localhost:3000/intercontinental-nha-trang-4040415545-4x3.jpg" alt="The Hotel" style="min-width:1000px; max-height: 500px;" width="1500" height="800"> -->
+<!-- <div class="container"> -->
+  <!-- <h2>Carousel Example</h2> -->
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+      <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+    <% if @top_images.present? %>
+      <% @top_images.each do |image| %>
+        <div class="item <%='active' if image.top_choosed_number == 1%>">
+          <img src="<%=image.top_icon.url%>" alt="Los Angeles" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
+          <div class="carousel-caption">
+            <h3>Los Angeles</h3>
+            <p>LA is always so much fun!</p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+<!--       <div class="item">
+        <img src="chicago.jpg" alt="Chicago" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
+        <div class="carousel-caption">
+          <h3>Chicago</h3>
+          <p>Thank you, Chicago!</p>
+        </div>
+      </div>
+
+      <div class="item">
+        <img src="ny.jpg" alt="New York" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
+        <div class="carousel-caption">
+          <h3>New York</h3>
+          <p>We love the Big Apple!</p>
+        </div>
+      </div> -->
+
+    </div>
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+<!-- </div> -->
     </header>
     <!-- Page content -->
     <div class="w3-content" style="max-width:1532px;">
@@ -53,7 +106,7 @@
       </div>
       <div class="w3-row-padding w3-padding-16">
         <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/room_single.jpg" alt="Norway" style="width:100%">
+          <img src="<%=Room.first.room_icon.thumb.url%>" alt="Norway" style="width:100%; height: 40%;">
           <div class="w3-container w3-white">
             <h3>Single Room</h3>
             <h6 class="w3-opacity">From $99</h6>
@@ -64,7 +117,7 @@
           </div>
         </div>
         <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/room_double.jpg" alt="Norway" style="width:100%">
+          <img src="<%=Room.first.room_icon.thumb.url%>" alt="Norway" style="width:100%">
           <div class="w3-container w3-white">
             <h3>Double Room</h3>
             <h6 class="w3-opacity">From $149</h6>
@@ -75,7 +128,7 @@
           </div>
         </div>
         <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/room_deluxe.jpg" alt="Norway" style="width:100%">
+          <img src="<%=Room.first.room_icon.thumb.url%>" alt="Norway" style="width:100%">
           <div class="w3-container w3-white">
             <h3>Deluxe Room</h3>
             <h6 class="w3-opacity">From $199</h6>
@@ -93,7 +146,9 @@
           <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
         </div>
         <div class="w3-col l8 m5">
-          <div id="googleMap" style="width:100%;height:400px;" class="w3-grayscale"></div>
+          <a href="https://www.google.com/maps/place/Hoi+An+Beach+Resort/@15.8964181,108.3650807,17z/data=!3m1!4b1!4m5!3m4!1s0x31420d970efaa355:0x9e3cb85ef42337d!8m2!3d15.896413!4d108.3672748" target="_blank">
+            <div id="map" style="width:100%;height:500px"></div>
+          </a>
         </div>
       </div>
       <div class="w3-row w3-large w3-center" style="margin:32px 0">
@@ -182,24 +237,23 @@
       <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
     </footer>
     <!-- Add Google Maps -->
-    <script>
-      function myMap()
-      {
-        myCenter=new google.maps.LatLng(41.878114, -87.629798);
-        var mapOptions= {
-          center:myCenter,
-          zoom:12, scrollwheel: false, draggable: false,
-          mapTypeId:google.maps.MapTypeId.ROADMAP
-        };
-        var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
 
-        var marker = new google.maps.Marker({
+        <script>
+          function myMap() {
+          var mapCanvas = document.getElementById("map");
+          var myCenter = new google.maps.LatLng(15.8964181,108.3650807);
+          var mapOptions = {center: myCenter, zoom: 15};
+          var map = new google.maps.Map(mapCanvas,mapOptions);
+          var marker = new google.maps.Marker({
           position: myCenter,
-        });
-        marker.setMap(map);
-      }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
+          animation: google.maps.Animation.BOUNCE
+          });
+          marker.setMap(map);
+          }
+        </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6hH_CRiZzGj9BkK3pQjuZ1o6uFTIzgQ&callback=myMap"></script>
+
     <!--
       To use this code on your website, get a free API key from Google.
       Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
