@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  end
   namespace :cms do
     root 'sessions#new'
     resources :bookings
