@@ -1,20 +1,25 @@
 require 'csv'
 class Booking < ApplicationRecord
+
   include AASM
 
   aasm :column => 'status' do
     state :watting, :initial => true
-    state :accepted, :in_use, :finished
+    state :cancel, :accepted, :in_use, :finished
 
     event :accept do
       transitions :from => :watting, :to => :accepted
+    end
+
+    event :cancel do
+      transitions :from => :accepted, :to => :cancel
     end
 
     event :in_use do
       transitions :from => :accepted,  :to => :in_use
     end
 
-    event :finished do
+    event :finish do
       transitions :from => [:in_use], :to => :finished
     end
   end

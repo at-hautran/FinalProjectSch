@@ -33,23 +33,27 @@
       </div>
       <lable>Room name</lable>
       <div class="form-group">
-        <input name="room_name" class="form-control pop_room_name " type="text" value="<%=room.name%>" placeholder="Room name">
+        <input disabled name="room_name" class="form-control pop_room_name " type="text" value="<%=room.name%>" placeholder="Room name">
       </div>
       <lable>Adults</lable>
       <div class="form-group">
-        <input name="booking[adults]" class="form-control pop_room_name " type="text" value="<%=@booking.adults%>" placeholder="Room name">
+        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !@booking.watting?, class:'form-control pop_room_name%'%>
+        <!-- <input name="booking[adults]" class="form-control pop_room_name " type="text" value="<%=@booking.adults%>" placeholder="Room name"> -->
       </div>
       <lable>Childrens</lable>
       <div class="form-group">
-        <input name="booking[childrens]" class="form-control pop_room_name " type="text" value="<%=@booking.childrens%>" placeholder="Room name">
+        <%= text_field_tag 'booking[childrens]', @booking.childrens, disabled: !@booking.watting?, class:'form-control pop_room_name%'%>
+<!--         <input name="booking[childrens]" class="form-control pop_room_name " type="text" value="<%=@booking.childrens%>" placeholder="Room name"> -->
       </div>
       <lable>Check in</lable>
       <div class="form-group">
-        <input name="booking[check_in]" id = 'check_in' class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime("%Y-%m-%d")%>" placeholder="Check in">
+        <%= text_field_tag 'booking[check_in]', @booking.check_in.strftime('%Y-%m-%d'), disabled: !@booking.watting?, type: :date, class:'form-control pop_room_name%'%>
+        <!-- <input name="booking[check_in]" id = 'check_in' class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime('%Y-%m-%d')%>" placeholder="Check in"> -->
       </div>
       <lable>Check out</lable>
       <div class="form-group">
-        <input name="booking[check_out]" id = 'check_out' class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime("%Y-%m-%d")%>" placeholder="Check out">
+        <%= text_field_tag 'booking[check_out]', @booking.check_out.strftime('%Y-%m-%d'), disabled: !@booking.watting?, type: :date, class:'form-control pop_room_name%'%>
+        <!-- <input name="booking[check_out]" id = 'check_out' class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime('%Y-%m-%d')%>" placeholder="Check out"> -->
       </div>
       <lable>Total Price</lable>
       <div class="form-group">
@@ -57,15 +61,32 @@
       </div>
       <lable>Status</lable>
       <div class="form-group">
-        <select name="booking[status]" value="@booking.status" class="form-control pop_status ">
-        <%= options_for_select(ApplicationHelper::BOOKING_STATUS, @booking.status)%>
-        </select>
-        <!-- <input class="form-control pop_status " type="text" placeholder="Status"> -->
+        <input disabled class="form-control pop_status" value="<%=@booking.status%>" type="text" placeholder="Status">
       </div>
       <div class="form-group"></div>
     </div>
     <div class="modal-footer ">
-      <button type="submit" class="btn btn-warning btn-lg" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Update</button>
+      <div class="row">
+        <div class = "col-md-2">
+          <%= submit_tag "cancle", disabled: !(@booking.may_cancel?), name: :commit, value: :cancel, class: "btn btn-warning" %>
+          <!-- <button type="submit" class="btn btn-warning" style="width: 100%;"></button> -->
+        </div>
+        <div class = "col-md-2">
+          <%= submit_tag "accept", disabled: !(@booking.may_accept?), name: :commit, value: :accept, class: "btn btn-warning" %>
+          <!-- <button type="submit" class="btn btn-warning" style="width: 100%;">Update</button> -->
+        </div>
+        <div class = "col-md-2">
+          <%= submit_tag "in use", disabled: !(@booking.may_in_use?), name: :commit, value: :in_use, class: "btn btn-warning" %>
+          <!-- <button type="submit" class="btn btn-warning" style="width: 100%;">Update</button> -->
+        </div>
+        <div class = "col-md-2">
+          <%= submit_tag "finish", disabled: !(@booking.may_finish?), name: :commit, value: :finish, width: '100%', class: "btn btn-warning" %>
+          <!-- <button type="submit" class="btn btn-warning" style="width: 100%;">Update</button> -->
+        </div>
+        <div class = "col-md-3">
+          <%= submit_tag "Update", disabled: !(@booking.watting?), name: :update, value: :update, width: '100%', class: "btn btn-warning" %>
+        </div>
+      </div>
     </div>
   </form>
 </div>

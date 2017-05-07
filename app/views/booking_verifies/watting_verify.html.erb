@@ -1,5 +1,4 @@
-<header style="text-align: center;">You are verify success
-Your booking detail is</header>
+<header style="text-align: center;">You have just booked in room <%= @booking.room.name %></header>
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
@@ -83,7 +82,7 @@ Your booking detail is</header>
       </div>
     </div>
   </div>
-  <footer>We will call you soon, thanks you for booking</footer>
+  <footer class="danger">Pleased check your mail soon, after 1 days from now if you not check your mail your booking will be auto cancel, Thanks for your booking</footer>
 </div>
 <style type="text/css">
   .invoice-title h2, .invoice-title h3 {
@@ -98,5 +97,5 @@ Your booking detail is</header>
   .table > tbody > tr > .thick-line {
   border-top: 2px solid;
   }
-</style>
 
+</style>

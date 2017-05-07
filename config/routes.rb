@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
   end
+
   namespace :cms do
     root 'sessions#new'
     resources :bookings
@@ -23,7 +24,9 @@ Rails.application.routes.draw do
     get 'rooms/:id/bookings' => 'rooms#bookings'
   end
 
+  get 'index' => 'homepages#index'
   get '/booking/verify/success' => 'booking_verifies#success'
+  get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
   resources :booking_verifies, only: :edit
   resources :bookings, only: %w[new create show]
   resources :rooms, only: %w[show index]

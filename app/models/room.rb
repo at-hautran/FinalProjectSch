@@ -49,6 +49,7 @@ class Room < ApplicationRecord
   end
 
     def self.check_schedule(room, check_in, check_out, current_booking_id)
+      binding.pry
       # Return true if can book this room
       sql = <<-SQL
         SELECT *

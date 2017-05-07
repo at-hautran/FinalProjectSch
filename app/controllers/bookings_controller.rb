@@ -8,11 +8,14 @@ class BookingsController < ApplicationController
     customer_ava = Customer.find_by(email: customer_params[:email])
     customer = customer_ava.present? ? customer_ava : Customer.create(customer_params)
     @booking = customer.bookings.build booking_params
-    @booking.status = 'waiting'
     if @booking.save
       booking_no = customer.bookings.count
       VerifyBookMailer.verify_email(@booking, booking_no).deliver
-      redirect_to bookings
+      flash.now[:success] = " Thank for your booking \n
+                              You booked in room #{@booking.room.name} \n
+                              Please check your mail, after 1 days from now\n
+                              if you still not check, your booking will be cancel"
+      redirect_to booking_watting_verify_url(@booking)
     else
       @room = Room.find(booking_params[:room_id])
       render action: :new

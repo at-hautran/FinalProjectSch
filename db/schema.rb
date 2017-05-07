@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001017) do
+ActiveRecord::Schema.define(version: 20171408001018) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -32,6 +32,16 @@ ActiveRecord::Schema.define(version: 20171408001017) do
     t.index ["created_at"], name: "index_audits_on_created_at"
     t.index ["request_uuid"], name: "index_audits_on_request_uuid"
     t.index ["user_id", "user_type"], name: "user_index"
+  end
+
+  create_table "booking_services", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.integer  "service_id"
+    t.integer  "number"
+    t.datetime "time"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -77,6 +87,14 @@ ActiveRecord::Schema.define(version: 20171408001017) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "room_icon"
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "price"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "top_images", force: :cascade do |t|
