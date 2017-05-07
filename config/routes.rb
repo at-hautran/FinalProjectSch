@@ -1,17 +1,23 @@
 Rails.application.routes.draw do
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  end
   namespace :cms do
     root 'sessions#new'
     resources :bookings
     resources :users
     resources :sessions
     resources :rooms
-
     resources :customers
+    resources :top_images
     get 'histories/bookings' => 'bookings#history_index'
     get 'histories/bookings/:id' => 'bookings#histories'
     get 'bookings/:id/bill' => 'bookings#bill'
     get 'csv_bill', to: 'bookings#csv_bills', as: :foo_export
     get 'customers/:id/bookings' => 'customers#bookings'
+    # get 'histories/bookings' => 'bookings#history_index'
+    # get 'histories/bookings/:id' => 'bookings#histories'
+    get 'top_image_chooses' => 'top_images#edit_top_image_chooseds'
+    put 'top_images_chooses' => 'top_images#update_top_image_chooses', as: :update_top_image_choose
   end
 
   get '/booking/verify/success' => 'booking_verifies#success'

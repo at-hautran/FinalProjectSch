@@ -1,0 +1,29 @@
+<p><%= link_to 'new', new_cms_top_image_path, class: 'btn btn-primary' %></p>
+<hr/>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+    <th width="100">Image</th>
+    <th width="100">Title</th>
+    <th width="200">Content</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @top_images.each do |image| %>
+  <tr>
+    <td><%= image_top_tag(image) %></td>
+    <td><%= image.title%></td>
+    <td><%= image.content %></td>
+    <td>
+      <%= link_to 'delete', cms_top_image_path(image), method: :delete, data: { confirm: 'do you want to delete this record？'}, class: 'btn btn-danger btn-xs' %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate @top_images %>
+  </div>
+</div>
