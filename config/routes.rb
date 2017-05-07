@@ -7,9 +7,11 @@ Rails.application.routes.draw do
     resources :users
     resources :sessions
     resources :rooms
+    resources :top_images
     get 'histories/bookings' => 'bookings#history_index'
     get 'histories/bookings/:id' => 'bookings#histories'
-
+    get 'top_image_chooses' => 'top_images#edit_top_image_chooseds'
+    put 'top_images_chooses' => 'top_images#update_top_image_chooses', as: :update_top_image_chooses
   end
 
   get '/booking/verify/success' => 'booking_verifies#success'

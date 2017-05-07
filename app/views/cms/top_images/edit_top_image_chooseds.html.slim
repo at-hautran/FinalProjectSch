@@ -1,0 +1,41 @@
+div
+  .margin
+- if flash[:errors].present?
+  = render partial: 'cms/errors/flash' , locals: { flash: flash[:errors] }
+= form_tag cms_update_top_image_chooses_path, class: "form-must-read", method: :put
+  .row
+    .col-md-2
+      |1st number:
+    .col-md-6
+      = hidden_field_tag "top_images[][top_choosed_number]", 1
+      = text_field_tag 'top_images[][id]', @top_image_chooseds[0]&.id, class: "form-control top_images"
+  .row
+    .col-md-2
+      |2st number:
+    .col-md-6
+      = hidden_field_tag "top_images[][top_choosed_number]", 2
+      = text_field_tag 'top_images[][id]', @top_image_chooseds[1]&.id, class: "form-control top_images"
+  .row
+    .col-md-2
+      |3st number:
+    .col-md-6
+      = hidden_field_tag "top_images[][top_choosed_number]", 3
+      = text_field_tag 'top_images[][id]', @top_image_chooseds[2]&.id, class: "form-control top_images"
+  .row
+    .col-md-2
+      |4st number:
+    .col-md-6
+      = hidden_field_tag "top_images[][top_choosed_number]", 4
+      = text_field_tag 'top_images[][id]', @top_image_chooseds[3]&.id, class: "form-control top_images"
+  .row
+    .col-md-2
+      |5st number:
+    .col-md-6
+      = hidden_field_tag "top_images[][top_choosed_number]", 5
+      = text_field_tag 'top_images[][id]', @top_image_chooseds[4]&.id, class: "form-control top_images"
+  .row
+    = submit_tag 'Update', data: { disable_with: false }, class: "btn btn-primary"
+css:
+  .margin {
+  margin-bottom: 30px;
+  }

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <title>W3.CSS Template</title>
+  <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -10,33 +10,53 @@
     body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", Arial, Helvetica, sans-serif}
   </style>
   <body class="w3-light-grey">
-    <!-- Navigation Bar -->
-    <div class="w3-bar w3-white w3-large">
-      <a href="#" class="w3-bar-item w3-button w3-red w3-mobile"><i class="fa fa-bed w3-margin-right"></i>Logo</a>
-      <a href="#rooms" class="w3-bar-item w3-button w3-mobile">Rooms</a>
-      <a href="#about" class="w3-bar-item w3-button w3-mobile">About</a>
-      <a href="#contact" class="w3-bar-item w3-button w3-mobile">Contact</a>
-      <a href="" class="w3-bar-item w3-button w3-right w3-light-grey w3-mobile">Book Now</a>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+        <% if @top_images.present? %>
+        <% @top_images.each do |image| %>
+        <div class="item <%='active' if image.top_choosed_number == 1%>">
+          <img src="<%=image.top_icon.url%>" alt="Los Angeles" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
+          <div class="carousel-caption">
+            <h3><%= image.title %></h3>
+            <p><%= image.content %></p>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+      </div>
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+      </a>
     </div>
-    <!-- Header -->
-    <header class="w3-display-container w3-content" style="max-width:1500px;">
-      <!-- <base href="https://www.w3schools.com" target="_blank"> -->
-      <img class="w3-image" src="http://localhost:3000/intercontinental-nha-trang-4040415545-4x3.jpg" alt="The Hotel" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
+    <!-- </div> -->
     </header>
     <!-- Page content -->
-    <div class="w3-content" style="max-width:1532px;">
+    <div id='search_room' class="w3-content" style="max-width:1532px;">
       <div class="w3-container w3-margin-top" id="rooms">
         <h3>Rooms</h3>
-        <p>Make yourself at home is our slogan. We offer the best beds in the industry. Sleep well and rest well.</p>
+        <p >Make yourself at home is our slogan. We offer the best beds in the industry. Sleep well and rest well.</p>
       </div>
       <div class="w3-row-padding">
         <div class="w3-col m3">
           <label><i class="fa fa-calendar-o"></i> Check In</label>
-          <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY">
+          <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY">
         </div>
         <div class="w3-col m3">
           <label><i class="fa fa-calendar-o"></i> Check Out</label>
-          <input class="w3-input w3-border" type="text" placeholder="DD MM YYYY">
+          <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY">
         </div>
         <div class="w3-col m2">
           <label><i class="fa fa-male"></i> Adults</label>
@@ -47,44 +67,28 @@
           <input class="w3-input w3-border" type="number" placeholder="0">
         </div>
         <div class="w3-col m2">
-          <label><i class="fa fa-search"></i> Search</label>
+          <label><i class="fa fa-search" ></i> Search</label>
           <button class="w3-button w3-block w3-black">Search</button>
         </div>
       </div>
+      <!-- <div class="w3-row-padding w3-padding-16"> -->
       <div class="w3-row-padding w3-padding-16">
-        <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/room_single.jpg" alt="Norway" style="width:100%">
-          <div class="w3-container w3-white">
-            <h3>Single Room</h3>
-            <h6 class="w3-opacity">From $99</h6>
-            <p>Single bed</p>
-            <p>15m<sup>2</sup></p>
-            <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
-            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-          </div>
-        </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/room_double.jpg" alt="Norway" style="width:100%">
-          <div class="w3-container w3-white">
-            <h3>Double Room</h3>
-            <h6 class="w3-opacity">From $149</h6>
-            <p>Queen-size bed</p>
-            <p>25m<sup>2</sup></p>
-            <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i></p>
-            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-          </div>
-        </div>
-        <div class="w3-third w3-margin-bottom">
-          <img src="/w3images/room_deluxe.jpg" alt="Norway" style="width:100%">
-          <div class="w3-container w3-white">
-            <h3>Deluxe Room</h3>
-            <h6 class="w3-opacity">From $199</h6>
-            <p>King-size bed</p>
-            <p>40m<sup>2</sup></p>
-            <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i> <i class="fa fa-tv"></i> <i class="fa fa-glass"></i> <i class="fa fa-cutlery"></i></p>
-            <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
-          </div>
-        </div>
+        <% if @rooms.present? %>
+          <% @rooms.each do |room| %>
+            <div class="w3-third w3-margin-bottom">
+              <img src="<%=room.room_icon.thumb.url%>" alt="Norway" style="width:100%; height: 40%;">
+              <div class="w3-container w3-white">
+                <h3>Single Room</h3>
+                <h6 class="w3-opacity">From $<%=room.price%></h6>
+                <p>Single bed</p>
+                <p>15m<sup>2</sup></p>
+                <p class="w3-large"><i class="fa fa-bath"></i> <i class="fa fa-phone"></i> <i class="fa fa-wifi"></i></p>
+                <button class="w3-button w3-block w3-black w3-margin-bottom">Choose Room</button>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
       </div>
       <div class="w3-row-padding" id="about">
         <div class="w3-col l4 m7">
@@ -93,7 +97,9 @@
           <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
         </div>
         <div class="w3-col l8 m5">
-          <div id="googleMap" style="width:100%;height:400px;" class="w3-grayscale"></div>
+          <a href="https://www.google.com/maps/place/Hoi+An+Beach+Resort/@15.8964181,108.3650807,17z/data=!3m1!4b1!4m5!3m4!1s0x31420d970efaa355:0x9e3cb85ef42337d!8m2!3d15.896413!4d108.3672748" target="_blank">
+            <div id="map" style="width:100%;height:500px"></div>
+          </a>
         </div>
       </div>
       <div class="w3-row w3-large w3-center" style="margin:32px 0">
@@ -168,42 +174,30 @@
       </div>
       <!-- End page content -->
     </div>
-    <!-- Footer -->
-    <footer class="w3-padding-32 w3-black w3-center w3-margin-top">
-      <h5>Find Us On</h5>
-      <div class="w3-xlarge w3-padding-16">
-        <i class="fa fa-facebook-official w3-hover-opacity"></i>
-        <i class="fa fa-instagram w3-hover-opacity"></i>
-        <i class="fa fa-snapchat w3-hover-opacity"></i>
-        <i class="fa fa-pinterest-p w3-hover-opacity"></i>
-        <i class="fa fa-twitter w3-hover-opacity"></i>
-        <i class="fa fa-linkedin w3-hover-opacity"></i>
-      </div>
-      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank" class="w3-hover-text-green">w3.css</a></p>
-    </footer>
     <!-- Add Google Maps -->
     <script>
-      function myMap()
-      {
-        myCenter=new google.maps.LatLng(41.878114, -87.629798);
-        var mapOptions= {
-          center:myCenter,
-          zoom:12, scrollwheel: false, draggable: false,
-          mapTypeId:google.maps.MapTypeId.ROADMAP
-        };
-        var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
-
-        var marker = new google.maps.Marker({
-          position: myCenter,
-        });
-        marker.setMap(map);
+      function myMap() {
+      var mapCanvas = document.getElementById("map");
+      var myCenter = new google.maps.LatLng(15.8964181,108.3650807);
+      var mapOptions = {center: myCenter, zoom: 15};
+      var map = new google.maps.Map(mapCanvas,mapOptions);
+      var marker = new google.maps.Marker({
+      position: myCenter,
+      animation: google.maps.Animation.BOUNCE
+      });
+      marker.setMap(map);
       }
+
+      $(document).ready(function() {
+        $("#booknow").on("click", function( e ) {
+          e.preventDefault();
+          $("body, html").animate({
+            scrollTop: $( $(this).attr('href') ).offset().top
+          }, 600);
+        });
+      });
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-916DdpKAjTmJNIgngS6HL_kDIKU0aU&callback=myMap"></script>
-    <!--
-      To use this code on your website, get a free API key from Google.
-      Read more at: https://www.w3schools.com/graphics/google_maps_basic.asp
-      -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6hH_CRiZzGj9BkK3pQjuZ1o6uFTIzgQ&callback=myMap"></script>
   </body>
 </html>
 
