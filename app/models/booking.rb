@@ -1,5 +1,24 @@
 require 'csv'
 class Booking < ApplicationRecord
+  include AASM
+
+  aasm :column => 'status' do
+    state :watting, :initial => true
+    state :accepted, :in_use, :finished
+
+    event :accept do
+      transitions :from => :watting, :to => :accepted
+    end
+
+    event :in_use do
+      transitions :from => :accepted,  :to => :in_use
+    end
+
+    event :finished do
+      transitions :from => [:in_use], :to => :finished
+    end
+  end
+
   belongs_to :customer
   belongs_to :room
   belongs_to :user
@@ -9,6 +28,7 @@ class Booking < ApplicationRecord
   scope :booking, ->(customer_id) {where(customer_id: customer_id)}
 
   audited
+
   self.non_audited_columns = [:updated_at, :create_at, :verification_digest, :verified, :booking_no, :verified_at]
   # validate :check_check_out_greater_than_check_in
   # validate :check_plan_present

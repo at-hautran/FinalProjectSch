@@ -1,4 +1,12 @@
 module BookingsHelper
+
+    STATUS_COLOR = {
+                    'watting'  => 'yellow',
+                    'accepted' => 'orange',
+                    'in_use'   => 'blue',
+                    'finished' => 'red'
+                    }.freeze
+
   def get_booking_data(booking)
     customer = booking.customer
     concat hidden_field_tag '', booking.id, class: :id

@@ -1,1 +1,10 @@
-a
+<h1 style="text-align: center;">All Booking of Room <%= @room.name %></h1>
+<%= month_calendar partial: 'cms/rooms/month_calendar', attribute: :check_in, end_attribute: :check_out, events: @bookings do |date, bookings| %>
+  <%= date %>
+
+  <% bookings.each do |booking| %>
+    <div style="background: <%= BookingsHelper::STATUS_COLOR[booking.status]; %>">
+      <a href="/cms/bookings/<%=booking.id%>"><%= booking.id %></a>
+    </div>
+  <% end %>
+<% end %>

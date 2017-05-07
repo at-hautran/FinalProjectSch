@@ -18,6 +18,10 @@ class Cms::BookingsController < Cms::ApplicationController
     redirect_to edit_cms_booking_path(params[:id])
   end
 
+  def show
+    @booking = Booking.find(params[:id])
+  end
+
   def edit
     @booking = Booking.find(params[:id])
     # @avaiable_bookings = Booking.where(room_id: @booking.room_id)
