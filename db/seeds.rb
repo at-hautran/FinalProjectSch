@@ -19,5 +19,5 @@ User.create(email: 'a', password: '123456')
 end
 (1..100).each do |i|
   Booking.create(check_in: "#{i%30 + 1}-#{i%12 + 1}-2017", check_out: "#{i%30 + 2}-#{i%12 + 1}-2017",
-                room_id: i, customer_id: i, adults: i%5 - 1, childrens: i%5)
+                room_id: i, customer_id: i, adults: i%5 - 1, childrens: i%5, verified: true)
 end

@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20171408001015) do
     t.integer  "adults"
     t.integer  "room_id"
     t.integer  "customer_id"
+    t.integer  "total_price"
     t.string   "status",              default: "watting"
     t.string   "comments"
     t.integer  "user_id"

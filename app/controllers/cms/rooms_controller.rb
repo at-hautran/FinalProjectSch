@@ -52,6 +52,10 @@ class Cms::RoomsController < Cms::ApplicationController
     end
   end
 
+  def bookings
+    @bookings = Booking.where("room_id = ? AND status != ? AND verified IS ?", params[:id], 'watting', true)
+  end
+
   def all_bookings
     @rooms = Room.includes(:bookings).all
   end
