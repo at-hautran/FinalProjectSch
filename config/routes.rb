@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'histories/bookings/:id' => 'bookings#histories'
     get 'top_image_chooses' => 'top_images#edit_top_image_chooseds'
     put 'top_images_chooses' => 'top_images#update_top_image_chooses', as: :update_top_image_chooses
+    get 'allrooms/bookings' => 'rooms#all_bookings'
   end
 
   get '/booking/verify/success' => 'booking_verifies#success'

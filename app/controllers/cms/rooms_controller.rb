@@ -52,6 +52,10 @@ class Cms::RoomsController < Cms::ApplicationController
     end
   end
 
+  def all_bookings
+    @rooms = Room.includes(:bookings).all
+  end
+
   def destroy
     room = Room.find(params[:id])
     if room.destroy

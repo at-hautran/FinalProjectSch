@@ -43,11 +43,10 @@ gem 'mini_magick'
 gem 'whenever', :require => false
 
 gem "audited", "~> 4.4"
-
 gem 'gon'
 gem 'rabl-rails'
-
 gem 'bcrypt'
+gem "simple_calendar", "~> 2.0"
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
