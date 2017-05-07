@@ -5,7 +5,8 @@ class BookingsController < ApplicationController
   end
 
   def create
-    customer = Customer.create customer_params
+    customer_ava = Customer.find_by(email: customer_params[:email])
+    customer = customer_ava.present? ? customer_ava : Customer.create(customer_params)
     @booking = customer.bookings.build booking_params
     @booking.status = 'waiting'
     if @booking.save

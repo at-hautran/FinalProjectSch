@@ -6,6 +6,7 @@ class CreateCustomers < ActiveRecord::Migration[5.0]
       t.integer :phonenumber
       t.string :street
       t.integer :number_street
+      t.string :gender
       t.string :city
       t.string :postcode
       t.string :country

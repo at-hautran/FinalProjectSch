@@ -15,7 +15,9 @@ set :output, "cron.log"
 #
 
 every 1.minute do
-  runner "User.create"
+  runner "Booking.delete_unverifies"
 end
 
 # Learn more: http://github.com/javan/whenever
+
+# whenever -w --set environment=development
