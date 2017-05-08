@@ -27,6 +27,7 @@ class Booking < ApplicationRecord
   belongs_to :customer
   belongs_to :room
   belongs_to :user
+  has_many :booking_service
   self.table_name = 'bookings'
   attr_accessor :remember_token, :verification_token
   before_create :create_verification_digest

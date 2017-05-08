@@ -91,10 +91,11 @@ ActiveRecord::Schema.define(version: 20171408001018) do
 
   create_table "services", force: :cascade do |t|
     t.string   "name"
+    t.string   "service_icon"
     t.integer  "price"
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "top_images", force: :cascade do |t|
