@@ -66,6 +66,11 @@
       <div class="form-group"></div>
     </div>
     <div class="modal-footer ">
+      <div class="row" style="margin-bottom: 10px;">
+        <div class="col-md-3">
+          <%= link_to  "Add service", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use?), class: "btn btn-warning"%>
+        </div>
+      </div>
       <div class="row">
         <div class = "col-md-2">
           <%= submit_tag "cancle", disabled: !(@booking.may_cancel?), name: :commit, value: :cancel, class: "btn btn-warning" %>

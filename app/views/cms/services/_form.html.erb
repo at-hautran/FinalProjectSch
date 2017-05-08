@@ -1,0 +1,60 @@
+<%= form_for [:cms, service], html: {class: 'form-horizontal'} do |f| %>
+  <%= render partial: 'cms/errors/errors', locals: {errors: @service.errors} if @service.present? %>
+  <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errros].present? %>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">Image</label>
+
+    <div class="col-md-6">
+      <%= service_tag(service) %>
+      <%= f.file_field :service_icon, class: ' form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label">Name</label>
+
+    <div class="col-md-3">
+      <%= f.text_field :name, class: 'form-control', placeholder: 'name' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">Price</label>
+      <div class="col-md-3">
+        <%= f.text_field :price, class: 'form-control', placeholder: 'price' %>
+        <span class="help-block"></span>
+      </div>
+  </div>
+  <% unless service.new_record? %>
+    <div class="form-group">
+      <label class="col-md-2 control-label">Status</label>
+        <div class="col-md-3">
+          <%= f.text_field :status, class: 'form-control', disabled:true, placeholder: 'price' %>
+          <span class="help-block"></span>
+        </div>
+    </div>
+  <% end %>
+
+ <!--  <div class="form-group">
+    <label class="col-md-2 control-label">Status</label>
+      <div class="col-md-3" class="form-group">
+         <select name="service[status]" class="form-group">
+          <option value="Can book" class="form-group">Can book</option>
+          <option value="Can't book" class="form-group">Can't book</option>
+        </select>
+      </div>
+  </div> -->
+  <div class="modal-footer ">
+    <div class="form-group">
+      <div class="col-md-4">
+        <% unless service.new_record? %>
+          <%= submit_tag "Open", disabled: service.open?, name: :commit, value: :open, class: "btn btn-warning" %>
+
+          <%= submit_tag "Close", disabled: service.close?, name: :commit, value: :close, class: "btn btn-warning" %>
+        <% end %>
+        <%= submit_tag "Update", name: :update, class: "btn btn-warning" %>
+      </div>
+    </div>
+  </div>
+
+<% end %>

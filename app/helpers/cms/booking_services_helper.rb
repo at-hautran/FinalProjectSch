@@ -1,0 +1,2 @@
+module Cms::BookingServicesHelper
+end

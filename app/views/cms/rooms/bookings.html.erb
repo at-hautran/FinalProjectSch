@@ -1,10 +1,45 @@
 <h1 style="text-align: center;">All Booking of Room <%= @room.name %></h1>
-<%= month_calendar partial: 'cms/rooms/month_calendar', attribute: :check_in, end_attribute: :check_out, events: @bookings do |date, bookings| %>
+    <div class="box1 red1">
+      <div style="margin:0px 0px 0px 40px;">cancel</div>
+    </div>
+
+    <div class="box1 blue1">
+      <div style="margin:0px 0px 0px 40px;">accepted</div>
+    </div>
+    <div class="box1 green1">
+      <div style="margin:0px 0px 0px 40px;">in_use</div>
+    </div>
+    <div class="box1 orange1">
+      <div style="margin:0px 0px 0px 40px;">finished</div>
+    </div>
+
+    <div style="margin-bottom: 10px;"></div>
+  <%= month_calendar partial: 'cms/rooms/month_calendar', attribute: :check_in, end_attribute: :check_out, events: @bookings do |date, bookings| %>
   <%= date %>
 
   <% bookings.each do |booking| %>
-    <div style="background: <%= BookingsHelper::STATUS_COLOR[booking.status]; %>">
-      <a href="/cms/bookings/<%=booking.id%>"><%= booking.id %></a>
+    <div style="background: <%= Cms::BookingsHelper::STATUS_COLOR[booking.status]; %>">
+      <a href="/cms/bookings/<%=booking.id%>/edit"><%= booking.id %></a>
     </div>
   <% end %>
 <% end %>
+
+<style type="text/css">
+    .box1{
+      width:30px;
+      height:30px;
+    }
+
+    .red1{
+      background:#f00;
+    }
+    .green1{
+      background:#0f0;
+    }
+    .blue1{
+      background:#48D1CC;
+    }
+    .orange1 {
+      background: #FFA500;
+    }
+</style>

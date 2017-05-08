@@ -1,7 +1,6 @@
 class Cms::BookingsController < Cms::ApplicationController
   before_action :check_room_can_use, only: :update
   attr_accessor :room
-  attr_accessor :current_booking
 
   def index
     @bookings = Booking.all
@@ -9,20 +8,21 @@ class Cms::BookingsController < Cms::ApplicationController
   end
 
   def update
-    if params[:commit].blank? && params[:update].present? && current_booking.watting?
+    @booking = current_booking
+    if params[:commit].blank? && params[:update].present? && @booking.watting?
       if flash[:errors].blank?
-        current_booking.update_attributes(booking_update_params)
+        @booking.update_attributes(booking_update_params)
         flash[:success] = "update success"
       else
         flash[:fails] = "update errors"
       end
     else
       if params[:commit].present?
-        current_booking.accept if params[:commit] == 'accept' && current_booking.may_accept?
-        current_booking.cancel if params[:commit] == 'cancel' && current_booking.may_cancel?
-        current_booking.in_use if params[:commit] == 'in_use' && current_booking.may_in_use?
-        current_booking.finish if params[:commit] == 'finish' && current_booking.may_finish?
-        current_booking.save
+        @booking.accept if params[:commit] == 'accept' && @booking.may_accept?
+        @booking.cancel if params[:commit] == 'cancel' && @booking.may_cancel?
+        @booking.in_use if params[:commit] == 'in_use' && @booking.may_in_use?
+        @booking.finish if params[:commit] == 'finish' && @booking.may_finish?
+        @booking.save
       end
     end
     redirect_to edit_cms_booking_path(params[:id])
@@ -53,6 +53,11 @@ class Cms::BookingsController < Cms::ApplicationController
     # @avaiable_bookings = Booking.where(room_id: @booking.room_id)
   end
 
+  def new_services
+    binding.pry
+    @booking = Booking.find(params[:id])
+    @services = Service.order(:status)
+  end
 
   def histories
     @booking = Booking.find(params[:id])
@@ -88,12 +93,16 @@ class Cms::BookingsController < Cms::ApplicationController
       booking_params.merge(room_id: room.id)
     end
 
+    def current_booking
+      Booking.find(params[:id])
+    end
+
     def check_room_can_use
-      binding.pry
-      self.room = Room.find_by(name: params[:room_name])
-      self.current_booking = Booking.find(params[:id])
-      binding.pry
-      flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], self.current_booking.id)
-      flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
+      if params[:commit].blank?
+        self.room = Room.find_by(name: params[:room_name])
+        # self.current_booking = Booking.find(params[:id])
+        flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], current_booking.id)
+        flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
+      end
     end
 end

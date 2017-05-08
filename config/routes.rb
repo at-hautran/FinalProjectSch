@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-  end
+  # scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+  # end
 
   namespace :cms do
     root 'sessions#new'
-    resources :bookings
+    resources :services
+    resources :bookings do
+      resources :booking_services
+    end
     resources :users
     resources :sessions
     resources :rooms
@@ -22,6 +25,7 @@ Rails.application.routes.draw do
     get 'allrooms/bookings' => 'rooms#all_bookings'
     # put 'top_images_chooses' => 'top_images#update_top_image_chooses', as: :update_top_image_choose
     get 'rooms/:id/bookings' => 'rooms#bookings'
+    get 'bookings/:id/new_services' => 'bookings#new_services', as: :booking_new_services
   end
 
   get 'index' => 'homepages#index'

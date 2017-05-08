@@ -1,0 +1,35 @@
+<%= form_for [:cms, booking_service], html: {class: 'form-horizontal'} do |f| %>
+  <%= render partial: 'cms/errors/errors', locals: {errors: booking_service.errors} if @booking_service.present? %>
+  <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errros].present? %>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">Room</label>
+
+    <div class="col-md-6">
+      <%= f.text_field :booking_id, class: ' form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-2 control-label">Time</label>
+
+    <div class="col-md-3">
+      <%= f.text_field :time, class: 'form-control', placeholder: 'name' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label">Price</label>
+      <div class="col-md-3">
+        <%= f.text_field :price, class: 'form-control', placeholder: 'price' %>
+        <span class="help-block"></span>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label"></label>
+      <div class="col-md-3">
+        <%= f.submit 'update', 'data-disable-with' => false %>
+      </div>
+  </div>
+
+<% end %>
