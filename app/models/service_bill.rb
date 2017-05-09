@@ -1,0 +1,2 @@
+class ServiceBill < ApplicationRecord
+end

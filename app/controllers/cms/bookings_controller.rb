@@ -16,16 +16,31 @@ class Cms::BookingsController < Cms::ApplicationController
       else
         flash[:fails] = "update errors"
       end
+      redirect_to edit_cms_booking_path(params[:id])
     else
       if params[:commit].present?
-        @booking.accept if params[:commit] == 'accept' && @booking.may_accept?
-        @booking.cancel if params[:commit] == 'cancel' && @booking.may_cancel?
-        @booking.in_use if params[:commit] == 'in_use' && @booking.may_in_use?
-        @booking.finish if params[:commit] == 'finish' && @booking.may_finish?
-        @booking.save
+        if params[:commit] == 'accept' && @booking.may_accept?
+          @booking.accept
+          @booking.save
+          redirect_to edit_cms_booking_path(params[:id])
+        end
+        if params[:commit] == 'cancel' && @booking.may_cancel?
+          @booking.cancel
+          @booking.save
+          redirect_to edit_cms_booking_path(params[:id])
+        end
+        if params[:commit] == 'in_use' && @booking.may_in_use?
+          @booking.in_use
+          @booking.save
+          render :bill
+        end
+        if params[:commit] == 'finish' && @booking.may_finish?
+          @booking.finish
+          @booking.save
+          redirect_to edit_cms_booking_path(params[:id])
+        end
       end
     end
-    redirect_to edit_cms_booking_path(params[:id])
   end
 
   # def accept
@@ -54,9 +69,26 @@ class Cms::BookingsController < Cms::ApplicationController
   end
 
   def new_services
-    binding.pry
     @booking = Booking.find(params[:id])
-    @services = Service.order(:status)
+    @booking_services = BookingService.includes(:service).where(booking_id: params[:id])
+    @services = Service.order(status: :desc)
+    @services = @services.page(params[:page]).per(25)
+  end
+
+  def create_services
+    @service = Service.find(service_params[:service_id])
+    if @service.open?
+      BookingService.create service_params
+      flash[:success] = "update success"
+      redirect_to cms_booking_new_services_url service_params[:booking_id]
+    else
+      flash[:fail] = "service was closed"
+      @booking = Booking.find(service_params[:booking_id])
+      @booking_services = BookingService.includes(:service).where(booking_id: params[:booking_id])
+      @services = Service.order(status: :desc)
+      @services = @services.page(params[:page]).per(25)
+      render :new_services
+    end
   end
 
   def histories
@@ -104,5 +136,10 @@ class Cms::BookingsController < Cms::ApplicationController
         flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], current_booking.id)
         flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
       end
+    end
+
+    def service_params
+      #lack validate of booking_id and service_id present
+      params.permit(:id, :booking_id, :service_id, :number)
     end
 end

@@ -37,8 +37,7 @@
       </div>
       <lable>Adults</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !@booking.watting?, class:'form-control pop_room_name%'%>
-        <!-- <input name="booking[adults]" class="form-control pop_room_name " type="text" value="<%=@booking.adults%>" placeholder="Room name"> -->
+        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !@booking.watting?, class:'form-control pop_room_name'%>
       </div>
       <lable>Childrens</lable>
       <div class="form-group">
@@ -68,7 +67,10 @@
     <div class="modal-footer ">
       <div class="row" style="margin-bottom: 10px;">
         <div class="col-md-3">
-          <%= link_to  "Add service", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use?), class: "btn btn-warning"%>
+          <%= link_to  "See service", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use? || @booking.accepted?), class: "btn btn-warning"%>
+        </div>
+        <div class="col-md-3">
+          <%= link_to  "See Room bill", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use?), class: "btn btn-warning"%>
         </div>
       </div>
       <div class="row">

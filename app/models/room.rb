@@ -26,10 +26,10 @@ class Room < ApplicationRecord
         WHERE rooms.id IN(
           SELECT distinct room_id
           FROM bookings
-          WHERE  (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
+          WHERE  ((STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
               OR (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
-              OR (STRFTIME('%Y-%m-%d', check_in) >= ? AND STRFTIME('%Y-%m-%d', check_out) <= ?)
-              AND status = ? AND status = ?
+              OR (STRFTIME('%Y-%m-%d', check_in) >= ? AND STRFTIME('%Y-%m-%d', check_out) <= ?))
+              AND (status = ? OR status = ?)
           )
         ) AS conflict_schedule_rooms
       ON rooms.id = conflict_schedule_rooms.id
@@ -59,15 +59,17 @@ class Room < ApplicationRecord
           FROM bookings
           WHERE bookings.id != ? AND room_id = ?
           ) AS not_in_booking
-        WHERE  (STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
+        WHERE  ((STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
               OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
-              OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) >= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) <= ?)
+              OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) >= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) <= ?))
+              AND (status = ? OR status = ?)
       SQL
       santitize_sql = sanitize_sql_for_conditions([sql,
                                                 current_booking_id || 0, room.id,
                                                 check_in.to_date, check_in.to_date,
                                                 check_out.to_date, check_out.to_date,
-                                                check_in.to_date, check_out.to_date])
+                                                check_in.to_date, check_out.to_date,
+                                                'accepted', 'in_use'])
       booking = Booking.find_by_sql(santitize_sql).first
       if booking.present?
         errors = {}

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :bookings do
       resources :booking_services
     end
+    post '/bookings_services/:id' => 'booking_services#update', as: :update_booking_services
     resources :users
     resources :sessions
     resources :rooms
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
     resources :top_images
     get 'histories/bookings' => 'bookings#history_index'
     get 'histories/bookings/:id' => 'bookings#histories'
-    get 'bookings/:id/bill' => 'bookings#bill'
+    get 'bookings/:id/bill' => 'bookings#bill', as: :room_bill
     get 'csv_bill', to: 'bookings#csv_bills', as: :foo_export
     get 'customers/:id/bookings' => 'customers#bookings'
     # get 'histories/bookings' => 'bookings#history_index'
@@ -26,6 +27,7 @@ Rails.application.routes.draw do
     # put 'top_images_chooses' => 'top_images#update_top_image_chooses', as: :update_top_image_choose
     get 'rooms/:id/bookings' => 'rooms#bookings'
     get 'bookings/:id/new_services' => 'bookings#new_services', as: :booking_new_services
+    post 'bookings/:booking_id/create_services/:service_id' => 'bookings#create_services', as: :booking_services
   end
 
   get 'index' => 'homepages#index'

@@ -13,6 +13,17 @@ class Cms::BookingServicesController < Cms::ApplicationController
   end
 
   def update
+    @booking_service = BookingService.find(params[:id])
+    if booking_service_params[:commit].present?
+      @booking_service.booked if params[:commit] == 'booked' && @booking_service.may_booked?
+      @booking_service.cancel if params[:commit] == 'cancel' && @booking_service.may_cancel?
+      @booking_service.save
+      # @booking = @booking_service.booking
+      # @booking_services = BookingService.includes(:service).where(booking_id: @booking.id)
+      # @services = Service.order(status: :desc)
+      # @services = @services.page(params[:page]).per(25)
+      redirect_to cms_booking_new_services_url(@booking_service.booking_id)
+    end
   end
 
   def edit
@@ -23,7 +34,11 @@ class Cms::BookingServicesController < Cms::ApplicationController
     BookingService.find(params[:id]).delete
   end
 
+  # def booking_service_params
+  #   params.require(:booking_service).permit()
+  # end
+
   def booking_service_params
-    params.require(:booking_service).permit()
+    params.permit(:commit)
   end
 end

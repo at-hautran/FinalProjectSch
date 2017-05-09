@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001018) do
+ActiveRecord::Schema.define(version: 20171408001020) do
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20171408001018) do
     t.integer  "adults"
     t.integer  "room_id"
     t.integer  "customer_id"
-    t.integer  "total_price"
     t.string   "comments"
     t.integer  "user_id"
     t.datetime "created_at",                          null: false
@@ -77,6 +76,13 @@ ActiveRecord::Schema.define(version: 20171408001018) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "room_bills", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string   "name"
     t.string   "room_type"
@@ -87,6 +93,13 @@ ActiveRecord::Schema.define(version: 20171408001018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "room_icon"
+  end
+
+  create_table "service_bills", force: :cascade do |t|
+    t.integer  "booking_service_id"
+    t.string   "status"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
   end
 
   create_table "services", force: :cascade do |t|
