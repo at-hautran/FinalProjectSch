@@ -78,7 +78,9 @@ class Cms::BookingsController < Cms::ApplicationController
   def create_services
     @service = Service.find(service_params[:service_id])
     if @service.open?
-      BookingService.create service_params
+      @booking_service = BookingService.new service_params
+      @booking_service.price = @service.price
+      @booking_service.save
       flash[:success] = "update success"
       redirect_to cms_booking_new_services_url service_params[:booking_id]
     else

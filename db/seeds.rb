@@ -14,10 +14,15 @@
   room.save
 end
 
-User.create(email: 'a', password: '123456')
 (1..100).each do |i|
   Customer.create(name: "customer#{i}", email: "gacon#{i}", phonenumber:"0000000#{i}", country: "US#{i}")
 end
+
+User.create(email: 'a', password: '123456', user_type:  'employee', type_id: 1)
+User.create(email: 'b', password: '123456', user_type: 'admin', type_id: 1)
+
+Employee.create(name: 'employee', email: 'b')
+Admin.create(name: 'admin1', email: 'c')
 
 (1..100).each do |i|
   Booking.create(check_in: "#{i%30 + 1}-#{i%12 + 1}-2017", check_out: "#{i%30 + 2}-#{i%12 + 1}-2017",

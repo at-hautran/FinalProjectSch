@@ -9,6 +9,14 @@ module ApplicationHelper
     User.find_by(id: session[:id])
   end
 
+  def current_user_type
+    if current_user.user_type == 'admin'
+      Admin.find(current_user.type_id)
+    elsif current_user.user_type = 'employee'
+      Employee.find(current_user.type_id)
+    end
+  end
+
   def login?
     current_user.nil? ? false : true
   end

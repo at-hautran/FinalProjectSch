@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001020) do
+ActiveRecord::Schema.define(version: 20171408001022) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.date     "birthday"
+    t.string   "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -39,9 +48,11 @@ ActiveRecord::Schema.define(version: 20171408001020) do
     t.integer  "service_id"
     t.integer  "number"
     t.datetime "time"
+    t.integer  "price"
+    t.integer  "employee_id"
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -50,9 +61,10 @@ ActiveRecord::Schema.define(version: 20171408001020) do
     t.integer  "childrens"
     t.integer  "adults"
     t.integer  "room_id"
+    t.integer  "price"
     t.integer  "customer_id"
     t.string   "comments"
-    t.integer  "user_id"
+    t.integer  "empoyee_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "verification_digest"
@@ -74,6 +86,16 @@ ActiveRecord::Schema.define(version: 20171408001020) do
     t.string   "country"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "gender"
+    t.date     "bithday"
+    t.string   "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "room_bills", force: :cascade do |t|
@@ -130,8 +152,8 @@ ActiveRecord::Schema.define(version: 20171408001020) do
     t.string   "gender"
     t.integer  "phone_number"
     t.string   "address"
-    t.string   "role"
-    t.string   "position"
+    t.string   "user_type"
+    t.integer  "type_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

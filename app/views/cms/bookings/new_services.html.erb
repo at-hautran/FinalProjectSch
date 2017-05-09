@@ -13,6 +13,7 @@
     <th width="300">Check out</th>
     <th width="200">Pay</th>
     <th width="200">Action</th>
+    <th width="200">Booked at</th>
   </tr>
   </thead>
   <tbody>
@@ -20,14 +21,15 @@
       <td><%= room.name%></td>
       <td><%= @booking.customer.name%>
       <td><%= (((@booking.check_out - @booking.check_in)/1.day)*room.price).to_i%>$/<%=((@booking.check_out - @booking.check_in)/1.day).to_i%>days</td>
-      <td><%= @booking.check_in%></td>
-      <td><%= @booking.check_out%></td>
+      <td><%= @booking.check_in.strftime('%Y-%m-%d')%></td>
+      <td><%= @booking.check_out.strftime('%Y-%m-%d')%></td>
       <td><%= 'a' %></td>
       <td><div class='box' style="background: blue;" width: 50%"><%= %></div></td>
+      <td><%= @booking.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
     </tr>
   </tbody>
 </table>
-
+<h1>All Services</h1>
 <table class="table table-bordered table-striped table-hover">
   <thead>
   <tr>
@@ -39,6 +41,7 @@
     <th width="200">Action</th>
     <th width="200">Pay</th>
     <th width="200">Total Price</th>
+    <th width="200">Booked_at</th>
   </tr>
   </thead>
   <tbody>
@@ -47,7 +50,7 @@
   <tr>
     <td><%= service.name%></td>
     <td><%= booking_service.number%>
-    <td><%= service.price%></td>
+    <td><%= booking_service.price%></td>
     <td><%= booking_service.time%></td>
     <td><div class='box', style="background: <%=Cms::BookingServicesHelper::STATUS_COLOR[booking_service.status]%>; width: 50%"><%= booking_service.status%></div></td>
     <td>
@@ -55,7 +58,8 @@
       <%= link_to 'cancel', cms_update_booking_services_path(booking_service.id, commit: :cancel), disabled: !(booking_service.may_cancel?), class: 'btn btn-danger btn-xs', method: :post %>
     </td>
     <td>a</td>
-    <td><%= booking_service.number*service.price%></td>
+    <td><%= booking_service.number*booking_service.price%></td>
+    <td><%= booking_service.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
   </tr>
   <% end %>
   </tbody>
@@ -88,7 +92,7 @@ This below is service for you choose?
     <th width="200">Time</th>
     <th width="200">Number</th>
     <th width="100">status</th>
-    <th width="150">Action1</th>
+    <th width="150">Action</th>
   </tr>
   </thead>
   <tbody>

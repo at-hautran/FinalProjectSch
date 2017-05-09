@@ -9,8 +9,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :gender
       t.integer :phone_number
       t.string :address
-      t.string :role
-      t.string :position
+      t.string :user_type
+      t.integer :type_id
 
       t.timestamps
     end
