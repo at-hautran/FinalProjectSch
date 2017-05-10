@@ -4,11 +4,11 @@ class Booking < ApplicationRecord
   include AASM
 
   aasm :status, :column => 'status' do
-    state :watting, :initial => true
+    state :waitting, :initial => true
     state :cancel, :accepted, :in_use, :finished
 
     event :accept do
-      transitions :from => :watting, :to => :accepted
+      transitions :from => :waitting, :to => :accepted
     end
 
     event :cancel do
@@ -103,5 +103,27 @@ class Booking < ApplicationRecord
 
   def self.delete_expire_accept
     Booking.where("verified IS > AND strftime('%Y-%m-%d %H:%M:%S', verified_at) <= ?", true, Time.zone.now - 2.minute).delete_all
+  end
+
+  def self.search search_params, bookings
+    if search_params[:email].present?
+      customer_id = Customer.select(:id).find_by(email: search_params[:email])
+      bookings = bookings.where(customer_id: customer_id)
+    end
+    if search_params[:room_name].present?
+      room_id = Room.select(:id).find_by(name: search_params[:room_name])
+      bookings = bookings.where(room_id: room_id)
+    end
+    if search_params[:status].present? && search_params[:status] != 'status'
+      bookings = bookings.where(status: search_params[:status]).order(:created_at)
+    end
+    if search_params[:check_in].present? && search_params[:check_out].present?
+      bookings = bookings.where("strftime('%Y-%m-%d', check_in) >= ? AND strftime('%Y-%m-%d', check_out) <= ? ", search_params[:check_in].to_date, search_params[:check_out].to_date)
+    elsif search_params[:check_in].present? && search_params[:check_out].blank?
+      bookings = bookings.where("strftime('%Y-%m-%d', check_in) = ?", search_params[:check_in].to_date)
+    elsif search_params[:check_in].blank? && search_params[:check_out].present?
+      bookings = bookings.where("strftime('%Y-%m-%d', check_out) = ?", search_params[:check_out].to_date)
+    end
+    bookings
   end
 end

@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  BOOKING_STATUS = %w[waitting accepted are_using finished]
+  BOOKING_STATUS = %w[status waitting accepted are_using finished]
   def init_session user
     session[:id] = user.id
   end

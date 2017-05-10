@@ -4,6 +4,7 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def index
     @bookings = Booking.all
+    @bookings = Booking.search(search_params, @bookings) if search_params.present?
     @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
   end
 
@@ -144,5 +145,9 @@ class Cms::BookingsController < Cms::ApplicationController
     def service_params
       #lack validate of booking_id and service_id present
       params.permit(:id, :booking_id, :service_id, :number)
+    end
+
+    def search_params
+      params.fetch(:search, {})
     end
 end

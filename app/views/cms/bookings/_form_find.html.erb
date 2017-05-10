@@ -1,41 +1,47 @@
-<form id ="update-bookings" action = "/cms/rooms" method="get" accept-charset="UTF-8" data-remote="true">
-  <div class="col-md-10">
-    <div class='col-md-3'>
-      <div class='col-md-3'>
-        <p>Childrens:</p><br>
-        <p>Adults:</p><br>
-        <p>Status:</p>
-      </div>
-      <div class="col-md-9">
-        <input style='text-align: left;' type="text" name="adults"><br><br>
-        <input type="text" name="childrens"><br><br>
-        <div class="form-group">
-          <select name="status" value="@booking.status" class="form-control">
-          <%= options_for_select(ApplicationHelper::BOOKING_STATUS, params[:status])%>
-          </select>
-          <!-- <input class="form-control pop_status " type="text" placeholder="Status"> -->
-        </div>
-      </div>
-    </div>
-    <div class='col-md-4'>
-      <div class='col-md-5' style="text-align: right;">
-        <p>Check in:</p><br>
-        <p>Check out:</p><br>
-      </div>
-      <div class="col-md-7">
-        <input type="date" name="check_in"><br><br>
-        <input type="date" name="check_out"><br><br>
-        <div>
-          <button type='submit' type="button" class="btn btn-primary">Find Booking</button>
-        </div>
+<%= form_tag cms_bookings_path, method: :get, class: 'form-horizontal form_search' do %>
+  <div class="form-group">
+    <label class="col-md-1 control-label">Check In</label>
 
-      </div>
+    <div class="col-md-2">
+      <%= text_field_tag 'search[check_in]', params[:search].present? ? params[:search][:check_in] : '', type: :date, class: 'form-control' %>
+    </div>
+   <!--  <div class="col-md-2">
+      a
+    </div> -->
+    <label class="col-md-2 control-label">Check out</label>
+
+    <div class="col-md-2">
+      <%= text_field_tag 'search[check_out]', params[:search].present? ? params[:search][:check_out] : '', type: :date, class: 'form-control' %>
+    </div>
+   <!--  <div class="col-md-2">
+      a
+    </div> -->
+  </div>
+  <div class="form-group">
+    <label class="col-md-1 control-label">Room</label>
+
+    <div class="col-md-2">
+      <%= text_field_tag 'search[room_name]', params[:search].present? ? params[:search][:room_name] : '', class: 'form-control', placeholder: '' %>
+    </div>
+
+    <label class="col-md-2 control-label">Email:</label>
+
+    <div class="col-md-2">
+      <%= text_field_tag 'search[email]', params[:search].present? ? params[:search][:email] : '', class: 'form-control' %>
     </div>
   </div>
-</form>
+  <div class="form-group">
 
-<style type="text/css">
-  p {
-    margin: 0 0 5px;
-  }
-</style>
+    <label class="col-md-1 control-label">Status</label>
+
+    <div class="col-md-2">
+      <%= select_tag 'search[status]', options_for_select(ApplicationHelper::BOOKING_STATUS, params[:search].present? ? params[:search][:status] : ''), class: 'form-control'%>
+      </select>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-1">
+      <input type="submit" class="btn btn-primary" value="Search">
+    </div>
+  </div>
+  <hr/>
+<% end %>

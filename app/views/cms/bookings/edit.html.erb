@@ -37,21 +37,21 @@
       </div>
       <lable>Adults</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !@booking.watting?, class:'form-control pop_room_name'%>
+        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !@booking.waitting?, class:'form-control pop_room_name'%>
       </div>
       <lable>Childrens</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[childrens]', @booking.childrens, disabled: !@booking.watting?, class:'form-control pop_room_name%'%>
+        <%= text_field_tag 'booking[childrens]', @booking.childrens, disabled: !@booking.waitting?, class:'form-control pop_room_name%'%>
 <!--         <input name="booking[childrens]" class="form-control pop_room_name " type="text" value="<%=@booking.childrens%>" placeholder="Room name"> -->
       </div>
       <lable>Check in</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[check_in]', @booking.check_in.strftime('%Y-%m-%d'), disabled: !@booking.watting?, type: :date, class:'form-control pop_room_name%'%>
+        <%= text_field_tag 'booking[check_in]', @booking.check_in.strftime('%Y-%m-%d'), disabled: !@booking.waitting?, type: :date, class:'form-control pop_room_name%'%>
         <!-- <input name="booking[check_in]" id = 'check_in' class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime('%Y-%m-%d')%>" placeholder="Check in"> -->
       </div>
       <lable>Check out</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[check_out]', @booking.check_out.strftime('%Y-%m-%d'), disabled: !@booking.watting?, type: :date, class:'form-control pop_room_name%'%>
+        <%= text_field_tag 'booking[check_out]', @booking.check_out.strftime('%Y-%m-%d'), disabled: !@booking.waitting?, type: :date, class:'form-control pop_room_name%'%>
         <!-- <input name="booking[check_out]" id = 'check_out' class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime('%Y-%m-%d')%>" placeholder="Check out"> -->
       </div>
       <lable>Total Price</lable>
@@ -67,7 +67,7 @@
     <div class="modal-footer ">
       <div class="row" style="margin-bottom: 10px;">
         <div class="col-md-3">
-          <%= link_to  "See service", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use? || @booking.accepted?), class: "btn btn-warning"%>
+          <%= link_to  "See service", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use? || @booking.accepted? || @booking.waitting?), class: "btn btn-warning"%>
         </div>
         <div class="col-md-3">
           <%= link_to  "See Room bill", cms_booking_new_services_path(@booking.id), disabled: !(@booking.in_use?), class: "btn btn-warning"%>
@@ -91,7 +91,7 @@
           <!-- <button type="submit" class="btn btn-warning" style="width: 100%;">Update</button> -->
         </div>
         <div class = "col-md-3">
-          <%= submit_tag "Update", disabled: !(@booking.watting?), name: :update, value: :update, width: '100%', class: "btn btn-warning" %>
+          <%= submit_tag "Update", disabled: !(@booking.waitting?), name: :update, value: :update, width: '100%', class: "btn btn-warning" %>
         </div>
       </div>
     </div>
