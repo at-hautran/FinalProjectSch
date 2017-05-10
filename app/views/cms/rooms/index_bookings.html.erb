@@ -15,9 +15,8 @@
     <div style="margin-bottom: 10px;"></div>
   <% @rooms.each do |room| %>
     <% bookings = room.bookings %>
-    <%= week_calendar partial: 'cms/rooms/week_calendar', attribute: :check_in, end_attribute: :check_out, events: bookings do |date, bookings| %>
+    <%= week_calendar partial: 'cms/rooms/week_calendar', locales: {room: room}, attribute: :check_in, end_attribute: :check_out, events: bookings do |date, bookings| %>
     <%= date %>
-
       <% bookings.each do |booking| %>
         <div style="background: <%= Cms::BookingsHelper::STATUS_COLOR[booking.status]; %>">
           <a href="/cms/bookings/<%=booking.id%>/edit"><%= booking.id %></a>
