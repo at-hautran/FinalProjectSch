@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  # scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-  # end
-
   namespace :cms do
     root 'sessions#new'
     resources :services
@@ -36,10 +33,12 @@ Rails.application.routes.draw do
   get '/booking/verify/success' => 'booking_verifies#success'
   get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
   resources :booking_verifies, only: :edit
-  resources :bookings, only: %w[new create show]
-  resources :rooms, only: %w[show index]
-  resources :customers
-  root 'homepages#home'
+  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    resources :bookings, only: %w[new create show]
+    resources :rooms, only: %w[show index]
+    resources :customers
+    root 'homepages#home'
+  end
   # get 'homepages/booking', to: 'homepages#booking'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
