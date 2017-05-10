@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 $(document).ready(function() {
 
-    var table = $('#table');
+    var table = $('#table')
 
     // Table bordered
     $('#table-bordered').change(function() {

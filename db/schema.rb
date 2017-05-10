@@ -49,10 +49,11 @@ ActiveRecord::Schema.define(version: 20171408001022) do
     t.integer  "number"
     t.datetime "time"
     t.integer  "price"
-    t.integer  "employee_id"
+    t.string   "pay"
+    t.integer  "user_id"
     t.string   "status"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -61,10 +62,11 @@ ActiveRecord::Schema.define(version: 20171408001022) do
     t.integer  "childrens"
     t.integer  "adults"
     t.integer  "room_id"
+    t.string   "pay"
     t.integer  "price"
     t.integer  "customer_id"
     t.string   "comments"
-    t.integer  "empoyee_id"
+    t.integer  "user_id"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.string   "verification_digest"

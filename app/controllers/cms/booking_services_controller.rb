@@ -17,6 +17,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
     if booking_service_params[:commit].present?
       @booking_service.booked if params[:commit] == 'booked' && @booking_service.may_booked?
       @booking_service.cancel if params[:commit] == 'cancel' && @booking_service.may_cancel?
+      @booking_service.paid   if params[:commit] == 'paid'   && @booking_service.may_paid?
       @booking_service.save
       # @booking = @booking_service.booking
       # @booking_services = BookingService.includes(:service).where(booking_id: @booking.id)
@@ -24,6 +25,13 @@ class Cms::BookingServicesController < Cms::ApplicationController
       # @services = @services.page(params[:page]).per(25)
       redirect_to cms_booking_new_services_url(@booking_service.booking_id)
     end
+  end
+
+  def paid_all
+    if params[:commit] == 'paid_all'
+      BookingService.paid_all(params[:booking_id])
+    end
+    redirect_to cms_booking_new_services_url(params[:booking_id])
   end
 
   def edit

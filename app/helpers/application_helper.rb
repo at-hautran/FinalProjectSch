@@ -17,6 +17,15 @@ module ApplicationHelper
     end
   end
 
+  def determine user_id
+    user = User.find(user_id)
+    if user.user_type == 'admin'
+      Admin.find(user.type_id)
+    elsif user.user_type == 'employee'
+      Employee.find(user.type_id)
+    end
+  end
+
   def login?
     current_user.nil? ? false : true
   end

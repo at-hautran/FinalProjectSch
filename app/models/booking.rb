@@ -3,7 +3,7 @@ class Booking < ApplicationRecord
 
   include AASM
 
-  aasm :column => 'status' do
+  aasm :status, :column => 'status' do
     state :watting, :initial => true
     state :cancel, :accepted, :in_use, :finished
 
@@ -21,6 +21,15 @@ class Booking < ApplicationRecord
 
     event :finish do
       transitions :from => [:in_use], :to => :finished
+    end
+  end
+
+  aasm :bill, :column => 'pay'   do
+    state :unpaid, :initial => true
+    state :paid
+
+    event :paid do
+      transitions :from => :unpaid, :to => :paid
     end
   end
 

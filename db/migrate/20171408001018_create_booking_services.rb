@@ -6,6 +6,7 @@ class CreateBookingServices < ActiveRecord::Migration[5.0]
       t.integer :number
       t.datetime :time
       t.integer :price
+      t.string :pay
       t.integer :user_id
       t.string :status
 

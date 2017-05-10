@@ -80,6 +80,7 @@ class Cms::BookingsController < Cms::ApplicationController
     if @service.open?
       @booking_service = BookingService.new service_params
       @booking_service.price = @service.price
+      @booking_service.user_id = current_user.id
       @booking_service.save
       flash[:success] = "update success"
       redirect_to cms_booking_new_services_url service_params[:booking_id]

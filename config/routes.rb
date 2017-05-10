@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     get 'rooms/:id/bookings' => 'rooms#bookings'
     get 'bookings/:id/new_services' => 'bookings#new_services', as: :booking_new_services
     post 'bookings/:booking_id/create_services/:service_id' => 'bookings#create_services', as: :booking_services
+    put 'bookings/:booking_id/services' => 'booking_services#paid_all', as: :paid_all_services
   end
 
   get 'index' => 'homepages#index'
