@@ -25,3 +25,7 @@
 //= require jquery.autocomplete.min
 //= require magicsuggest-1.3.1
 //= require pagination.js
+//= require bootstrap-timepicker
+//= require jquery-ui-timepicker-addon
+//= require moment
+//= require bootstrap-datetimepicker

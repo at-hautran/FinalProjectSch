@@ -145,19 +145,23 @@ body {
   height: 1500px;
 }
 </style>
-
-
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Basic Header</title>
-
 </head>
 
-<body>
-
 <header class="header-fixed">
+  <div class = "row">
+  <div style="float: right; color: #fff;">
+  <li>
+    <% if I18n.locale == I18n.default_locale %>
+      <%= link_to "VietName", :locale=>'vn'%>
+    <% else %>
+      <%= link_to "English", :locale=>'en'%>
+    <%end%>
+  </li>
+  </div>
+  </div>
 
   <div class="header-limiter">
 
@@ -212,11 +216,4 @@ body {
   });
 
 </script>
-
-
-<!-- Demo ads. Please ignore and remove. -->
-
-
-</body>
-
 </html>

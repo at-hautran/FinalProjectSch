@@ -4,6 +4,9 @@ class HomepagesController < ApplicationController
     @rooms = Room.limit(3)
   end
 
+  def index
+  end
+
   def booking
   end
 

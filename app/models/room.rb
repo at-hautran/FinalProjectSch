@@ -26,9 +26,10 @@ class Room < ApplicationRecord
         WHERE rooms.id IN(
           SELECT distinct room_id
           FROM bookings
-          WHERE  (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
+          WHERE  ((STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
               OR (STRFTIME('%Y-%m-%d', check_in) <= ? AND STRFTIME('%Y-%m-%d', check_out) >= ?)
-              OR (STRFTIME('%Y-%m-%d', check_in) >= ? AND STRFTIME('%Y-%m-%d', check_out) <= ?)
+              OR (STRFTIME('%Y-%m-%d', check_in) >= ? AND STRFTIME('%Y-%m-%d', check_out) <= ?))
+              AND (status = ? OR status = ?)
           )
         ) AS conflict_schedule_rooms
       ON rooms.id = conflict_schedule_rooms.id
@@ -36,7 +37,8 @@ class Room < ApplicationRecord
     santitize_sql = sanitize_sql_for_conditions([sql,
                                                 check_in.to_date, check_in.to_date,
                                                 check_out.to_date, check_out.to_date,
-                                                check_in.to_date, check_out.to_date])
+                                                check_in.to_date, check_out.to_date,
+                                                'accepted', 'in_use'])
     Room.joins(santitize_sql)
     # statement_check_room_cannot_use = "(check_in <= ? AND check_out >= ?)
     #                                   OR (check_in <= ? AND check_out >= ?)
@@ -48,8 +50,8 @@ class Room < ApplicationRecord
     # Booking.where(room_cannot_use_santitize).uniq
   end
 
-    def self.check_schedule(room, check_in, check_out, current_booking_id)
-      # Return true if can book this room
+    def self.check_schedule(room, check_in, check_out, current_booking_id=nil)
+      # Check if have booking in these day
       sql = <<-SQL
         SELECT *
         FROM (
@@ -57,15 +59,17 @@ class Room < ApplicationRecord
           FROM bookings
           WHERE bookings.id != ? AND room_id = ?
           ) AS not_in_booking
-        WHERE  (STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
+        WHERE  ((STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
               OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) <= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) >= ?)
-              OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) >= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) <= ?)
+              OR (STRFTIME('%Y-%m-%d', not_in_booking.check_in) >= ? AND STRFTIME('%Y-%m-%d', not_in_booking.check_out) <= ?))
+              AND (status = ? OR status = ?)
       SQL
       santitize_sql = sanitize_sql_for_conditions([sql,
-                                                current_booking_id, room.id,
+                                                current_booking_id || 0, room.id,
                                                 check_in.to_date, check_in.to_date,
                                                 check_out.to_date, check_out.to_date,
-                                                check_in.to_date, check_out.to_date])
+                                                check_in.to_date, check_out.to_date,
+                                                'accepted', 'in_use'])
       booking = Booking.find_by_sql(santitize_sql).first
       if booking.present?
         errors = {}

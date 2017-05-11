@@ -1,0 +1,40 @@
+<p><%= link_to 'new', new_cms_service_path, class: 'btn btn-primary' %></p>
+<hr/>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+    <th width="100">Image</th>
+    <th width="100">Name</th>
+    <th width="200">Price</th>
+    <th width="100">status</th>
+    <th width="150">Action1</th>
+    <th width="150">Action2</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @services.each do |service| %>
+  <tr>
+    <td><%= service_tag(service) %></td>
+    <td><%= service.name%></td>
+    <td><%= service.price%></td>
+    <td>
+      <div class="box" style="background: <%= Cms::ServicesHelper::STATUS_COLOR[service.status]%>;">
+        <%= service.status%>
+      </div>
+    </td>
+    <td>
+      <%= link_to 'edit', cms_service_path(service), method: :put, class: 'btn btn-warning btn-xs' %>
+    </td>
+    <td>
+      <%= link_to 'delete', cms_service_path(service), method: :delete, data: { confirm: 'do you want to delete this record？'}, class: 'btn btn-danger btn-xs' %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate @services %>
+  </div>
+</div>

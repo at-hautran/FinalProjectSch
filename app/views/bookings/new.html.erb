@@ -55,8 +55,8 @@
     <div class="grid">
       <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <input type="text" id="arrive" class="floatLabel" name="booking[room_name]" value="<%= @room.name %>">
-          <input type="hidden" id="arrive" class="floatLabel" name="booking[room_id]" value="<%= @room.id %>">
+          <input disabled type="text" id="arrive" class="floatLabel" name="booking[room_name]" value="<%= @room.name if @room.present? %>">
+          <input type="hidden" id="arrive" class="floatLabel" name="booking[room_id]" value="<%= @room.id if @room.present? %>">
           <label for="arrive" class="active"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Room</label>
         </div>
       </div>
@@ -126,4 +126,3 @@
   floatLabel(".floatLabel");
   })(jQuery);
 </script>
-

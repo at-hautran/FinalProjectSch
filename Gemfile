@@ -45,10 +45,21 @@ gem 'whenever', :require => false
 gem "audited", "~> 4.4"
 
 gem 'gon'
+
 gem 'rabl-rails'
 
 gem 'bcrypt'
 
+gem "simple_calendar", "~> 2.0"
+
+gem 'aasm'
+
+gem 'bootstrap-timepicker-rails'
+
+gem 'jquery-timepicker-addon-rails'
+
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

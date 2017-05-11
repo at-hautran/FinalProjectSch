@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001015) do
+ActiveRecord::Schema.define(version: 20171408001022) do
+
+  create_table "admins", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.date     "birthday"
+    t.string   "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "audits", force: :cascade do |t|
     t.integer  "auditable_id"
@@ -34,23 +43,37 @@ ActiveRecord::Schema.define(version: 20171408001015) do
     t.index ["user_id", "user_type"], name: "user_index"
   end
 
+  create_table "booking_services", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.integer  "service_id"
+    t.integer  "number"
+    t.datetime "time"
+    t.integer  "price"
+    t.string   "pay"
+    t.integer  "user_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "bookings", force: :cascade do |t|
     t.datetime "check_in"
     t.datetime "check_out"
     t.integer  "childrens"
     t.integer  "adults"
     t.integer  "room_id"
+    t.string   "pay"
+    t.integer  "price"
     t.integer  "customer_id"
-    t.integer  "total_price"
-    t.string   "status",              default: "watting"
     t.string   "comments"
     t.integer  "user_id"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "verification_digest"
     t.boolean  "verified",            default: false
     t.integer  "booking_no"
     t.datetime "verified_at"
+    t.string   "status"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -59,11 +82,29 @@ ActiveRecord::Schema.define(version: 20171408001015) do
     t.integer  "phonenumber"
     t.string   "street"
     t.integer  "number_street"
+    t.string   "gender"
     t.string   "city"
     t.string   "postcode"
     t.string   "country"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "gender"
+    t.date     "bithday"
+    t.string   "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "room_bills", force: :cascade do |t|
+    t.integer  "booking_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -76,6 +117,22 @@ ActiveRecord::Schema.define(version: 20171408001015) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "room_icon"
+  end
+
+  create_table "service_bills", force: :cascade do |t|
+    t.integer  "booking_service_id"
+    t.string   "status"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "services", force: :cascade do |t|
+    t.string   "name"
+    t.string   "service_icon"
+    t.integer  "price"
+    t.string   "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "top_images", force: :cascade do |t|
@@ -97,8 +154,8 @@ ActiveRecord::Schema.define(version: 20171408001015) do
     t.string   "gender"
     t.integer  "phone_number"
     t.string   "address"
-    t.string   "role"
-    t.string   "position"
+    t.string   "user_type"
+    t.integer  "type_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end

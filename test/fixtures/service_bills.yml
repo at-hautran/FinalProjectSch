@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  booking_service_id: 1
+  status: MyString
+
+two:
+  booking_service_id: 1
+  status: MyString

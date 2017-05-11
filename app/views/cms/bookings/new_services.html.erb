@@ -1,0 +1,163 @@
+  <h1>Booking #<%=@booking.id%></h1>
+  <h1>Service used in room <%= @booking.room.name %></h1>
+<% room = @booking.room %>
+<h1>You are in booking room <% room.name %>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+    <th width="100">Room</th>
+    <th width="200">Customer</th>
+    <th width="200">Price</th>
+    <th width="300">Check in</th>
+    <th width="300">Check out</th>
+    <th width="200">Total Price</th>
+    <th width="200">Pay</th>
+    <th width="200">Action</th>
+    <th width="200">Booked at</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><%= room.name%></td>
+      <td><%= @booking.customer.name%>
+      <td><%= @booking.price %></td>
+      <td><%= @booking.check_in.strftime('%Y-%m-%d')%></td>
+      <td><%= @booking.check_out.strftime('%Y-%m-%d')%></td>
+      <td><%= (((@booking.check_out - @booking.check_in)/1.day)*@booking.price.to_i).to_i%>$/<%=((@booking.check_out - @booking.check_in)/1.day).to_i%>days</td>
+      <td><%= @booking.pay %></td>
+      <td><div class='box' style="background: blue;" width: 50%"><%= %></div></td>
+      <td><%= @booking.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
+    </tr>
+  </tbody>
+</table>
+<h1>All Services</h1>
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+    <th width="100">Name</th>
+    <th width="200">Price</th>
+    <th width="200">Number</th>
+    <th width="200">Total Price</th>
+    <th width="200">Time Order</th>
+    <th width="200">Status</th>
+    <th width="300">Action</th>
+    <th width="200">Pay</th>
+    <th width="100"></th>
+    <th width="200">Booked_at</th>
+    <th width="200">Employee</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% paid_total = 0 %>
+  <% unpaid_total = 0 %>
+  <% @booking_services.each do |booking_service| %>
+  <% service = booking_service.service %>
+  <tr>
+    <% paid_total += booking_service.number*booking_service.price if booking_service.paid? %>
+    <% unpaid_total += booking_service.number*booking_service.price if booking_service.unpaid? %>
+    <td><%= service.name%></td>
+    <td><%= booking_service.price%></td>
+    <td><%= booking_service.number%>
+    <td><%= booking_service.number*booking_service.price%></td>
+    <td><%= booking_service.time%></td>
+    <td><div class='box', style="background: <%=Cms::BookingServicesHelper::STATUS_COLOR[booking_service.status]%>; width: 50%"><%= booking_service.status%></div></td>
+    <td>
+      <%= link_to 'booked', cms_update_booking_services_path(booking_service.id, commit: :booked), disabled: !(booking_service.may_booked?), class: 'btn btn-success btn-xs', method: :post %>
+      <%= link_to 'cancel', cms_update_booking_services_path(booking_service.id, commit: :cancel), disabled: !(booking_service.may_cancel?), class: 'btn btn-danger btn-xs', method: :post %>
+    </td>
+    <td>
+      <%= booking_service.pay%>
+    </td>
+    <td>
+      <%= link_to 'paid', cms_update_booking_services_path(booking_service.id, commit: :paid), disabled: booking_service.paid?, class: 'btn btn-success btn-xs', method: :post %>
+    </td>
+    <td><%= booking_service.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
+    <td><%= determine(booking_service.user_id).name%></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Paid: <%= paid_total %></td>
+      <td>UnPaid <%= unpaid_total %></td>
+      <td>Total: <%= paid_total + unpaid_total %></td>
+    </tr>
+  </tbody>
+</table>
+<%= link_to 'paid all', cms_paid_all_services_url(@booking.id, commit: :paid_all), disabled: !may_pay_all?(@booking.id), style: 'float: right;', class: 'btn btn-success', method: :put %>
+
+<h1>You want to add service in room <%= @booking.room.name %>
+This below is service for you choose?
+<h1>We have many service is open below</h1>
+<%= render partial: 'cms/errors/errors', locals: {errors: @service.errors} if @service.present? %>
+<%= render partial: 'cms/errors/flash' , locals: { flash: flash } %>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+    <th width="100">Image</th>
+    <th width="100">Name</th>
+    <th width="200">Price</th>
+    <th width="200">Time</th>
+    <th width="200">Number</th>
+    <th width="100">status</th>
+    <th width="150">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @services.each do |service| %>
+  <tr class = "b">
+      <%= text_field_tag 'booking_id', @booking.id, type: :hidden, class: :booking_id %>
+      <%= text_field_tag 'service_id', service.id, type: :hidden, class: :service_id %>
+      <td><%= service_tag(service) %></td>
+      <td><%= service.name%></td>
+      <td><%= service.price%></td>
+      <td>
+        <input type='text' class="form-control" id='datetimepicker4' />
+      </td>
+      <td><%= text_field_tag 'number', 1, type: :number, class: 'number form-control', width: "50%" %></td>
+      <td>
+        <div class="box" style="background: <%= Cms::ServicesHelper::STATUS_COLOR[service.status]%>;">
+          <%= service.status%>
+        </div>
+      </td>
+      <td>
+        <%= link_to 'Choose Service', '', disabled: service.close?,method: :post, class: 'get_link btn btn-warning btn-xs'%>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<div class="row">
+  <div class="col-md-6">
+    <%= paginate @services %>
+  </div>
+</div>
+<div class=".timepicker"></div>
+<script type="text/javascript">
+  function get_link(){
+    alert("a");
+    alert(this.closest('b'));
+    $('.timepicker').timepicker()
+
+    $('.timepicker').timepicker()
+      .on('changeTime', function(ev) {
+        alert('time has changed');
+        });
+  }
+
+</script>
+<div class="container">
+  <script type="text/javascript">
+      $(function () {
+          $('#datetimepicker4').datetimepicker();
+      });
+  </script>
+</div>
+

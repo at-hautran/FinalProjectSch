@@ -52,6 +52,19 @@ class Cms::RoomsController < Cms::ApplicationController
     end
   end
 
+  def bookings
+    @room = Room.find(params[:id])
+    @bookings = @room.bookings.where("status != ? AND verified IS ?", 'watting', true)
+  end
+
+  def index_bookings
+    @rooms = Room.all.includes(:bookings)
+  end
+
+  def all_bookings
+    @rooms = Room.includes(:bookings).all
+  end
+
   def destroy
     room = Room.find(params[:id])
     if room.destroy
