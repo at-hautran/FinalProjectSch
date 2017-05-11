@@ -30,3 +30,4 @@ rvmsudo rails server -p 80 (run rails with port 80)
 sudo chmod -R 777 public/uploads, #chang permisson of upload image
 chmod -R 777 PATH_TO_APP/tmp, #chang permisson of tmp
 crontab -r , crontab -c => stop cron job
+zipcode paypal 12132
