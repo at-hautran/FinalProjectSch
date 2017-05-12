@@ -4,7 +4,7 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def index
     @bookings = Booking.all
-    @bookings = Booking.search(search_params, @bookings) if search_params.present?
+  @bookings = Booking.search(search_params, @bookings) if search_params.present?
     @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
   end
 
@@ -139,6 +139,7 @@ class Cms::BookingsController < Cms::ApplicationController
         # self.current_booking = Booking.find(params[:id])
         flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], current_booking.id)
         flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
+        flash[:errors] = flash[:errors].to_s + Room.check_room_is_allow(self.room.id, booking_params[:check_in], booking_params[:check_out]).to_s
       end
     end
 

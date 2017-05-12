@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   namespace :cms do
+    resources :room_cannot_chooses
     root 'sessions#new'
     resources :services
     resources :bookings do
       resources :booking_services
     end
+    delete 'room_cannot_chooses/all/delete_all' => 'room_cannot_chooses#destroy_all', as: :room_cannot_chooses_all
     post '/bookings_services/:id' => 'booking_services#update', as: :update_booking_services
     resources :users
     resources :sessions
