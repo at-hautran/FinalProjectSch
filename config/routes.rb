@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   namespace :cms do
+    resources :image_room_tops, only: [:index, :update]
+    put '/cms/update_image_room_tops' => 'image_room_tops#update', as: :update_image_room_tops
     resources :room_cannot_chooses
     root 'sessions#new'
     resources :services
