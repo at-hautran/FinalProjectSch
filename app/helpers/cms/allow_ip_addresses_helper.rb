@@ -1,0 +1,2 @@
+module Cms::AllowIpAddressesHelper
+end

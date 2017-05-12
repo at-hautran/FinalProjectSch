@@ -10,13 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001024) do
+ActiveRecord::Schema.define(version: 20171408001025) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.date     "birthday"
     t.string   "gender"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "allow_address_ips", force: :cascade do |t|
+    t.string   "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -39,7 +39,7 @@
               <td><%= booking.user.username if booking.user.present? %></td>
               <td>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
-                  <button onclick="location.href='bookings/<%=booking.id%>/edit';" class="btn btn-primary btn-xs modalpop" data-title="Edit" >
+                  <button onclick="location.href='/cms/bookings/<%=booking.id%>/edit';" class="btn btn-primary btn-xs modalpop" data-title="Edit" >
                     <span class="glyphicon glyphicon-pencil">
                 <div class = "a" value="a"></div>
                 </span>
