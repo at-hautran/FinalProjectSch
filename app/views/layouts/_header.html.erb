@@ -155,9 +155,9 @@ body {
   <div style="float: right; color: #fff;">
   <li>
     <% if I18n.locale == I18n.default_locale %>
-      <%= link_to "VietName", :locale=>'vn'%>
+      <%= link_to "VietName", locale: :vn%>
     <% else %>
-      <%= link_to "English", :locale=>'en'%>
+      <%= link_to "English", locale: :en%>
     <%end%>
   </li>
   </div>
@@ -165,11 +165,11 @@ body {
 
   <div class="header-limiter">
 
-    <h1><a href="/"><span><%=image_tag '/logo.png', width: 100 , height: 40 %></span></a><div>MyHotel</div></h1>
+    <h1><a href="<%=root_path%>"><span><%=image_tag '/logo.png', width: 100 , height: 40 %></span></a><div>MyHotel</div></h1>
 
     <nav>
       <a href="#" class="selected">Our Hotel</a>
-      <a href="#">Event</a>
+      <a href="<%=home_event_path%>">Event</a>
       <a href="#">Offer</a>
       <a href="#">Contact</a>
     </nav>

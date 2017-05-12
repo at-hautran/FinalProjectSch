@@ -12,4 +12,7 @@ class HomepagesController < ApplicationController
 
   def help
   end
+
+  def event
+  end
 end

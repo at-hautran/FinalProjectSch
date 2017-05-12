@@ -7,7 +7,6 @@ class Cms::ImageRoomTopsController < Cms::ApplicationController
 
   def update
     if flash[:errors].blank?
-      binding.pry
       ImageRoomTop.update_rooms(image_room_top_params)
     end
     redirect_to cms_image_room_tops_url
