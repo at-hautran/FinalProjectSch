@@ -1,0 +1,2 @@
+class AllowAddressIp < ApplicationRecord
+end

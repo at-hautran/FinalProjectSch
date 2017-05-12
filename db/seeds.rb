@@ -18,8 +18,9 @@ end
   Customer.create(name: "customer#{i}", email: "gacon#{i}", phonenumber:"0000000#{i}", country: "US#{i}")
 end
 
-User.create(email: 'a', password: '123456', user_type:  'employee', type_id: 1)
-User.create(email: 'b', password: '123456', user_type: 'admin', type_id: 1)
+User.create(email: 'a', password: '123456789', user_type:  'employee', type_id: 1)
+User.create(email: 'b', password: '123456789', user_type: 'admin', type_id: 1)
+AllowAddressIp.create ip_address: '127.0.0.1'
 
 Employee.create(name: 'employee', email: 'b')
 Admin.create(name: 'admin1', email: 'c')

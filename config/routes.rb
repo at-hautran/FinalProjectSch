@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
   namespace :cms do
+    resources :allow_ip_addresses
+    post '/allow_ip_addresses' => 'allow_ip_addresses#create', as: :create_allow_ip
+    resources :image_room_tops, only: [:index, :update]
+    put '/cms/update_image_room_tops' => 'image_room_tops#update', as: :update_image_room_tops
+    resources :room_cannot_chooses
     root 'sessions#new'
     resources :services
     resources :bookings do
       resources :booking_services
     end
+    delete 'room_cannot_chooses/all/delete_all' => 'room_cannot_chooses#destroy_all', as: :room_cannot_chooses_all
     post '/bookings_services/:id' => 'booking_services#update', as: :update_booking_services
     resources :users
     resources :sessions
@@ -29,11 +35,12 @@ Rails.application.routes.draw do
     get 'all_rooms/bookings' => 'rooms#index_bookings', as: :bookings_all_rooms
   end
 
-  get 'index' => 'homepages#index'
-  get '/booking/verify/success' => 'booking_verifies#success'
-  get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
-  resources :booking_verifies, only: :edit
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
+    get 'index' => 'homepages#index'
+    get '/homepages/event' => 'homepages#event', as: :home_event
+    get '/booking/verify/success' => 'booking_verifies#success'
+    get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
+    resources :booking_verifies, only: :edit
     resources :bookings, only: %w[new create show]
     resources :rooms, only: %w[show index]
     resources :customers
