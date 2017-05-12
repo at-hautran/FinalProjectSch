@@ -21,9 +21,11 @@ class RoomCannotChoose < ApplicationRecord
     self.find_by_sql(santitize_sql).map {|room| room.room_id}
   end
 
-  def self.check_valid_params room_id
+  def self.check_valid_params params
     errors = {}
-    errors[room_id] = "Room #{room_id} is not exsit" if Room.find_by(id: room_id).blank?
+    errors[:from_date] = "from date must not empty" if params[:from_date].blank?
+    errors[:room_id_empty] = "room_id must not empty" if params[:room_id].blank?
+    errors[:room_id] = "Room #{params[:room_id]} is not exsit" if Room.find_by(id: params[:room_id]).blank?
     errors
   end
 end

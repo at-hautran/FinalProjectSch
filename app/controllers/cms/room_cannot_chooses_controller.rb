@@ -30,7 +30,7 @@ class Cms::RoomCannotChoosesController < Cms::ApplicationController
   end
 
   def check_valid_params
-    flash[:errors] = RoomCannotChoose.check_valid_params(room_params[:room_id])
+    flash[:errors] = RoomCannotChoose.check_valid_params(room_params)
   end
 
   def room_params
