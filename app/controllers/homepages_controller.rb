@@ -45,6 +45,8 @@ class HomepagesController < ApplicationController
       binding.pry
       raise response.errors.inspect
     end
+  end
+
   def event
   end
 end
