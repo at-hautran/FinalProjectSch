@@ -56,7 +56,7 @@
       </div>
       <lable>Total Price</lable>
       <div class="form-group">
-        <input disabled class="form-control pop_room_name " type="text" value="<%=(((@booking.check_out - @booking.check_in)/1.day + 1)*(@booking.price)).to_i%>$" placeholder="Room name">
+        <input disabled class="form-control pop_room_name " type="text" value="<%=(((@booking.check_out - @booking.check_in)/1.day.to_i + 1).to_i)*(@booking.price.to_i)%>$" placeholder="Room name">
       </div>
       <lable>Status</lable>
       <div class="form-group">

@@ -1,0 +1,51 @@
+h1 Setting For Room Cannot Choose
+div style="margin-top: 50px"
+- if flash[:errors].present?
+  = render partial: 'cms/errors/flash' , locals: { flash: flash[:errors] }
+- if @room_cannot_choose.present?
+  - if @room_cannot_choose.errors.present?
+    = render partial: 'cms/errors/errors', locals: {errors: @room_cannot_choose.errors}
+
+- @room_cannot_chooses.each do |room_cannot_choose|
+  .row
+    .col-md-2
+      = text_field_tag '',room_cannot_choose.room_id, class: "form-control", disabled: true, placeholder: ''
+    .col-md-3
+      = text_field_tag '',room_cannot_choose.from_date, type: :date, class: "form-control",disabled: true, placeholder: ''
+    .col-md-3
+      = text_field_tag '',room_cannot_choose.to_date, type: :date, class: "form-control",disabled: true, placeholder: ''
+    .col-md-1
+      = link_to 'delete', cms_room_cannot_choose_path(room_cannot_choose.id), class: "form-control btn btn-warning", placeholder: '', method: :delete
+
+.row
+  .col-md-1
+      = button_tag 'new', class: "form-control btn btn-primary", 'data-toggle'=>"modal", 'data-target'=>'#myModal', style: 'margin-top: 20px;', method: :delete
+  .col-md-2
+      = link_to 'delete_all', cms_room_cannot_chooses_all_path, class: "form-control btn btn-danger", style: 'margin-top: 20px;', method: :delete
+div id="myModal" class="modal fade" role="dialog"
+  div class="modal-dialog"
+    div class="modal-content"
+      div class="modal-header"
+        button type="button" class="close" data-dismiss="modal">
+          &times
+        h4 class="modal-title"
+          = form_tag cms_room_cannot_chooses_path, method: :post
+            .row
+              .col-md-2
+                |Room id
+              .col-md-4
+                |From date
+              .col-md-4
+                |To date
+            .row
+              .col-md-2
+                = text_field_tag 'room[room_id]', nil, class: "form-control", placeholder: 'id'
+              .col-md-4
+                = text_field_tag 'room[from_date]', nil, class: "form-control", placeholder: '', type: :date
+              .col-md-4
+                = text_field_tag 'room[to_date]', nil, class: "form-control", placeholder: '', type: :date
+            = submit_tag 'New', class: 'btn btn-primary', 'data-disable-with' => false, style: 'float:right;'
+      div class="modal-body"
+
+      div class="modal-footer"
+        button type="button" class="btn btn-default" data-dismiss="modal"  Close

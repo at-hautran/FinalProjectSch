@@ -1,0 +1,40 @@
+<div style="margin: 30px;"></div>
+<%= form_for AllowAddressIp.new, url: cms_create_allow_ip_path, method: :post, html: {class: 'form-horizontal'} do |f| %>
+  <%= render partial: 'cms/errors/errors', locals: {errors: @allow_ip_address.errors} if @allow_ip_address.present? %>
+  <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errros].present? %>
+
+  <label class="col-md-2 control-label">Allow ip address</label>
+  <div class="form-group">
+
+    <div class="col-md-6">
+      <%= f.text_field :ip_address, class: ' form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-md-2 control-label"></label>
+      <div class="col-md-3">
+        <%= f.submit 'new', 'data-disable-with' => false, class: 'btn btn-primary' %>
+      </div>
+  </div>
+
+<% end %>
+
+<hr/>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+  <tr>
+    <th width="100">IpAddress</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% AllowAddressIp.all.each do |allow_ip_address| %>
+  <tr>
+    <td><%= allow_ip_address.ip_address %></td>
+    <td><%= link_to 'remove', "/cms/allow_ip_addresses/#{allow_ip_address.id}", method: :delete, class: 'btn btn-danger'%></td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>

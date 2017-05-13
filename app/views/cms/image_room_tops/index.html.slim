@@ -1,0 +1,25 @@
+- if flash[:errors].present?
+  = render partial: 'cms/errors/flash' , locals: { flash: flash[:errors] }
+= form_tag cms_update_image_room_tops_path, method: :put
+  input type="hidden" name="_method" value="put" /
+
+  .row
+    = submit_tag 'update', data: { disable_with: false }, class: "btn btn-primary"
+  .row
+    .col-md-2
+      |First Image:
+    .col-md-6
+      = hidden_field_tag "image_room_tops[][image_room_top_number]", 1
+      = text_field_tag 'image_room_tops[][room_id]', @image_room_tops.present? ? @image_room_tops[0]&.room_id : '' , class: "form-control image_room_tops", placeholder: ''
+  .row
+    .col-md-2
+      |Second Image:
+    .col-md-6
+      = hidden_field_tag "image_room_tops[][image_room_top_number]", 2
+      = text_field_tag 'image_room_tops[][room_id]', @image_room_tops.present? ? @image_room_tops[1]&.room_id : '', class: "form-control image_room_tops", placeholder: ''
+  .row
+    .col-md-2
+      |Third Image:
+    .col-md-6
+      = hidden_field_tag "image_room_tops[][image_room_top_number]", 3
+      = text_field_tag 'image_room_tops[][room_id]', @image_room_tops.present? ? @image_room_tops[2]&.room_id : '', class: "form-control image_room_tops", placeholder: ''
