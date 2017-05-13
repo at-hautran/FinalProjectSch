@@ -14,11 +14,13 @@ ActiveRecord::Schema.define(version: 20171408001025) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
+    t.integer  "phonenumber"
     t.string   "email"
-    t.date     "birthday"
     t.string   "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "bithday"
+    t.string   "position"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "allow_address_ips", force: :cascade do |t|
@@ -100,12 +102,13 @@ ActiveRecord::Schema.define(version: 20171408001025) do
 
   create_table "employees", force: :cascade do |t|
     t.string   "name"
+    t.integer  "phonenumber"
     t.string   "email"
     t.string   "gender"
     t.date     "bithday"
     t.string   "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "image_room_tops", force: :cascade do |t|
@@ -159,10 +162,6 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.string   "email"
     t.string   "password"
     t.string   "confirm_password"
-    t.datetime "birthday"
-    t.string   "gender"
-    t.integer  "phone_number"
-    t.string   "address"
     t.string   "user_type"
     t.integer  "type_id"
     t.datetime "created_at",       null: false
