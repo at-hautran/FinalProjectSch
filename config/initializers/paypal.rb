@@ -1,6 +1,6 @@
 PayPal::Recurring.configure do |config|
   config.sandbox = true
-  config.username = 'seller1111_api1.shoperbuy.com'
-  config.password = 'MWDWLBHNQSWSJA28'
-  config.signature = 'An5ns1Kso7MWUdW4ErQKJJJ4qi4-A6KyGrK3jcwNRAHPXCLLzaIDHLwe'
+  config.username = 'seller_1-1111_api1.sle.com'
+  config.password = 'RGXFZB7QT3W66WXX'
+  config.signature = 'AFcWxV21C7fd0v3bYYYRCpSSRl31AXFj4V4XnUSBega5zscxx2oGwH1T'
 end

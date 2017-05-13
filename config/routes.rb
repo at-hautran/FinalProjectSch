@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'paypal/checkout' => 'homepages#paypal_checkout'
+  get 'bookings/paypal' => 'homepages#booking', as: :paypal_booking
   namespace :cms do
     root 'sessions#new'
     resources :services
