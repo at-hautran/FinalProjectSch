@@ -63,7 +63,7 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def new_services
     @booking = Booking.find(params[:id])
-    @booking_services = BookingService.includes(:service).where(booking_id: params[:id])
+    @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: params[:id])
     @services = Service.order(status: :desc)
     @services = @services.page(params[:page]).per(25)
   end
@@ -75,8 +75,14 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_service.price = @service.price
       @booking_service.user_id = current_user.id
       @booking_service.save
+      @booking = Booking.find(@booking_service.booking_id)
+      @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: @booking.id)
       flash[:success] = "update success"
-      redirect_to cms_booking_new_services_url service_params[:booking_id]
+      # redirect_to cms_booking_new_services_url service_params[:booking_id]
+      respond_to do |format|
+        format.html
+        format.js
+      end
     else
       flash[:fail] = "service was closed"
       @booking = Booking.find(service_params[:booking_id])
