@@ -49,28 +49,30 @@
         <h3>Rooms</h3>
         <p >Make yourself at home is our slogan. We offer the best beds in the industry. Sleep well and rest well.</p>
       </div>
-      <div class="w3-row-padding">
-        <div class="w3-col m3">
-          <label><i class="fa fa-calendar-o"></i> Check In</label>
-          <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY">
+      <form action="/rooms" onsubmit="return must_type_depart()">
+        <div class="w3-row-padding">
+          <div class="w3-col m3">
+            <label><i class="fa fa-calendar-o"></i> Check In</label>
+            <input name='check_in'  class="w3-input w3-border check_in" type="date">
+          </div>
+          <div class="w3-col m3">
+            <label><i class="fa fa-calendar-o"></i> Check Out</label>
+            <input name='check_out' class="w3-input w3-border check_out" type="date">
+          </div>
+          <div class="w3-col m2">
+            <label><i class="fa fa-male"></i> Adults</label>
+            <input name='adults' class="w3-input w3-border" type="number" placeholder="Adults">
+          </div>
+          <div class="w3-col m2">
+            <label><i class="fa fa-child"></i>Childrens</label>
+            <input name='childrens' class="w3-input w3-border" type="number" placeholder="Childrens">
+          </div>
+          <div class="w3-col m2">
+            <label><i class="fa fa-search" ></i> Search</label>
+            <button type="submit" class="w3-button w3-block w3-black search_room">Search</button>
+          </div>
         </div>
-        <div class="w3-col m3">
-          <label><i class="fa fa-calendar-o"></i> Check Out</label>
-          <input class="w3-input w3-border" type="date" placeholder="DD MM YYYY">
-        </div>
-        <div class="w3-col m2">
-          <label><i class="fa fa-male"></i> Adults</label>
-          <input class="w3-input w3-border" type="number" placeholder="1">
-        </div>
-        <div class="w3-col m2">
-          <label><i class="fa fa-child"></i> Kids</label>
-          <input class="w3-input w3-border" type="number" placeholder="0">
-        </div>
-        <div class="w3-col m2">
-          <label><i class="fa fa-search" ></i> Search</label>
-          <button class="w3-button w3-block w3-black">Search</button>
-        </div>
-      </div>
+      </form>
       <!-- <div class="w3-row-padding w3-padding-16"> -->
       <div class="w3-row-padding w3-padding-16">
         <% if @rooms.present? %>
@@ -196,8 +198,24 @@
           }, 600);
         });
       });
+
+      function must_type_depart(){
+        check_in = $('.check_in').val();
+        check_out = $('.check_out').val();
+        if(check_in == '' && check_out == ''){
+          alert('You must fill all check in and check out');
+          return false;
+        }
+        if(check_in == ''){
+          alert('You must fill check in');
+          return false;
+        }
+        if(check_out == ''){
+          alert('You must fill check out');
+          return false;
+        }
+      }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6hH_CRiZzGj9BkK3pQjuZ1o6uFTIzgQ&callback=myMap"></script>
   </body>
 </html>
-

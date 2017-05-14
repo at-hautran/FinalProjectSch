@@ -65,14 +65,14 @@
     <div class="grid">
       <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <input type="text" class="floatLabel" name="booking[adults]" value="">
-          <label for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Adults</label>
+          <input type="text" value="<%=params[:adults]%>" class="floatLabel" name="booking[adults]" value="">
+          <label for="arrive" class="label-date <%= 'active' if params[:adults].present? %>"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Adults</label>
         </div>
       </div>
       <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <input type="text" class="floatLabel" name="booking[childrens]" />
-          <label for="depart" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Childrents</label>
+          <input type="text" value="<%=params[:childrens]%>" class="floatLabel" name="booking[childrens]" />
+          <label for="depart" class="label-date <%= 'active' if params[:childrens].present? %>"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Childrents</label>
         </div>
       </div>
     </div>
@@ -80,14 +80,14 @@
     <div class="grid">
       <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <input type="date" id="arrive" class="floatLabel" name="booking[check_in]" value="">
-          <label for="arrive" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Check in</label>
+          <input type="date" value="<%=params[:check_in]%>" id="arrive" class="floatLabel" name="booking[check_in]" value="">
+          <label for="arrive" class="label-date active"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Check in</label>
         </div>
       </div>
       <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <input type="date" id="depart" class="floatLabel" name="booking[check_out]" />
-          <label for="depart" class="label-date"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Check out</label>
+          <input type="date" value="<%=params[:check_out]%>" id="depart" class="floatLabel" name="booking[check_out]" />
+          <label for="depart" class="label-date active"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Check out</label>
         </div>
       </div>
     </div>
