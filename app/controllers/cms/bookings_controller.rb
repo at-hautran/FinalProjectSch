@@ -1,6 +1,6 @@
 class Cms::BookingsController < Cms::ApplicationController
   before_action :check_room_can_use, only: :update
-  attr_accessor :room
+  attr_accessor :room, :current_booking
 
   def index
     @bookings = Booking.all
@@ -10,7 +10,7 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def update
     @booking = current_booking
-    if params[:commit].blank? && params[:update].present? && @booking.watting?
+    if params[:commit].blank? && params[:update].present? && (@booking.waitting?|| @booking.accepted? || @booking.in_use)
       if flash[:errors].blank?
         @booking.update_attributes(booking_update_params)
         flash[:success] = "update success"
@@ -44,21 +44,13 @@ class Cms::BookingsController < Cms::ApplicationController
     end
   end
 
-  # def accept
-  #   current_booking.accept
-  # end
-
-  # def cancel
-  #   current_booking.accept
-  # end
-
-  # def in_use
-  #   current_booking.in_use
-  # end
-
-  # def finish
-  #   current_booking.finish
-  # end
+  def pay
+    @booking = Booking.find(params[:id])
+    total_price = (((@booking.check_out - @booking.check_in)/1.day.to_i + 1).to_i)*(@booking.price.to_i)
+    @booking.total_payed = total_price
+    @booking.save
+    redirect_to cms_booking_new_services_url(params[:id])
+  end
 
   def show
     @booking = Booking.find(params[:id])
@@ -142,7 +134,7 @@ class Cms::BookingsController < Cms::ApplicationController
     def check_room_can_use
       if params[:commit].blank?
         self.room = Room.find_by(name: params[:room_name])
-        # self.current_booking = Booking.find(params[:id])
+        self.current_booking = Booking.find(params[:id])
         flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out], current_booking.id)
         flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
         flash[:errors] = flash[:errors].to_s + Room.check_room_is_allow(self.room.id, booking_params[:check_in], booking_params[:check_out]).to_s
@@ -151,7 +143,7 @@ class Cms::BookingsController < Cms::ApplicationController
 
     def service_params
       #lack validate of booking_id and service_id present
-      params.permit(:id, :booking_id, :service_id, :number)
+      params.permit(:id, :booking_id, :service_id, :number, :time)
     end
 
     def search_params

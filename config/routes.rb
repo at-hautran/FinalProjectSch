@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     post 'bookings/:booking_id/create_services/:service_id' => 'bookings#create_services', as: :booking_services
     put 'bookings/:booking_id/services' => 'booking_services#paid_all', as: :paid_all_services
     get 'all_rooms/bookings' => 'rooms#index_bookings', as: :bookings_all_rooms
+    put '/booking/:id/booking_pay' => 'bookings#pay', as: :booking_pay
   end
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do

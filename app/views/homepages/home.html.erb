@@ -198,23 +198,6 @@
           }, 600);
         });
       });
-
-      function must_type_depart(){
-        check_in = $('.check_in').val();
-        check_out = $('.check_out').val();
-        if(check_in == '' && check_out == ''){
-          alert('You must fill all check in and check out');
-          return false;
-        }
-        if(check_in == ''){
-          alert('You must fill check in');
-          return false;
-        }
-        if(check_out == ''){
-          alert('You must fill check out');
-          return false;
-        }
-      }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6hH_CRiZzGj9BkK3pQjuZ1o6uFTIzgQ&callback=myMap"></script>
   </body>

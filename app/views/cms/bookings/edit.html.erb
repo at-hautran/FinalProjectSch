@@ -5,7 +5,8 @@
 </head>
 <body>
 <div class="col-md-5">
-  <form id ="update-bookings" action = "/cms/bookings/<%=@booking.id%>" method="post">
+  <!-- <form id ="update-bookings" action = "/cms/bookings/<%=@booking.id%>" method="put"> -->
+  <%= form_tag cms_booking_path(@booking.id), method: :post do%>
     <input type="hidden" name="_method" value="put" />
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button>
@@ -34,29 +35,30 @@
       <lable>Room name</lable>
       <div class="form-group">
         <input disabled name="room_name" class="form-control pop_room_name " type="text" value="<%=room.name%>" placeholder="Room name">
+        <input name="room_name" class="form-control pop_room_name " type="hidden" value="<%=room.name%>" placeholder="Room name">
       </div>
       <lable>Adults</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !@booking.waitting?, class:'form-control pop_room_name'%>
+        <%= text_field_tag 'booking[adults]', @booking.adults, disabled: !(@booking.waitting?|| @booking.accepted? || @booking.in_use), class:'form-control pop_room_name'%>
       </div>
       <lable>Childrens</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[childrens]', @booking.childrens, disabled: !@booking.waitting?, class:'form-control pop_room_name%'%>
+        <%= text_field_tag 'booking[childrens]', @booking.childrens, disabled: !(@booking.waitting?|| @booking.accepted? || @booking.in_use), class:'form-control pop_room_name%'%>
 <!--         <input name="booking[childrens]" class="form-control pop_room_name " type="text" value="<%=@booking.childrens%>" placeholder="Room name"> -->
       </div>
       <lable>Check in</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[check_in]', @booking.check_in.strftime('%Y-%m-%d'), disabled: !@booking.waitting?, type: :date, class:'form-control pop_room_name%'%>
+        <%= text_field_tag 'booking[check_in]', @booking.check_in.strftime('%Y-%m-%d'), disabled: !(@booking.waitting?|| @booking.accepted? || @booking.in_use), type: :date, class:'form-control pop_room_name%'%>
         <!-- <input name="booking[check_in]" id = 'check_in' class="form-control pop_check_in " type="date" value="<%=@booking.check_in.strftime('%Y-%m-%d')%>" placeholder="Check in"> -->
       </div>
       <lable>Check out</lable>
       <div class="form-group">
-        <%= text_field_tag 'booking[check_out]', @booking.check_out.strftime('%Y-%m-%d'), disabled: !@booking.waitting?, type: :date, class:'form-control pop_room_name%'%>
+        <%= text_field_tag 'booking[check_out]', @booking.check_out.strftime('%Y-%m-%d'), disabled: !(@booking.waitting?|| @booking.accepted? || @booking.in_use), type: :date, class:'form-control pop_room_name%'%>
         <!-- <input name="booking[check_out]" id = 'check_out' class="form-control pop_check_out " type="date" value="<%=@booking.check_out.strftime('%Y-%m-%d')%>" placeholder="Check out"> -->
       </div>
       <lable>Total Price</lable>
       <div class="form-group">
-        <input disabled class="form-control pop_room_name " type="text" value="<%=(((@booking.check_out - @booking.check_in)/1.day.to_i + 1).to_i)*(@booking.price.to_i)%>$" placeholder="Room name">
+        <input disabled class="form-control pop_room_name " type="text" value="<%=(((@booking.check_out - @booking.check_in)/1.day).to_i + 1)*(@booking.price.to_i)%>$" placeholder="Room name">
       </div>
       <lable>Status</lable>
       <div class="form-group">
@@ -91,11 +93,11 @@
           <!-- <button type="submit" class="btn btn-warning" style="width: 100%;">Update</button> -->
         </div>
         <div class = "col-md-3">
-          <%= submit_tag "Update", disabled: !(@booking.waitting?), name: :update, value: :update, width: '100%', class: "btn btn-warning" %>
+          <%= submit_tag "Update", disabled: !(@booking.waitting?|| @booking.accepted? || @booking.in_use), name: :update, value: :update, width: '100%', class: "btn btn-warning" %>
         </div>
       </div>
     </div>
-  </form>
+  <% end %>
 </div>
 <!-- This below for search room suggest -->
 <div class="col-md-7">
@@ -110,16 +112,3 @@
 </div>
 </body>
 </html>
-<!-- <script type="text/javascript">
-  $("#check_in").change(function(){
-    alert($("#check_in").val() - $("#check_out").val());
-    alert($('#check_in').val());
-
-  });
-  $("#check_out").change(function(){
-  });
-  function setPrice(){
-    check_in = new Date($('#check_in'));
-    check_out = new Date($('#check_out'));
-  }
-</script> -->
