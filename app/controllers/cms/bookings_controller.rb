@@ -95,6 +95,12 @@ class Cms::BookingsController < Cms::ApplicationController
     end
   end
 
+  def watting_bookings
+    @bookings = Booking.where(verified: true, status: :waitting)
+    @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
+    render :index
+  end
+
   def histories
     @booking = Booking.find(params[:id])
     @histories = @booking.audits

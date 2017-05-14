@@ -90,7 +90,7 @@
     </tr>
   </tbody>
 </table>
-<%= link_to 'paid all', cms_paid_all_services_url(@booking.id, commit: :paid_all), disabled: !may_pay_all?(@booking.id), style: 'float: right;', class: 'btn btn-success', method: :put %>
+<%= link_to 'paid all', cms_paid_all_services_path(@booking.id, commit: :paid_all), disabled: !may_pay_all?(@booking.id), style: 'float: right;', class: 'btn btn-success', method: :put %>
 
 <h1>You want to add service in room <%= @booking.room.name %>
 This below is service for you choose?

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   namespace :cms do
+    get '/watting_bookings' => 'bookings#watting_bookings', as: :watting_bookings
     resources :allow_ip_addresses
     post '/allow_ip_addresses' => 'allow_ip_addresses#create', as: :create_allow_ip
     resources :image_room_tops, only: [:index, :update]
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
     resources :bookings do
       resources :booking_services
     end
+    get '/booking_services' => 'booking_services#index', as: :all_booking_services
     delete 'room_cannot_chooses/all/delete_all' => 'room_cannot_chooses#destroy_all', as: :room_cannot_chooses_all
     post '/bookings_services/:id' => 'booking_services#update', as: :update_booking_services
     resources :users
