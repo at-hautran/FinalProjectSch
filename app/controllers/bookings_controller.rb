@@ -26,7 +26,6 @@ class BookingsController < ApplicationController
         render action: :new
       end
     end
-    # redirect_to new_booking_url(room_id: booking_params[:room_id])
   end
 
   def customer_params

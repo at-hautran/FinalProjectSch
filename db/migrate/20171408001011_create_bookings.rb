@@ -10,6 +10,7 @@ class CreateBookings < ActiveRecord::Migration[5.0]
       t.string :paypal_customer_token
       t.string :paypal_payment_token
       t.integer :price
+      t.integer :total_payed
       t.integer :customer_id
       t.string :comments
       t.integer :user_id

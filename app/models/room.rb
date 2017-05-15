@@ -15,8 +15,10 @@ class Room < ApplicationRecord
   end
 
   def self.get_emptys(check_in, check_out, using_room_ids=-1)
+    not_allow_room_ids = RoomCannotChoose.select_room_cannot_choose(check_in, check_out)
     using_room_ids = self.get_are_usings(check_in, check_out).pluck(:id).uniq || -1
-    self.where.not(id: using_room_ids)
+    room_cannot_choose_ids = not_allow_room_ids + using_room_ids
+    self.where.not(id: room_cannot_choose_ids)
   end
 
   def self.get_are_usings(check_in, check_out)
