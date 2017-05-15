@@ -1,5 +1,6 @@
 class Cms::SessionsController < Cms::ApplicationController
   def new
+    binding.pry
   end
 
   def create

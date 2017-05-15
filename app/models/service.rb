@@ -14,10 +14,10 @@ class Service < ApplicationRecord
       transitions :from => [:new, :open], :to => :close
     end
   end
-  # validates :service_icon, presence: true
-  # validates :name, presence: true
-  # validates :price, presence: true, numericality: { allow_nil: false, greater_than: 0}
-  # validates :status, presence: true
+  validates :service_icon, presence: true
+  validates :name, presence: true
+  validates :price, presence: true, numericality: { allow_nil: false, greater_than: 0}
+  validates :status, presence: true
   mount_uploader :service_icon, ServiceIconUploader
   belongs_to :booking_service
 

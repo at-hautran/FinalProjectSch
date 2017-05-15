@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3 style="text-align: center;">Booking Services</h3>
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordred table-striped">
+          <thead>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Price</th>
+            <th>Room</th>
+            <th>Booking id</th>
+            <th>Total Price</th>
+            <th>Status</th>
+          </thead>
+          <tbody>
+            <% @booking_services.each do |booking_service| %>
+            <tr class = "closesst1">
+              <td><%= booking_service.id %></td>
+              <td><%= booking_service.service.name %></td>
+              <td><%= booking_service.number %></td>
+              <td><%= booking_service.price %></td>
+              <td><%= booking_service.booking.room.name %></td>
+              <td><%= booking_service.booking.id %></td>
+              <td><%= (booking_service.price)*(booking_service.number) %></td>
+              <td><%= booking_service.status %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="clearfix"></div>
+        <%= paginate @booking_services %>
+      </div>
+    </div>
+  </div>
+</div>

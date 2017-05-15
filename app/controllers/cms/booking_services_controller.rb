@@ -9,7 +9,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
 
   def index
     @booking_services = BookingService.all
-    @booking_services = @booking_services.page(params[:page]).per(10)
+    @booking_services = @booking_services.includes({booking: :room}, :service).page(params[:page]).per(10)
   end
 
   def update

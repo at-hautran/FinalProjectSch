@@ -28,6 +28,7 @@ class Cms::TopImagesController < Cms::ApplicationController
 
   def destroy
     TopImage.find(params[:id]).delete
+    redirect_to cms_top_images_path
   end
 
   def edit_top_image_chooseds
