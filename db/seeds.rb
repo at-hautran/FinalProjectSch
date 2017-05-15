@@ -7,9 +7,29 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 # Create rooms
 (1..100).each do |i|
-  room = Room.new(name: "a#{i}", price: "50#{i}", adults: i%5, childrens: i%5 + 1)
-  File.open('public/120.png') do |room_icon|
-    room.room_icon = room_icon
+  if i%4 == 0
+    room = Room.new(name: "a#{i}", price: "50#{i}", adults: i%5, childrens: i%5 + 1)
+    File.open('public/room1.jpg') do |room_icon|
+      room.room_icon = room_icon
+    end
+  end
+  if i%4 == 1
+    room = Room.new(name: "a#{i}", price: "50#{i}", adults: i%5, childrens: i%5 + 1)
+    File.open('public/room2.jpg') do |room_icon|
+      room.room_icon = room_icon
+    end
+  end
+  if i%4 == 2
+    room = Room.new(name: "a#{i}", price: "50#{i}", adults: i%5, childrens: i%5 + 1)
+    File.open('public/room3.jpg') do |room_icon|
+      room.room_icon = room_icon
+    end
+  end
+  if i%4 == 3
+    room = Room.new(name: "a#{i}", price: "50#{i}", adults: i%5, childrens: i%5 + 1)
+    File.open('public/room4.jpg') do |room_icon|
+      room.room_icon = room_icon
+    end
   end
   room.save
 end

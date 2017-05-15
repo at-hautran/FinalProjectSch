@@ -7,7 +7,7 @@ module Cms::BookingsHelper
                     }.freeze
   def pay_link_to booking
     total_price = (((@booking.check_out - @booking.check_in)/1.day.to_i + 1).to_i)*(@booking.price.to_i)
-    if booking.total_payed < total_price
+    if booking.total_payed == nil || booking.total_payed < total_price
       link_to 'paid', cms_booking_pay_path(booking.id), class: 'btn btn-success btn-xs', method: :put
     elsif booking.total_payed > total_price
       link_to 'change', cms_booking_pay_path(booking.id), class: 'btn btn-success btn-xs', method: :put
