@@ -15,7 +15,7 @@ class Cms::ServicesController < Cms::ApplicationController
   def index
     @services = Service.all.order(created_at: :desc)
     @booking = Booking.find(params[:booking_id]) if params[:booking_id].present?
-    @services = Service.where(name: params[:name].split(';')) if params[:name].present?
+    @services = Service.where(name: params[:name].split(';').map{|name| name.strip}) if params[:name].present?
     @services = @services.order(created_at: :desc).page(params[:page]).per(20)
     respond_to do |format|
       format.html

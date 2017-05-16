@@ -42,7 +42,6 @@ class HomepagesController < ApplicationController
     if response.valid?
       redirect_to response.checkout_url
     else
-      binding.pry
       raise response.errors.inspect
     end
   end

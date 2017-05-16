@@ -33,7 +33,7 @@ class Cms::BookingsController < Cms::ApplicationController
         if params[:commit] == 'in_use' && @booking.may_in_use?
           @booking.in_use
           @booking.save
-          render :bill
+          redirect_to edit_cms_booking_path(params[:id])
         end
         if params[:commit] == 'finish' && @booking.may_finish?
           @booking.finish
@@ -77,19 +77,24 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_service.save
       @booking = Booking.find(@booking_service.booking_id)
       @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: @booking.id)
-      flash[:success] = "update success"
+      flash.now[:success] = "update success"
       # redirect_to cms_booking_new_services_url service_params[:booking_id]
       respond_to do |format|
         format.html
         format.js
       end
     else
-      flash[:fail] = "service was closed"
+      flash.now[:fail] = "service was closed"
       @booking = Booking.find(service_params[:booking_id])
       @booking_services = BookingService.includes(:service).where(booking_id: params[:booking_id])
       @services = Service.order(status: :desc)
       @services = @services.page(params[:page]).per(25)
-      render :new_services
+      # render :new_services
+      #
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
   end
 
