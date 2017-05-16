@@ -33,4 +33,17 @@ class ApplicationController < ActionController::Base
       { locale: I18n.locale }.merge options
     end
 
+    rescue_from ActiveRecord::RecordNotFound, :with => :render_404
+
+  def render_404
+    render :template => "errors_handle/error_404", layout: false, :status => 404
+  end
+
+  rescue_from Exception, :with => :render_500
+
+  def render_500(exception)
+    @exception = exception
+    render :template => "errors_handle/error_500", layout: false, :status => 500
+  end
+
 end
