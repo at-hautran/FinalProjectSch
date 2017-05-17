@@ -1,4 +1,5 @@
 class Cms::RoomsController < Cms::ApplicationController
+  before_action :check_admin, only:[:new, :create, :edit, :update, :destroy]
   def new
     @room = Room.new
   end
@@ -50,6 +51,21 @@ class Cms::RoomsController < Cms::ApplicationController
       format.html
       format.js
     end
+  end
+
+  def admin_find
+    @rooms = Room.where(name: params[:name])
+    @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    @rooms = @rooms.page(params[:page]).per(10)
+    render 'index'
+  end
+
+  def employee_find_rooms
+    @rooms = Room.get_emptys(params[:check_in], params[:check_out])
+    @rooms = @rooms.where("adults >= ?", params[:adults]) if params[:adults].present?
+    @rooms = @rooms.where("childrens >= ?", params[:childrens]) if params[:childrens].present?
+    @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    render 'index'
   end
 
   def bookings

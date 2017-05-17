@@ -63,6 +63,7 @@ gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'paypal-recurring'
 gem 'activemerchant'
 gem 'paypal-sdk-merchant'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password

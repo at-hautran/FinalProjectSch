@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     put 'bookings/:booking_id/services' => 'booking_services#paid_all', as: :paid_all_services
     get 'all_rooms/bookings' => 'rooms#index_bookings', as: :bookings_all_rooms
     put '/booking/:id/booking_pay' => 'bookings#pay', as: :booking_pay
+    get '/admin_find_rooms' => 'rooms#admin_find', as: :admin_find_rooms
+    get '/employee_find_rooms' => 'rooms#employee_find_rooms', as: :employee_find_rooms
   end
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do

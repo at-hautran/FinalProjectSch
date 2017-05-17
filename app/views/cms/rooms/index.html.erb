@@ -5,25 +5,13 @@
       <%= render 'form_find_rooms' %>
       <hr>
       <% if @rooms.present? %>
-        <div class="col-md-10">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="pull-right">
-              </div>
-              <div class="table-container">
-                <!-- <table class="table table-filter"> -->
-                  <!-- <tbody> -->
-                  <div class="suggest_rooms_result">
-                    <%= render partial: "cms/bookings/empty_rooms", locals: {rooms: @rooms} %>
-                  </div>
-                  <!-- </tbody> -->
-                <!-- </table> -->
-              </div>
-            </div>
+        <div class="col-md-12">
+          <div class="suggest_rooms_result">
+            <%= render partial: "/cms/rooms/room_items", locals: {rooms: @rooms} %>
           </div>
+          <%= paginate @rooms %>
         </div>
       <% end %>
     </section>
   </div>
 </div>
-

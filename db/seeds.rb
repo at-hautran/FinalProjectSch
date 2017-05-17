@@ -38,8 +38,8 @@ end
   Customer.create(name: "customer#{i}", email: "gacon#{i}", phonenumber:"0000000#{i}", country: "US#{i}")
 end
 
-User.create(email: 'a', password: '123456789', user_type:  'employee', type_id: 1)
-User.create(email: 'b', password: '123456789', user_type: 'admin', type_id: 1)
+User.create(email: 'nguyenvana', password: '123456789', user_type:  'Employee', type_id: 1)
+User.create(email: 'nguyenvanb', password: '123456789', user_type: 'Admin', type_id: 1)
 AllowAddressIp.create ip_address: '127.0.0.1'
 
 Employee.create(name: 'employee', email: 'b')
@@ -53,3 +53,7 @@ end
 (1..100).each do |i|
   Room.find(1).bookings.create(status: :accepted, verified: true, check_in: Time.zone.now + i.day, check_out: Time.zone.now + (i+1).day)
 end
+
+Service.create(status: 'new', service_icon: 'a', name: 'breakfast', price: 500)
+Service.create(status: 'new', service_icon: 'b', name: 'lunch', price: 500)
+Service.create(status: 'new', service_icon: 'c', name: 'dinner', price: 500)

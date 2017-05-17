@@ -4,7 +4,7 @@ class Cms::ApplicationController < ApplicationController
   def check_if_valid_user_login
     # it would be improve in future
     if controller_name != 'sessions'
-      redirect_to cms_root_url if current_user.blank? || (current_user.user_type != 'admin' && current_user.user_type != 'employee')
+      redirect_to cms_root_url if current_user.blank? || (current_user.user_type != 'Admin' && current_user.user_type != 'Employee')
     end
   end
 
@@ -15,5 +15,9 @@ class Cms::ApplicationController < ApplicationController
 
   def current_ip_address
     request.env['HTTP_X_REAL_IP'] || request.env['REMOTE_ADDR']
+  end
+
+  def check_admin
+    redirect_to cms_root_path if current_user.user_type != 'Admin'
   end
 end
