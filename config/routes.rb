@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  get 'paypal/checkout' => 'homepages#paypal_checkout'
-  get 'bookings/paypal' => 'homepages#booking', as: :paypal_booking
+  get 'paypal/checkout' => 'bookings#paypal_checkout'
+  get 'bookings/paypal' => 'bookings#payment_save', as: :payment_save
   namespace :cms do
     get '/watting_bookings' => 'bookings#watting_bookings', as: :watting_bookings
     resources :allow_ip_addresses
@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     get '/booking/verify/success' => 'booking_verifies#success'
     get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
     resources :booking_verifies, only: :edit
+    post 'create_booking_with_payment' => 'bookings#create_booking_with_payment', as: :create_booking_with_payment
     # resources :booking_verifies, only: :edit
     # get '/booking/verify/success' => 'booking_verifies#success'
     # get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
