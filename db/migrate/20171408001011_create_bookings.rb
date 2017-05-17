@@ -7,6 +7,7 @@ class CreateBookings < ActiveRecord::Migration[5.0]
       t.integer :adults
       t.integer :room_id
       t.string :pay
+      t.boolean :pay_online, default: false
       t.string :paypal_customer_token
       t.string :paypal_payment_token
       t.integer :price

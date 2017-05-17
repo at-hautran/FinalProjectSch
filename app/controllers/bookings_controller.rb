@@ -47,6 +47,12 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:booking_id])
     save_with_paypal_payment @booking
     save_token(params[:token], params[:PayerID])
+    @booking.verified = true
+    @booking.verified_at = Time.zone.now
+    @booking.accept
+    @booking.pay_online = true
+    @booking.total_payed = (((@booking.check_out - @booking.check_in)/1.day).to_i + 1)*(@booking.price.to_i)
+    @booking.save
   end
 
   def save_token token, payer_id

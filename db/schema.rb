@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.integer  "adults"
     t.integer  "room_id"
     t.string   "pay"
+    t.boolean  "pay_online",            default: false
     t.string   "paypal_customer_token"
     t.string   "paypal_payment_token"
     t.integer  "price"
@@ -119,13 +120,6 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.datetime "updated_at",            null: false
   end
 
-  create_table "room_bills", force: :cascade do |t|
-    t.integer  "booking_id"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "room_cannot_chooses", force: :cascade do |t|
     t.integer  "room_id"
     t.date     "from_date"
@@ -144,13 +138,6 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "room_icon"
-  end
-
-  create_table "service_bills", force: :cascade do |t|
-    t.integer  "booking_service_id"
-    t.string   "status"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "services", force: :cascade do |t|

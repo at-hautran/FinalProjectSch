@@ -1,5 +1,5 @@
 class Cms::ServicesController < Cms::ApplicationController
-  before_action :check_admin, only:[:new, :create, :edit, :update, :destroy]
+  before_action :check_admin, only:[:new, :create, :edit, :update, :destroy, :index]
 
   def new
     @service = Service.new
