@@ -23,7 +23,6 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking.verified = true
       @booking.verified_at = Time.zone.now
       @booking.status = :accepted
-      binding.pry
       if @booking.save
         booking_no = customer.bookings.count
         flash[:success] = "Booking succesful"

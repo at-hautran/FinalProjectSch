@@ -21,7 +21,9 @@
         <div class="navi">
           <ul>
             <li class="active"><a href="/cms"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
-            <li><a href="/cms/users"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+            <% if current_user.user_type == 'Admin' %>
+              <li><a href="/cms/users"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+            <% end %>
             <li><a href="/cms/employees"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Employee</span></a></li>
             <li><a href="/cms/customers"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Customer</span></a></li>
             <li><a href="/cms/rooms"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms</span></a></li>
