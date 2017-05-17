@@ -99,7 +99,10 @@
         <textarea name="booking[comments]" class="floatLabel" id="comments"></textarea>
         <label for="comments">Comments</label>
       </div>
-      <button type="submit" value="Submit" class="col-1-4">Submit</button>
+      <button type="submit" value="Submit" class="col-1-4">Payment later</button>
+      <div style="background: white;">
+        <button><%= link_to image_tag("https://www.sandbox.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_url(room_id: @room.id) %></button>
+      </div>
     </div>
   </div>
   <!-- /.form-group -->

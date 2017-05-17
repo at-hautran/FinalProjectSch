@@ -30,7 +30,7 @@ class HomepagesController < ApplicationController
   end
 
   def paypal_checkout
-    @room = Room.find(1)
+    @room = Room.find(params[:room_id])
     ppr = PayPal::Recurring.new(
       :return_url => paypal_booking_url(a: 1),
       cancel_url: root_url,
