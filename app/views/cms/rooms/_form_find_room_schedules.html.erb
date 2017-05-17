@@ -1,0 +1,104 @@
+<!-- <form id ="update-bookings" action = "/cms/rooms" method="get" accept-charset="UTF-8" data-remote="true">
+
+  <div class="col-md-10">
+    <div class='col-md-3'>
+      <div class='col-md-3'>
+        <p>Childrens:</p><br>
+        <p>Adults:</p><br>
+        <p>Price</p>
+      </div>
+      <div class="col-md-9">
+        <input style='text-align: left;' type="text" name="adults"><br><br>
+        <input type="text" name="childrens"><br><br>
+        <select name="price">
+          <option value = "-1">Descrease</option>
+          <option value = "1">Increase</option>
+        </select>
+      </div>
+    </div>
+    <div class='col-md-4'>
+      <div class='col-md-5' style="text-align: right;">
+        <p>Check in:</p><br>
+        <p>Check out:</p><br>
+        <p>Status:</p>
+      </div>
+      <div class="col-md-7">
+        <input type="date" name="check_in"><br><br>
+        <input type="date" name="check_out"><br><br>
+        <label class="radio-inline">
+          <input type="radio" name="in_use">In Use
+        </label>
+        <label class="radio-inline">
+          <input type="radio" name="empty">Empty
+        </label>
+      </div>
+    </div>
+    <div class='col-md-3'>
+      <button type='submit' type="button" class="btn btn-primary">Find Rooms</button>
+    </div>
+  </div>
+</form>
+
+<style type="text/css">
+  p {
+    margin: 0 0 5px;
+  }
+</style>
+ -->
+ <% if current_user.user_type == 'Admin' %>
+   <%= form_tag cms_admin_find_rooms_path, method: :get, class: 'form-horizontal form_search' do %>
+    <div class = 'col-md-3'></div>
+    <div class="form-group">
+      <label class="col-md-1 control-label">Name</label>
+
+      <div class="col-md-2">
+        <%= text_field_tag 'name', params[:name], class: 'form-control' %>
+      </div>
+
+      <div class="col-md-1">
+        <input type="submit" class="btn btn-primary" value="Search">
+      </div>
+    </div>
+    <hr/>
+  <% end %>
+<% end %>
+<% if current_user.user_type == 'Employee' %>
+<%= form_tag cms_bookings_all_rooms_path, method: :get, class: 'form-horizontal form_search' do %>
+    <div class='row' %>
+      <div class = 'col-md-1'></div>
+      <div class="form-group">
+        <label class="col-md-1 control-label">Check in</label>
+
+        <div class="col-md-2">
+          <%= text_field_tag 'check_in', params[:check_in], type: :date, class: 'form-control' %>
+        </div>
+        <div class ='col-md-1'></div>
+        <label class="col-md-1 control-label">Check out</label>
+
+        <div class="col-md-2">
+          <%= text_field_tag 'check_out', params[:check_out], type: :date, class: 'form-control' %>
+        </div>
+      </div>
+    </div>
+    <div class='row' %>
+      <div class = 'col-md-1'></div>
+        <div class="form-group">
+         <label class="col-md-1 control-label">Adults</label>
+
+        <div class="col-md-2">
+          <%= text_field_tag 'adults', params[:adults], class: 'form-control' %>
+        </div>
+        <div class ='col-md-1'></div>
+        <label class="col-md-1 control-label">Childrens</label>
+
+        <div class="col-md-2">
+          <%= text_field_tag 'childrens', params[:childrens], class: 'form-control' %>
+        </div>
+        <div class="col-md-1">
+          <input type="submit" class="btn btn-primary" value="Search">
+        </div>
+      </div>
+    </div>
+    <hr/>
+  <% end %>
+<% end %>

@@ -1,17 +1,21 @@
-    <div class="box1 red1">
-      <div style="margin:0px 0px 0px 40px;">cancel</div>
-    </div>
+<div class = "form-group">
+  <div>
+    <%= render 'form_find_room_schedules' %>
+  </div>
+  <div class="box1 red1">
+    <div style="margin:0px 0px 0px 40px;">cancel</div>
+  </div>
 
-    <div class="box1 blue1">
-      <div style="margin:0px 0px 0px 40px;">accepted</div>
-    </div>
-    <div class="box1 green1">
-      <div style="margin:0px 0px 0px 40px;">in_use</div>
-    </div>
-    <div class="box1 orange1">
-      <div style="margin:0px 0px 0px 40px;">finished</div>
-    </div>
-
+  <div class="box1 blue1">
+    <div style="margin:0px 0px 0px 40px;">accepted</div>
+  </div>
+  <div class="box1 green1">
+    <div style="margin:0px 0px 0px 40px;">in_use</div>
+  </div>
+  <div class="box1 orange1">
+    <div style="margin:0px 0px 0px 40px;">finished</div>
+  </div>
+</div>
     <div style="margin-bottom: 10px;"></div>
   <% @rooms.each do |room| %>
     <% bookings = room.bookings %>

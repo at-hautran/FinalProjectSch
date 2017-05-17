@@ -74,7 +74,16 @@ class Cms::RoomsController < Cms::ApplicationController
   end
 
   def index_bookings
-    @rooms = Room.all.includes(:bookings)
+    if params[:check_in].present? && params[:check_out].present?
+      @rooms = Room.get_emptys(params[:check_in], params[:check_out])
+    else
+      @rooms = Room.all
+    end
+    @rooms = @rooms.where("adults > ?", params[:adults])         if params[:adults].present? && @rooms.present?
+    @rooms = @rooms.where("childrens > ?", params[:childrens]) if params[:childrens].present? && @rooms.present?
+    @rooms = @rooms.includes(:bookings) if @rooms.present?
+    # @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    # @rooms = Room.all.includes(:bookings)
   end
 
   def all_bookings
