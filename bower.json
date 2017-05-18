@@ -1,0 +1,21 @@
+{
+  "name": "FinalProjectSch",
+  "homepage": "https://github.com/at-hautran/FinalProjectSch",
+  "authors": [
+    "Tran Hau <haut@asiantech.vn>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chart.js": "^2.5.0"
+  }
+}
