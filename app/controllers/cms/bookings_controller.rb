@@ -107,6 +107,7 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_service = BookingService.new service_params
       @booking_service.price = @service.price
       @booking_service.user_id = current_user.id
+      binding.pry
       @booking_service.save
       @booking = Booking.find(@booking_service.booking_id)
       @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: @booking.id)
