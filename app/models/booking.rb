@@ -115,7 +115,7 @@ class Booking < ApplicationRecord
       bookings = bookings.where(room_id: room_id)
     end
     if search_params[:status].present? && search_params[:status] != 'status'
-      bookings = bookings.where(status: search_params[:status]).order(:created_at)
+      bookings = bookings.where(status: search_params[:status])
     end
     if search_params[:check_in].present? && search_params[:check_out].present?
       bookings = bookings.where("strftime('%Y-%m-%d', check_in) >= ? AND strftime('%Y-%m-%d', check_out) <= ? ", search_params[:check_in].to_date, search_params[:check_out].to_date)

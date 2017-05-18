@@ -35,6 +35,7 @@ class BookingsController < ApplicationController
       @booking = customer.bookings.build booking_params
       @booking.price = room.price
       if @booking.save
+        binding.pry
         redirect_to paypal_checkout_url(booking_id: @booking.id)
       else
         @room = Room.find(booking_params[:room_id])
