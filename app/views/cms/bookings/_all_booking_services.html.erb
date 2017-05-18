@@ -1,4 +1,5 @@
 <%= render partial: 'cms/errors/errors', locals: {errors: @service.errors} if @service.present? %>
+<%= render partial: 'cms/errors/errors', locals: {errors: @booking_service.errors} if @booking_service.present? %>
 <%= render partial: 'cms/errors/flash' , locals: { flash: flash } %>
 <h1>All Services</h1>
 <table class="table table-bordered table-striped table-hover">

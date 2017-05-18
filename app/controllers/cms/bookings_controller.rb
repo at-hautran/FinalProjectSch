@@ -43,7 +43,7 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def update
     @booking = current_booking
-    if params[:commit].blank? && params[:update].present? && (@booking.waitting?|| @booking.accepted? || @booking.in_use)
+    if params[:commit].blank? && params[:update].present? && (@booking.waitting?|| @booking.accepted? || @booking.in_use?)
       if flash[:errors].blank?
         @booking.update_attributes(booking_update_params)
         flash[:success] = "update success"
@@ -107,11 +107,12 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_service = BookingService.new service_params
       @booking_service.price = @service.price
       @booking_service.user_id = current_user.id
-      binding.pry
-      @booking_service.save
-      @booking = Booking.find(@booking_service.booking_id)
-      @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: @booking.id)
-      flash.now[:success] = "update success"
+      if @booking_service.save
+        flash.now[:success] = "update success"
+      else
+      end
+      @booking = Booking.find(service_params[:booking_id])
+      @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: service_params[:booking_id])
       # redirect_to cms_booking_new_services_url service_params[:booking_id]
       respond_to do |format|
         format.html

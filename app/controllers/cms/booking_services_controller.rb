@@ -9,7 +9,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
 
   def index
     @booking_services = BookingService.all
-    @booking_services = @booking_services.includes({booking: :room}, :service).page(params[:page]).per(10)
+    @booking_services = @booking_services.order(:created_at).includes({booking: :room}, :service).page(params[:page]).per(10)
   end
 
   def update
@@ -25,6 +25,11 @@ class Cms::BookingServicesController < Cms::ApplicationController
       # @services = @services.page(params[:page]).per(25)
       redirect_to cms_booking_new_services_url(@booking_service.booking_id)
     end
+  end
+
+  def waitting
+    @booking_services = BookingService.where(status: :watting).order(time: :asc).includes({booking: :room}, :service).page(params[:page]).per(10)
+    render :index
   end
 
   def paid_all
