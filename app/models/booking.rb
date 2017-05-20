@@ -42,11 +42,12 @@ class Booking < ApplicationRecord
   before_create :create_verification_digest
   scope :booking, ->(customer_id) {where(customer_id: customer_id)}
 
-  audited
+  audited except: [:updated_at, :created_at, :verification_digest, :booking_no, :verified_at]
 
   self.non_audited_columns = [:updated_at, :create_at, :verification_digest, :verified, :booking_no, :verified_at]
   validate :check_check_out_greater_than_check_in
   validate :check_plan_present
+  validate :time_booking_can_not_in_past
 
   # has_secure_password
 
@@ -60,6 +61,10 @@ class Booking < ApplicationRecord
   def check_plan_present
     errors.add(:check_in, "must be set") if check_in.blank?
     errors.add(:check_out, "must be set") if check_out.blank?
+  end
+
+  def time_booking_can_not_in_past
+    errors.add(:check_in, "must greater or equal current time") if check_in < (Time.zone.now - 1.day)
   end
 
   def authenticated?(attribute, token)

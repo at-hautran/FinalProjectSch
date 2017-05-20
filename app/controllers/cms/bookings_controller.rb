@@ -141,6 +141,7 @@ class Cms::BookingsController < Cms::ApplicationController
   def histories
     @booking = Booking.find(params[:id])
     @histories = @booking.audits
+    binding.pry
   end
 
   def bill

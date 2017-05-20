@@ -41,11 +41,12 @@
               <% @histories.each do |history| %>
                 <tr>
                   <% user = history.user %>
+                  <% binding.pry %>
                   <td><%= @booking.id %></td>
                   <td><%= user.present? ? user.username : "customer" %></td>
                   <td><%= history.audited_changes %></td>
                   <td><%= history.action %></td>
-                  <td><%= history.created_at %></td>
+                  <td><%= history.created_at.strftime('%Y-%m-%d %I:%M:%S %p') %></td>
                 </tr>
               <% end %>
             <% end %>

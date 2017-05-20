@@ -17,7 +17,9 @@
             <th>Adults</th>
             <th>Childrens</th>
             <th>Status</th>
-            <th>Exepter</th>
+            <% if current_user.user_type == "Admin" %>
+            <th>History</th>
+            <% end %>
             <th>Edit</th>
             <th>Delete</th>
           </thead>
@@ -36,7 +38,7 @@
               <td><%= booking.adults %></td>
               <td><%= booking.childrens %></td>
               <td><%= booking.status%></td>
-              <td><%= booking.user.username if booking.user.present? %></td>
+              <td><%= link_to("History", "/cms/histories/bookings/#{booking.id}") %></td>
               <td>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                   <button onclick="location.href='/cms/bookings/<%=booking.id%>/edit';" class="btn btn-primary btn-xs modalpop" data-title="Edit" >
@@ -135,7 +137,7 @@
   </div>
   <!-- /.modal-dialog -->
 </div>
-<input id="autocomplete" value= "a" name="room_name" class="form-control pop_room_name autocomplete " type="text" placeholder="Room name">
+<!-- <input id="autocomplete" value= "a" name="room_name" class="form-control pop_room_name autocomplete " type="text" placeholder="Room name"> -->
 <script type="text/javascript">
 jQuery(function($) {
   var rooms = gon.names;

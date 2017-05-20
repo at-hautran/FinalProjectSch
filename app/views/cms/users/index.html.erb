@@ -11,11 +11,6 @@
           <th>Name</th>
           <th>Email</th>
           <th>Password</th>
-          <th>Bithday</th>
-          <th>Gender</th>
-          <th>Phone Number</th>
-          <th>Address</th>
-          <th>Position</th>
           <th>Role</th>
         </tr>
       </thead>
@@ -25,12 +20,7 @@
           <td data-title="Name"><%= user.username %></td>
           <td data-title="Name"><%= user.email %></td>
           <td data-title="Name"><%= user.password %></td>
-          <td data-title="Name"><%= user.birthday %></td>
-          <td data-title="Name"><%= user.gender %></td>
-          <td data-title="Name"><%= user.phone_number %></td>
-          <td data-title="Name"><%= user.address %></td>
-          <td data-title="Name"><%= user.position %></td>
-          <td data-title="Name"><%= user.role %></td>
+          <td data-title="Name"><%= user.user_type %></td>
           <td data-title="Link">
             <a href="/cms/users/<%= user.id %>/edit" target="_blank">Edit</a>
           </td>
