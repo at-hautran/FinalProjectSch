@@ -131,4 +131,27 @@ class Booking < ApplicationRecord
     end
     bookings
   end
+
+  def self.save_with_paypal_payment booking, token, payer_id
+    booking = Booking.find(booking.id)
+    prices = (((booking.check_out - booking.check_in)/1.day).to_i + 1)*(booking.price.to_i)
+    ppr = PayPal::Recurring.new(
+      token: token,
+      payer_id: payer_id,
+      description: 'a',
+      amount: prices,
+      currency: 'USD'
+      )
+    response = ppr.request_payment
+    if response.errors.present?
+      raise response.errors.inspect
+    else
+    end
+  end
+
+  def self.save_token booking, token, payer_id
+    booking.paypal_payment_token = token
+    booking.paypal_customer_token = payer_id
+    booking.save
+  end
 end
