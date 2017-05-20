@@ -32,3 +32,4 @@ chmod -R 777 PATH_TO_APP/tmp, #chang permisson of tmp
 crontab -r , crontab -c => stop cron job
 zipcode paypal 12132
 http://stackoverflow.com/questions/3887943/get-real-ip-address-in-local-rails-development-environment
+https://www.sitepoint.com/introduction-chart-js-2-0-six-examples/
