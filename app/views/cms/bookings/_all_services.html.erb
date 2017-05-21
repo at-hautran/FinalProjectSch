@@ -43,7 +43,9 @@
 <div class="container">
   <script type="text/javascript">
       $(function () {
-          $("#datetimepicker<%=service.id%>").datetimepicker();
+          $("#datetimepicker<%=service.id%>").datetimepicker({
+            format: 'DD/MM/YYYY h:s:m A'
+          });
       });
 
       $(function() {

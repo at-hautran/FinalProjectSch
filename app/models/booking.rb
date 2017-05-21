@@ -42,11 +42,13 @@ class Booking < ApplicationRecord
   before_create :create_verification_digest
   scope :booking, ->(customer_id) {where(customer_id: customer_id)}
 
-  audited
+  audited except: [:updated_at, :created_at, :verification_digest, :booking_no, :verified_at]
 
   self.non_audited_columns = [:updated_at, :create_at, :verification_digest, :verified, :booking_no, :verified_at]
-  # validate :check_check_out_greater_than_check_in
-  # validate :check_plan_present
+  validate :check_check_out_greater_than_check_in
+  validate :check_plan_present
+  validate :time_booking_can_not_in_past
+
 
   # has_secure_password
 
@@ -60,6 +62,10 @@ class Booking < ApplicationRecord
   def check_plan_present
     errors.add(:check_in, "must be set") if check_in.blank?
     errors.add(:check_out, "must be set") if check_out.blank?
+  end
+
+  def time_booking_can_not_in_past
+    errors.add(:check_in, "must greater or equal current time") if check_in < (Time.zone.now - 1.day)
   end
 
   def authenticated?(attribute, token)
@@ -115,7 +121,7 @@ class Booking < ApplicationRecord
       bookings = bookings.where(room_id: room_id)
     end
     if search_params[:status].present? && search_params[:status] != 'status'
-      bookings = bookings.where(status: search_params[:status]).order(:created_at)
+      bookings = bookings.where(status: search_params[:status])
     end
     if search_params[:check_in].present? && search_params[:check_out].present?
       bookings = bookings.where("strftime('%Y-%m-%d', check_in) >= ? AND strftime('%Y-%m-%d', check_out) <= ? ", search_params[:check_in].to_date, search_params[:check_out].to_date)
@@ -125,5 +131,28 @@ class Booking < ApplicationRecord
       bookings = bookings.where("strftime('%Y-%m-%d', check_out) = ?", search_params[:check_out].to_date)
     end
     bookings
+  end
+
+  def self.save_with_paypal_payment booking, token, payer_id
+    booking = Booking.find(booking.id)
+    prices = (((booking.check_out - booking.check_in)/1.day).to_i + 1)*(booking.price.to_i)
+    ppr = PayPal::Recurring.new(
+      token: token,
+      payer_id: payer_id,
+      description: 'a',
+      amount: prices,
+      currency: 'USD'
+      )
+    response = ppr.request_payment
+    if response.errors.present?
+      raise response.errors.inspect
+    else
+    end
+  end
+
+  def self.save_token booking, token, payer_id
+    booking.paypal_payment_token = token
+    booking.paypal_customer_token = payer_id
+    booking.save
   end
 end

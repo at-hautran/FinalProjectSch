@@ -1,6 +1,6 @@
 class BookingVerifiesController < ApplicationController
   def edit
-    customer = Customer.find_by(email: "h0977534303@gmail.com")
+    # customer = Customer.find_by(email: "h0977534303@gmail.com")
     booking = Booking.find(params[:booking_id])
     if booking && !booking.verified? && booking.authenticated?(:verification, params[:id])
       booking.update_attribute(:verified,    true)
@@ -14,9 +14,11 @@ class BookingVerifiesController < ApplicationController
 
   def success
     @booking = Booking.find(params[:format])
+    @skip_footer = true
   end
 
   def watting_verify
     @booking = Booking.find(params[:id])
+    @skip_footer = true
   end
 end

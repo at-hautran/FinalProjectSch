@@ -1,29 +1,20 @@
 <div class="container">
   <div class="row">
     <section class="content">
+    <div style="margin-top: 10px;"></div>
+    <% if current_user.user_type == "Admin" %>
       <a href="../cms/rooms/new" class="btn btn-primary">New Room</a>
+    <% end %>
       <%= render 'form_find_rooms' %>
       <hr>
       <% if @rooms.present? %>
-        <div class="col-md-10">
-          <div class="panel panel-default">
-            <div class="panel-body">
-              <div class="pull-right">
-              </div>
-              <div class="table-container">
-                <!-- <table class="table table-filter"> -->
-                  <!-- <tbody> -->
-                  <div class="suggest_rooms_result">
-                    <%= render partial: "cms/bookings/empty_rooms", locals: {rooms: @rooms} %>
-                  </div>
-                  <!-- </tbody> -->
-                <!-- </table> -->
-              </div>
-            </div>
+        <div class="col-md-12">
+          <div class="suggest_rooms_result">
+            <%= render partial: "/cms/rooms/room_items", locals: {rooms: @rooms} %>
           </div>
+          <%= paginate @rooms %>
         </div>
       <% end %>
     </section>
   </div>
 </div>
-

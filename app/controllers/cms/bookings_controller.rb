@@ -1,16 +1,50 @@
 class Cms::BookingsController < Cms::ApplicationController
-  before_action :check_room_can_use, only: :update
+  before_action :check_room_can_use, only: [:update]
+  before_action :check_room_can_use_create, only: [:create]
   attr_accessor :room, :current_booking
+
+  def new
+    @room = Room.find(params[:room_id])
+    @bookings = @room.bookings.build
+  end
 
   def index
     @bookings = Booking.all
     @bookings = Booking.search(search_params, @bookings) if search_params.present?
-    @bookings = @bookings.includes(:room, :customer).page(params[:page]).per(20)
+    @bookings = @bookings.where(verified: true)
+    @bookings = @bookings.order(created_at: :desc).includes(:room, :customer).page(params[:page]).per(20)
+  end
+
+  def create
+    if flash[:errors].blank?
+      customer_ava = Customer.find_by(email: customer_params[:email])
+      customer = customer_ava.present? ? customer_ava : Customer.create(customer_params)
+      @booking = customer.bookings.build booking_params
+      @booking.price = room.price
+      @booking.verified = true
+      @booking.verified_at = Time.zone.now
+      @booking.status = :accepted
+      if @booking.save
+        booking_no = customer.bookings.count
+        flash[:success] = "Booking succesful"
+        redirect_to edit_cms_booking_path(@booking.id)
+      else
+        @room = Room.find(booking_params[:room_id])
+        render action: :new
+      end
+    else
+      @room = Room.find(booking_params[:room_id])
+      render action: :new
+    end
+    # respond_to do |format|
+    #   format.html
+    #   format.js
+    # end
   end
 
   def update
     @booking = current_booking
-    if params[:commit].blank? && params[:update].present? && (@booking.waitting?|| @booking.accepted? || @booking.in_use)
+    if params[:commit].blank? && params[:update].present? && (@booking.waitting?|| @booking.accepted? || @booking.in_use?)
       if flash[:errors].blank?
         @booking.update_attributes(booking_update_params)
         flash[:success] = "update success"
@@ -33,7 +67,7 @@ class Cms::BookingsController < Cms::ApplicationController
         if params[:commit] == 'in_use' && @booking.may_in_use?
           @booking.in_use
           @booking.save
-          render :bill
+          redirect_to edit_cms_booking_path(params[:id])
         end
         if params[:commit] == 'finish' && @booking.may_finish?
           @booking.finish
@@ -74,22 +108,28 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_service = BookingService.new service_params
       @booking_service.price = @service.price
       @booking_service.user_id = current_user.id
-      @booking_service.save
-      @booking = Booking.find(@booking_service.booking_id)
-      @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: @booking.id)
-      flash[:success] = "update success"
+      if @booking_service.save
+        flash.now[:success] = "update success"
+      else
+      end
+      @booking = Booking.find(service_params[:booking_id])
+      @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: service_params[:booking_id])
       # redirect_to cms_booking_new_services_url service_params[:booking_id]
       respond_to do |format|
         format.html
         format.js
       end
     else
-      flash[:fail] = "service was closed"
+      flash.now[:fail] = "service was closed"
       @booking = Booking.find(service_params[:booking_id])
       @booking_services = BookingService.includes(:service).where(booking_id: params[:booking_id])
       @services = Service.order(status: :desc)
       @services = @services.page(params[:page]).per(25)
-      render :new_services
+      # render :new_services
+      respond_to do |format|
+        format.html
+        format.js
+      end
     end
   end
 
@@ -123,9 +163,17 @@ class Cms::BookingsController < Cms::ApplicationController
     #                                    :number_street, :city, :postcode, :country)
     # end
 
-    def booking_params
-      params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :comments)
-    end
+    # def booking_params
+    #   params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :comments)
+    # end
+  def customer_params
+    params.require(:customer).permit(:name, :email, :phonenumber, :street,
+                                   :number_street, :city, :postcode, :country)
+  end
+
+  def booking_params
+    params.require(:booking).permit(:childrens, :adults, :check_in, :check_out, :room_id, :comments)
+  end
 
     def booking_update_params
       total_days = (booking_params[:check_out].to_time - booking_params[:check_in].to_time)/(1.day)
@@ -145,6 +193,13 @@ class Cms::BookingsController < Cms::ApplicationController
         flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
         flash[:errors] = flash[:errors].to_s + Room.check_room_is_allow(self.room.id, booking_params[:check_in], booking_params[:check_out]).to_s
       end
+    end
+
+    def check_room_can_use_create
+      self.room = Room.find(booking_params[:room_id])
+      flash[:errors] = Room.check_schedule(self.room, booking_params[:check_in], booking_params[:check_out])
+      flash[:errors] = flash[:errors].to_s + Room.check_number_peoples(room, booking_params[:adults].to_i, booking_params[:childrens].to_i).to_s
+      flash[:errors] = flash[:errors].to_s + Room.check_room_is_allow(self.room.id, booking_params[:check_in], booking_params[:check_out]).to_s
     end
 
     def service_params

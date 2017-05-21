@@ -6,24 +6,26 @@
         <table id="mytable" class="table table-bordred table-striped">
           <thead>
             <th>Id</th>
-            <th>Name</th>
+            <th>Service Name</th>
             <th>Number</th>
-            <th>Price</th>
             <th>Room</th>
             <th>Booking id</th>
             <th>Total Price</th>
+            <th>Time Order</th>
             <th>Status</th>
           </thead>
           <tbody>
+
             <% @booking_services.each do |booking_service| %>
+            <% booking_id = booking_service.booking.id %>
             <tr class = "closesst1">
               <td><%= booking_service.id %></td>
               <td><%= booking_service.service.name %></td>
               <td><%= booking_service.number %></td>
-              <td><%= booking_service.price %></td>
               <td><%= booking_service.booking.room.name %></td>
-              <td><%= booking_service.booking.id %></td>
+              <td><%= link_to booking_id, edit_cms_booking_path(booking_id) %></td>
               <td><%= (booking_service.price)*(booking_service.number) %></td>
+              <td><%= booking_service.time %></td>
               <td><%= booking_service.status %></td>
             </tr>
             <% end %>

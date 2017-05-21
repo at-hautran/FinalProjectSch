@@ -99,7 +99,11 @@
         <textarea name="booking[comments]" class="floatLabel" id="comments"></textarea>
         <label for="comments">Comments</label>
       </div>
-      <button type="submit" value="Submit" class="col-1-4">Submit</button>
+      <button type="submit" value="Submit" class="col-1-4">Payment later</button>
+      <div style="background: white;">
+        <button type="submit" class="payment"><%= image_tag("https://www.sandbox.paypal.com/en_US/i/btn/btn_xpressCheckout.gif")%></button>
+        <!-- paypal_checkout_url(room_id: @room.id) -->
+      </div>
     </div>
   </div>
   <!-- /.form-group -->
@@ -132,4 +136,9 @@
   // just add a class of "floatLabel to the input field!"
   floatLabel(".floatLabel");
   })(jQuery);
+</script>
+<script type="text/javascript">
+  $(".payment").click(function() {
+    $(this).closest("form").attr("action", "/create_booking_with_payment");
+  });
 </script>

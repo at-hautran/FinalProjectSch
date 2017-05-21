@@ -1,5 +1,6 @@
 class Cms::TopImagesController < Cms::ApplicationController
   before_action :check_top_chooseds_valid, only: :update_top_image_chooses
+  before_action :check_admin, only:[:new, :create, :edit, :update, :destroy]
   def new
     @top_image = TopImage.new
   end

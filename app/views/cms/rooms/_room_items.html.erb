@@ -18,9 +18,13 @@
         <div>children: <%= room.childrens %></div>
       </div>
       <div>
+      <% if current_user.user_type == 'Admin' %>
         <a href="../cms/rooms/<%=room.id%>" data-method="delete" class="btn btn-danger" style="float:right"><span class="glyphicon glyphicon-trash"></span>delete</a>
         <a href="../cms/rooms/<%=room.id%>/edit" class="btn btn-primary" style="float:right;"><span class="glyphicon glyphicon-edit"></span> Edit</a>
-        <a href="../bookings/new?room_id=<%=room.id%>" class="btn btn-info" style="float:right"><span class="glyphicon glyphicon-edit"></span>Book</a>
+      <% end %>
+      <% if current_user.user_type == 'Employee' %>
+        <a href="../cms/bookings/new?room_id=<%=room.id%>" class="btn btn-info" style="float:right"><span class="glyphicon glyphicon-edit"></span>Book</a>
+      <% end %>
       </div>
     </div>
     <hr>

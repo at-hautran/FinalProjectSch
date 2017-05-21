@@ -63,7 +63,7 @@
   <% end %>
 <% end %>
 <% if current_user.user_type == 'Employee' %>
-<%= form_tag cms_employee_find_rooms_path, method: :get, class: 'form-horizontal form_search' do %>
+<%= form_tag cms_bookings_all_rooms_path, method: :get, class: 'form-horizontal form_search' do %>
     <div class='row' %>
       <div class = 'col-md-1'></div>
       <div class="form-group">

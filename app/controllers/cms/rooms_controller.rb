@@ -1,4 +1,5 @@
 class Cms::RoomsController < Cms::ApplicationController
+  before_action :check_admin, only:[:new, :create, :edit, :update, :destroy]
   def new
     @room = Room.new
   end
@@ -52,13 +53,37 @@ class Cms::RoomsController < Cms::ApplicationController
     end
   end
 
+  def admin_find
+    @rooms = Room.where(name: params[:name])
+    @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    @rooms = @rooms.page(params[:page]).per(10)
+    render 'index'
+  end
+
+  def employee_find_rooms
+    @rooms = Room.get_emptys(params[:check_in], params[:check_out])
+    @rooms = @rooms.where("adults >= ?", params[:adults]) if params[:adults].present?
+    @rooms = @rooms.where("childrens >= ?", params[:childrens]) if params[:childrens].present?
+    @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    render 'index'
+  end
+
   def bookings
     @room = Room.find(params[:id])
     @bookings = @room.bookings.where("status != ? AND verified IS ?", 'watting', true)
   end
 
   def index_bookings
-    @rooms = Room.all.includes(:bookings)
+    if params[:check_in].present? && params[:check_out].present?
+      @rooms = Room.get_emptys(params[:check_in], params[:check_out])
+    else
+      @rooms = Room.all
+    end
+    @rooms = @rooms.where("adults > ?", params[:adults])         if params[:adults].present? && @rooms.present?
+    @rooms = @rooms.where("childrens > ?", params[:childrens]) if params[:childrens].present? && @rooms.present?
+    @rooms = @rooms.includes(:bookings) if @rooms.present?
+    # @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    # @rooms = Room.all.includes(:bookings)
   end
 
   def all_bookings

@@ -1,4 +1,5 @@
 class Cms::AllowIpAddressesController < Cms::ApplicationController
+  before_action :check_admin
   def new
     @allow_ip_address = AllowAddressIp.new
   end

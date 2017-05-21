@@ -29,6 +29,11 @@ GEM
     activejob (5.0.2)
       activesupport (= 5.0.2)
       globalid (>= 0.3.6)
+    activemerchant (1.66.0)
+      activesupport (>= 3.2.14, < 6.x)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (>= 0.6.9)
+      nokogiri (~> 1.4)
     activemodel (5.0.2)
       activesupport (= 5.0.2)
     activerecord (5.0.2)
@@ -123,6 +128,12 @@ GEM
     nio4r (2.0.0)
     nokogiri (1.7.1)
       mini_portile2 (~> 2.1.0)
+    paypal-recurring (1.1.0)
+    paypal-sdk-core (0.3.4)
+      multi_json (~> 1.0)
+      xml-simple
+    paypal-sdk-merchant (1.117.2)
+      paypal-sdk-core (~> 0.3.0)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -214,12 +225,14 @@ GEM
     websocket-extensions (0.1.2)
     whenever (0.9.7)
       chronic (>= 0.6.3)
+    xml-simple (1.1.5)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   aasm
+  activemerchant
   audited (~> 4.4)
   bcrypt
   bootstrap-sass (~> 3.3.6)
@@ -236,6 +249,8 @@ DEPENDENCIES
   listen (~> 3.0.5)
   mini_magick
   momentjs-rails (>= 2.9.0)
+  paypal-recurring
+  paypal-sdk-merchant
   pry
   puma (~> 3.0)
   rabl-rails

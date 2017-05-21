@@ -4,6 +4,7 @@
 <table class="table table-bordered table-striped table-hover">
   <thead>
   <tr>
+    <th width="50">Id</th>
     <th width="100">Image</th>
     <th width="100">Title</th>
     <th width="200">Content</th>
@@ -12,6 +13,7 @@
   <tbody>
   <% @top_images.each do |image| %>
   <tr>
+    <td><%= image.id %></td>
     <td><%= image_top_tag(image) %></td>
     <td><%= image.title%></td>
     <td><%= image.content %></td>

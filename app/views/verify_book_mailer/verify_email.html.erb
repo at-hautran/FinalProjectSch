@@ -12,6 +12,7 @@
     <p>
       To login to the site, just follow this link: <%= @url %>.
     </p>
-    <p>Thanks for joining and have a great day!</p>
+    <p>Thanks for booking and you can pay in here</p>
+    <%= link_to image_tag("https://www.sandbox.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), paypal_checkout_url(room_id: 1) %>
   </body>
 </html>

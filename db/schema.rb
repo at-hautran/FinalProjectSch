@@ -14,11 +14,13 @@ ActiveRecord::Schema.define(version: 20171408001025) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
+    t.integer  "phonenumber"
     t.string   "email"
-    t.date     "birthday"
     t.string   "gender"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.date     "bithday"
+    t.string   "position"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "allow_address_ips", force: :cascade do |t|
@@ -69,15 +71,18 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.integer  "adults"
     t.integer  "room_id"
     t.string   "pay"
+    t.boolean  "pay_online",            default: false
+    t.string   "paypal_customer_token"
+    t.string   "paypal_payment_token"
     t.integer  "price"
     t.integer  "total_payed"
     t.integer  "customer_id"
     t.string   "comments"
     t.integer  "user_id"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "verification_digest"
-    t.boolean  "verified",            default: false
+    t.boolean  "verified",              default: false
     t.integer  "booking_no"
     t.datetime "verified_at"
     t.string   "status"
@@ -99,12 +104,13 @@ ActiveRecord::Schema.define(version: 20171408001025) do
 
   create_table "employees", force: :cascade do |t|
     t.string   "name"
+    t.integer  "phonenumber"
     t.string   "email"
     t.string   "gender"
     t.date     "bithday"
     t.string   "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "image_room_tops", force: :cascade do |t|
@@ -112,13 +118,6 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.integer  "image_room_top_number"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-  end
-
-  create_table "room_bills", force: :cascade do |t|
-    t.integer  "booking_id"
-    t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "room_cannot_chooses", force: :cascade do |t|
@@ -139,13 +138,6 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "room_icon"
-  end
-
-  create_table "service_bills", force: :cascade do |t|
-    t.integer  "booking_service_id"
-    t.string   "status"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
   end
 
   create_table "services", force: :cascade do |t|
@@ -172,10 +164,6 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.string   "email"
     t.string   "password"
     t.string   "confirm_password"
-    t.datetime "birthday"
-    t.string   "gender"
-    t.integer  "phone_number"
-    t.string   "address"
     t.string   "user_type"
     t.integer  "type_id"
     t.datetime "created_at",       null: false

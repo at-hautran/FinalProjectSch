@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'paypal/checkout' => 'bookings#paypal_checkout'
+  get 'bookings/paypal' => 'bookings#payment_save', as: :payment_save
   namespace :cms do
     get '/watting_bookings' => 'bookings#watting_bookings', as: :watting_bookings
     resources :allow_ip_addresses
@@ -36,6 +38,9 @@ Rails.application.routes.draw do
     put 'bookings/:booking_id/services' => 'booking_services#paid_all', as: :paid_all_services
     get 'all_rooms/bookings' => 'rooms#index_bookings', as: :bookings_all_rooms
     put '/booking/:id/booking_pay' => 'bookings#pay', as: :booking_pay
+    get '/admin_find_rooms' => 'rooms#admin_find', as: :admin_find_rooms
+    get '/employee_find_rooms' => 'rooms#employee_find_rooms', as: :employee_find_rooms
+    get '/bookings_services_watting' => 'booking_services#waitting', as: :booking_services_waitting
   end
 
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
@@ -46,9 +51,13 @@ Rails.application.routes.draw do
     resources :customers
     root 'homepages#home'
   end
-    resources :booking_verifies, only: :edit
     get '/booking/verify/success' => 'booking_verifies#success'
     get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
+    resources :booking_verifies, only: :edit
+    post 'create_booking_with_payment' => 'bookings#create_booking_with_payment', as: :create_booking_with_payment
+    # resources :booking_verifies, only: :edit
+    # get '/booking/verify/success' => 'booking_verifies#success'
+    # get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
   # get 'homepages/booking', to: 'homepages#booking'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
