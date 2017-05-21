@@ -35,7 +35,7 @@
 end
 
 (1..100).each do |i|
-  Customer.create(name: "customer#{i}", email: "gacon#{i}", phonenumber:"0000000#{i}", country: "US#{i}")
+  Customer.create(name: "customer#{i}", email: "gacon#{i}", phonenumber:"0000000#{i}", country: "US#{i}", street: "us1", number_street: "10", city: "uscity", gender: "mail")
 end
 
 User.create(email: 'nguyenvana', password: '123456789', username: "nguyenvana", user_type:  'Employee', type_id: 1)
@@ -54,6 +54,6 @@ end
   Room.find(1).bookings.create(status: :accepted, verified: true, check_in: Time.zone.now + i.day, check_out: Time.zone.now + (i+1).day)
 end
 
-Service.create(status: 'new', service_icon: 'a', name: 'breakfast', price: 500)
-Service.create(status: 'new', service_icon: 'b', name: 'lunch', price: 500)
-Service.create(status: 'new', service_icon: 'c', name: 'dinner', price: 500)
+Service.create(status: 'open', service_icon: 'a', name: 'breakfast', price: 500)
+Service.create(status: 'open', service_icon: 'b', name: 'lunch', price: 500)
+Service.create(status: 'open', service_icon: 'c', name: 'dinner', price: 500)

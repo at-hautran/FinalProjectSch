@@ -23,6 +23,7 @@
             <ul>
               <li class="active"><a href="/cms"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
               <% if  current_user.user_type == 'Admin' %>
+                li><a href="/cms/top_images"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Top Images</span></a></li>
                 <li><a href="/cms/top_image_chooses"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Headline Images</span></a></li>
                 <li><a href="/cms/image_room_tops"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Top Room Images</span></a></li>
                 <li><a href="/cms/allow_ip_addresses"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Allow IP</span></a></li>
@@ -32,7 +33,7 @@
               <% end %>
               <li><a href="/cms/customers"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Customer</span></a></li>
               <li><a href="/cms/rooms"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms</span></a></li>
-              <li><a href="/cms/all_rooms/bookings"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms Schedule</span></a></li>
+              <!-- <li><a href="/cms/all_rooms/bookings"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms Schedule</span></a></li> -->
               <li><a href="/cms/bookings"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Bookings</span></a></li>
               <li><a href="/cms/booking_services"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Booking Services</span></a></li>
               <li><a href="/cms//bookings_services_watting"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Booking Services Waitting</span></a></li>

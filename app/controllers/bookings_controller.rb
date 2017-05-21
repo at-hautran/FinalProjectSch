@@ -53,6 +53,7 @@ class BookingsController < ApplicationController
     @booking.pay_online = true
     @booking.total_payed = (((@booking.check_out - @booking.check_in)/1.day).to_i + 1)*(@booking.price.to_i)
     @booking.save
+    @skip_footer = true
   end
 
   def paypal_checkout

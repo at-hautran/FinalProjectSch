@@ -58,7 +58,7 @@
                 <tr>
                   <td><strong>Room</strong></td>
                   <td class="text-center"><strong>Price</strong></td>
-                  <td class="text-center"><strong>Days</strong></td>
+                  <td class="text-center"><strong>Number of days</strong></td>
                   <td class="text-center"><strong>Check in</strong></td>
                   <td class="text-center"><strong>Check out</strong></td>
                   <td class="text-right"><strong>Totals</strong></td>
@@ -70,9 +70,9 @@
                   <% room = @booking.room %>
                   <td><%= room.name %></td>
                   <td class="text-center"><%=@booking.room.price%></td>
-                  <td class="text-center"><%=@booking.check_in%></td>
-                  <td class="text-center"><%=(@booking.check_out)%></td>
                   <td class="text-center"><%=(@booking.check_out - @booking.check_in)/1.day%></td>
+                  <td class="text-center"><%=@booking.check_in.strftime('%Y-%m-%d')%></td>
+                  <td class="text-center"><%=@booking.check_out.strftime('%Y-%m-%d')%></td>
                   <td class="text-right"><%=((@booking.check_out - @booking.check_in)/1.day)*room.price%>$</td>
                 </tr>
               </tbody>

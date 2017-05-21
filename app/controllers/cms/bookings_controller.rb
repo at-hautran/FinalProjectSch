@@ -11,6 +11,7 @@ class Cms::BookingsController < Cms::ApplicationController
   def index
     @bookings = Booking.all
     @bookings = Booking.search(search_params, @bookings) if search_params.present?
+    @bookings = @bookings.where(verified: true)
     @bookings = @bookings.order(created_at: :desc).includes(:room, :customer).page(params[:page]).per(20)
   end
 

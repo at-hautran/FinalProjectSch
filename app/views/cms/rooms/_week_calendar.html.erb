@@ -1,5 +1,5 @@
 <% first_room_name = @rooms.first.name %>
-  <% if first_room_name == sorted_events.values().flatten.first.room.name %>
+  <% if sorted_events.values().present? && (first_room_name == sorted_events.values().flatten.first.room.name) %>
     <div class="calendar-heading">
       <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
       <% if calendar.number_of_weeks == 1 %>
@@ -25,7 +25,7 @@
     <tbody>
       <% date_range.each_slice(7) do |week| %>
         <tr>
-        <th width="10%"><%= sorted_events.values().flatten.first.room.name %></th>
+        <th width="10%"><%= sorted_events.values().flatten.first.room.name%></th>
           <% week.each do |day| %>
             <%= content_tag :td, class: calendar.td_classes_for(day) do %>
               <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(block) %>

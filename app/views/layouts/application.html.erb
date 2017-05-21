@@ -11,7 +11,7 @@
   </style>
     <title>FinalProjectSch</title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' if controller_name != 'bookings' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <% if controller_name == 'bookings' %>
       <%= stylesheet_link_tag    'bookings', media: 'all', 'data-turbolinks-track': 'reload' %>
     <% end %>
@@ -23,6 +23,6 @@
   <body>
     <%= render 'layouts/header' %>
     <%= yield %>
-    <%= render 'layouts/footer' %>
+    <%= render 'layouts/footer' unless @skip_footer %>
   </body>
 </html>

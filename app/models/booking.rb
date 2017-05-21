@@ -49,6 +49,7 @@ class Booking < ApplicationRecord
   validate :check_plan_present
   validate :time_booking_can_not_in_past
 
+
   # has_secure_password
 
   def check_check_out_greater_than_check_in

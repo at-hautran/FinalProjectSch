@@ -41,7 +41,6 @@
               <% @histories.each do |history| %>
                 <tr>
                   <% user = history.user %>
-                  <% binding.pry %>
                   <td><%= @booking.id %></td>
                   <td><%= user.present? ? user.username : "customer" %></td>
                   <td><%= history.audited_changes %></td>
