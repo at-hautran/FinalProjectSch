@@ -41,6 +41,7 @@ end
 User.create(email: 'nguyenvana', password: '123456789', username: "nguyenvana", user_type:  'Employee', type_id: 1)
 User.create(email: 'nguyenvanb', password: '123456789', username: "nguyenvanb", user_type: 'Admin', type_id: 1)
 AllowAddressIp.create ip_address: '127.0.0.1'
+AllowAddressIp.create ip_address: '169.254.9.46'
 
 Employee.create(name: 'employee', email: 'b')
 Admin.create(name: 'admin1', email: 'c')
