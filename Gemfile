@@ -34,6 +34,8 @@ gem 'bootstrap-sass', '~> 3.3.6'
 
 gem 'pry'
 
+gem 'pry-rails'
+
 gem 'kaminari'
 
 gem 'carrierwave', '~> 1.0'
