@@ -1,6 +1,6 @@
 class Room < ApplicationRecord
   audited
-  # validates :room_icon, presence: true
+  validates :room_icon, presence: true
   validates :price, presence: true
   has_many :bookings
   has_many :image_room_tops

@@ -60,6 +60,8 @@ gem 'bootstrap-timepicker-rails'
 
 gem 'jquery-timepicker-addon-rails'
 
+gem 'ffaker'
+
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'paypal-recurring'
