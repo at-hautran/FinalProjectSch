@@ -9,7 +9,6 @@ class Cms::ApplicationController < ApplicationController
   end
 
   def block_ip_addresses
-    binding.pry
     allow_ip_addresses = AllowAddressIp.pluck(:ip_address)
     head :unauthorized if allow_ip_addresses.exclude?(current_ip_address)
   end
