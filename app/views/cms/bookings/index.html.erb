@@ -20,6 +20,7 @@
             <% if current_user.user_type == "Admin" %>
             <th>History</th>
             <% end %>
+            <th>History</th>
             <th>Edit</th>
             <th>Delete</th>
           </thead>
@@ -31,7 +32,7 @@
               <td class="name1"><%= customer.name %></td>
               <td><%= customer.phonenumber %></td>
               <td><%= customer.email %></td>
-              <td><%= customer.country %></td>
+              <td><%= Country[customer.country].name %></td>
               <td><%= booking.room.name%></td>
               <td><%= booking.check_in.strftime("%Y/%m/%d") %></td>
               <td><%= booking.check_out.strftime("%Y/%m/%d") %></td>

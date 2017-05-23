@@ -29,3 +29,5 @@
 //= require jquery-ui-timepicker-addon
 //= require moment
 //= require bootstrap-datetimepicker
+//= require lang/en_US/bootstrap-formhelpers-countries.en_US
+//= require bootstrap-formhelpers-countries

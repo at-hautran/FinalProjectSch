@@ -1,5 +1,6 @@
 <div id="demo">
   <h1>All Users</h1>
+  <%= link_to("New", new_cms_user_path , class: 'btn btn-primary') %>
 
   <!-- Responsive table starts here -->
   <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -12,6 +13,8 @@
           <th>Email</th>
           <th>Password</th>
           <th>Role</th>
+          <th>Edit</th>
+          <th>Delete</th>
         </tr>
       </thead>
       <tbody>
@@ -23,6 +26,9 @@
           <td data-title="Name"><%= user.user_type %></td>
           <td data-title="Link">
             <a href="/cms/users/<%= user.id %>/edit" target="_blank">Edit</a>
+          </td>
+          <td data-title="Link">
+            <a href="/cms/users/<%= user.id %>" date-method: :delete, target="_blank">Delete</a>
           </td>
         </tr>
       <% end %>

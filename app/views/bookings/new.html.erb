@@ -1,8 +1,10 @@
+<div style="size: 80%">
 <form action="../bookings" method="post">
   <!--  General -->
   <div class="form-group">
     <h2 class="heading">Booking & contact</h2>
     <%= render partial: 'cms/errors/errors', locals: {errors: @booking.errors} if @booking.present? %>
+    <%= render partial: 'cms/errors/errors', locals: {errors: @customer.errors} if @customer.present? %>
     <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errors].present? %>
     <div class="controls">
       <input type="text" id="name" class="floatLabel" name="customer[name]">
@@ -45,8 +47,9 @@
       </div>
     </div>
     <div class="controls">
-      <input type="text" id="country" class="floatLabel" name="customer[country]">
-      <label for="country" class="active" style="top: -15px;">Country</label>
+      <select style="background: white;" name="customer[country]" class="input-medium bfh-countries floatLabel" data-country="US"></select>
+      <!-- <input type="text" id="country" class="floatLabel" name="customer[country]"> -->
+      <!-- <label for="country" class="active" style="top: -15px;">Country</label> -->
     </div>
   </div>
   <!--  Details -->
@@ -55,9 +58,9 @@
     <div class="grid">
       <div class="col-1-4 col-1-4-sm">
         <div class="controls">
-          <input disabled type="text" id="arrive" class="floatLabel" name="booking[room_name]" value="<%= @room.name if @room.present? %>">
+          <!-- <input disabled type="text" id="arrive" class="floatLabel" name="booking[room_name]" value="<%= @room.name if @room.present? %>"> -->
           <input type="hidden" id="arrive" class="floatLabel" name="booking[room_id]" value="<%= @room.id if @room.present? %>">
-          <label for="arrive" class="active" style="top: -15px;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Room</label>
+          <!-- <label for="arrive" class="active" style="top: -15px;"><i class="fa fa-calendar"></i>&nbsp;&nbsp;Room</label> -->
         </div>
       </div>
     </div>
@@ -108,6 +111,7 @@
   </div>
   <!-- /.form-group -->
 </form>
+</div>
 <style type="text/css">
   .top_negative {
     top: -20px;

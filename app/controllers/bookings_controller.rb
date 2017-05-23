@@ -10,11 +10,11 @@ class BookingsController < ApplicationController
   def create
     if flash[:errors].blank?
       customer_ava = Customer.find_by(email: customer_params[:email])
-      customer = customer_ava.present? ? customer_ava : Customer.create(customer_params)
-      @booking = customer.bookings.build booking_params
+      @customer = customer_ava.present? ? customer_ava : Customer.new(customer_params)
+      @booking = @customer.bookings.build booking_params
       @booking.price = room.price
-      if @booking.save
-        booking_no = customer.bookings.count
+      if @customer.save && @booking.save
+        booking_no = @customer.bookings.count
         VerifyBookMailer.verify_email(@booking, booking_no).deliver
         flash.now[:success] = " Thank for your booking \n
                                 You booked in room #{@booking.room.name} \n
