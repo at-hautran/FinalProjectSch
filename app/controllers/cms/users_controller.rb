@@ -6,9 +6,10 @@ class Cms::UsersController < Cms::ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to cms_user_path(id: @user.id)
       flash[:success] = "New user was created"
+      redirect_to cms_users_path
     else
+      @id = user_params[:type_id]
       render :new
     end
   end
@@ -36,11 +37,16 @@ class Cms::UsersController < Cms::ApplicationController
     @users = User.all
   end
 
+  def destroy
+    @user = User.find(params[:id])
+    @user.delete
+    redirect_to cms_users_path
+  end
+
   private
 
     def user_params
-      params.require(:user).permit(:id, :user_name, :email, :password, :confirm,
-                                   :birthday, :phone_number, :address, :role, :position)
+      params.require(:user).permit(:email, :password, :user_type, :type_id)
     end
 
 end
