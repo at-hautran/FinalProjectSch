@@ -42,16 +42,16 @@ Rails.application.routes.draw do
     get '/employee_find_rooms' => 'rooms#employee_find_rooms', as: :employee_find_rooms
     get '/bookings_services_watting' => 'booking_services#waitting', as: :booking_services_waitting
     resources :employees
+    post 'users/:id/changepassword' => 'users#changepassword', as: :changepassword
+    put 'users/:id/update_avatar' => 'users#update_avatar', as: :update_avatar
   end
 
-  scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
     get 'index' => 'homepages#index'
     get '/homepages/event' => 'homepages#event', as: :home_event
     resources :bookings, only: %w[new create show]
     resources :rooms, only: %w[show index]
     resources :customers
     root 'homepages#home'
-  end
     get '/booking/verify/success' => 'booking_verifies#success'
     get 'bookings/:id/watting_verify' => 'booking_verifies#watting_verify', as: :booking_watting_verify
     resources :booking_verifies, only: :edit

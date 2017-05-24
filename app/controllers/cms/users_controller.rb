@@ -34,7 +34,7 @@ class Cms::UsersController < Cms::ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.includes(:employee).all
   end
 
   def destroy
@@ -43,10 +43,34 @@ class Cms::UsersController < Cms::ApplicationController
     redirect_to cms_users_path
   end
 
+  def update_avatar
+    user = User.find(params[:id])
+    user.update_attribute(:user_icon, params.permit(:image))
+    redirect_to cms_user_path(user.id)
+  end
+
+  def changepassword
+    user = User.find(params[:id])
+    if user.password == change_password_params[:current_password]
+      if change_password_params[:password] == change_password_params[:password_confirmation]
+        user.update_attribute(:password, change_password_params[:password])
+      else
+        flash[:fails] = "password confirm is not exact"
+      end
+    else
+      flash[:fails] = "current password is not exact"
+    end
+    redirect_to cms_user_path(user.id)
+  end
+
   private
 
     def user_params
       params.require(:user).permit(:email, :password, :user_type, :type_id)
+    end
+
+    def change_password_params
+      params.permit(:current_password, :password, :password_confirmation)
     end
 
 end

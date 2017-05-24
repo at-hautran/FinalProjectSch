@@ -9,6 +9,7 @@
       <thead>
         <tr>
           <th>Code</th>
+          <th>Name</th>
           <th>Email</th>
           <th>Password</th>
           <th>Role</th>
@@ -20,6 +21,7 @@
       <% @users.each do |user| %>
         <tr>
           <td data-title="Name"><%= user.type_id %></td>
+          <td data-title="Name"><%= user.employee.name if user.employee.present? %></td>
           <td data-title="Name"><%= user.email %></td>
           <td data-title="Name"><%= user.password %></td>
           <td data-title="Name"><%= user.user_type %></td>
@@ -27,7 +29,8 @@
             <a href="/cms/users/<%= user.id %>/edit" target="_blank">Edit</a>
           </td>
           <td data-title="Link">
-            <a href="/cms/users/<%= user.id %>" data-method: :delete>Delete</a>
+            <%= link_to("Delete", cms_user_path(user.id) , method: :delete) %>
+            <!-- <a href="/cms/users/<%= user.id %>" data-method: :delete>Delete</a> -->
           </td>
         </tr>
       <% end %>

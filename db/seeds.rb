@@ -44,8 +44,8 @@ end
   Booking.create(room_id: 1, customer_id: 1, status: :accepted, verified: true, check_in: Time.zone.now + i.day, check_out: Time.zone.now + (i+1).day)
 end
 
-User.create(email: 'nguyenvana', password: '123456789', username: "nguyenvana", user_type:  'Employee', type_id: 1)
-User.create(email: 'nguyenvanb', password: '123456789', username: "nguyenvanb", user_type: 'Admin', type_id: 1)
+User.create(email: 'nguyenvana@gmail.com', password: '123456789', user_type:  'Employee', type_id: 1)
+User.create(email: 'nguyenvanb@gmail.com', password: '123456789', user_type: 'Admin', type_id: 1)
 AllowAddressIp.create ip_address: '127.0.0.1'
 AllowAddressIp.create ip_address: '10.168.63.68'
 
