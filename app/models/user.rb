@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  # attr_accessible :user_icon, :user_icon_cache, :remove_user_icon
   self.table_name = 'users'
   mount_uploader :user_icon, UserIconUploader
   serialize :avatars, JSON

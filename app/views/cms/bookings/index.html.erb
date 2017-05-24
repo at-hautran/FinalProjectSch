@@ -20,7 +20,6 @@
             <% if current_user.user_type == "Admin" %>
             <th>History</th>
             <% end %>
-            <th>History</th>
             <th>Edit</th>
             <th>Delete</th>
           </thead>
@@ -39,7 +38,9 @@
               <td><%= booking.adults %></td>
               <td><%= booking.childrens %></td>
               <td><%= booking.status%></td>
-              <td><%= link_to("History", "/cms/histories/bookings/#{booking.id}") %></td>
+              <% if current_user.user_type == "Admin" %>
+                <td><%= link_to("History", "/cms/histories/bookings/#{booking.id}") %></td>
+              <% end %>
               <td>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                   <button onclick="location.href='/cms/bookings/<%=booking.id%>/edit';" class="btn btn-primary btn-xs modalpop" data-title="Edit" >

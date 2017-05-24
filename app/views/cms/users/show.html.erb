@@ -23,7 +23,7 @@
             <!-- {{trans('users.label_profile')}} -->
             Profile
           </span>
-          <a href="{{ route('users.profile') }}" class="list-group-item list-group-item-success">
+          <a href="#" class="list-group-item list-group-item-success">
             <i class="fa fa-user-circle" aria-hidden="true">
             </i>
             <!-- {{trans('users.label_info')}} -->
@@ -37,11 +37,12 @@
             <i class="fa fa-file-image-o" aria-hidden="true"></i> Change Avatar <i class="fa fa-sort-desc" aria-hidden="true"></i>
           </a>
           <div id="frontend-user-profile-update-image-container" class="collapse well">
-            <%= form_for cms_update_avatar_path(current_user.id), class: "avatar-form", method: "post", :html => {:multipart => true} do %>
-              <input type="hidden" name="_method" value="PUT">
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <%= form_for :current_user, :url => url_for(:controller => 'cms/users', :action => 'update_avatar', id: current_user.id), class: "avatar-form", method: "post", :html => {:multipart => true} do |f| %>
+              <!-- <input type="hidden" name="_method" value="PUT"> -->
+              <!-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> -->
               <div class="form-group">
-                <input class="avatar-input" id="imgInp" name="image" type="file" required="required" style="max-width: 216px !important; ">
+                <!-- <input class="avatar-input" id="imgInp" name="image" type="file" required="required" style="max-width: 216px !important; "> -->
+                <%= f.file_field :user_icon, style: "max-width: 216px !important;", required: "required", class: "avatar-input", id: "imgInp"%>
               </div>
               <div class="row">
                   <button class="btn btn-primary btn-block avatar-save" type="submit"> <!-- {{trans('common.button_confirm')}} -->
@@ -53,12 +54,13 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 " align="center" id="frontend-user-profile-image-container">
-        <%= user_avartar current_user %>
+        <%= user_avartar current_user, "220px", "220px" %>
         <!-- <img alt="User Pic" src="{{ Auth::user()->avatar }}" class="img-circle img-responsive"> -->
       </div>
 
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 ">
         <div class="row">
+          <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errors].present? %>
           <table class="table table-user-information">
             <tbody>
               <tr>
@@ -89,7 +91,7 @@
         </div>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1">
-            <a href="{{ route('users.edit', [Auth::user()->email]) }}" class="btn btn-primary btn-lg btn-block">Update</a>
+            <!-- <a href="{{ route('users.edit', [Auth::user()->email]) }}" class="btn btn-primary btn-lg btn-block">Update</a> -->
           </div>
           <div class="col-xs-12 col-sm-12 col-md-5">
             <a href="#" class="btn btn-warning btn-lg btn-block" data-toggle="modal" data-target="#user-profife-edit-modal">Change Password</a>

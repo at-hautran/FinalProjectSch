@@ -45,7 +45,7 @@ class Cms::UsersController < Cms::ApplicationController
 
   def update_avatar
     user = User.find(params[:id])
-    user.update_attribute(:user_icon, params.permit(:image))
+    user.update_attributes(avatar_param)
     redirect_to cms_user_path(user.id)
   end
 
@@ -55,10 +55,10 @@ class Cms::UsersController < Cms::ApplicationController
       if change_password_params[:password] == change_password_params[:password_confirmation]
         user.update_attribute(:password, change_password_params[:password])
       else
-        flash[:fails] = "password confirm is not exact"
+        flash[:errors] = "password confirm is not exact"
       end
     else
-      flash[:fails] = "current password is not exact"
+      flash[:errors] = "current password is not exact"
     end
     redirect_to cms_user_path(user.id)
   end
@@ -71,6 +71,10 @@ class Cms::UsersController < Cms::ApplicationController
 
     def change_password_params
       params.permit(:current_password, :password, :password_confirmation)
+    end
+
+    def avatar_param
+      params.require(:current_user).permit(:user_icon)
     end
 
 end

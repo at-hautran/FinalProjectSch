@@ -43,7 +43,8 @@ Rails.application.routes.draw do
     get '/bookings_services_watting' => 'booking_services#waitting', as: :booking_services_waitting
     resources :employees
     post 'users/:id/changepassword' => 'users#changepassword', as: :changepassword
-    put 'users/:id/update_avatar' => 'users#update_avatar', as: :update_avatar
+    post 'users/:id/update_avatar' => 'users#update_avatar', as: :update_avatar
+    delete 'sessions#logout' => 'sessions#account_logout_out', as: :logout
   end
 
     get 'index' => 'homepages#index'

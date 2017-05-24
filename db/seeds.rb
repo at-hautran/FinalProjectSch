@@ -45,11 +45,12 @@ end
 end
 
 User.create(email: 'nguyenvana@gmail.com', password: '123456789', user_type:  'Employee', type_id: 1)
-User.create(email: 'nguyenvanb@gmail.com', password: '123456789', user_type: 'Admin', type_id: 1)
+User.create(email: 'nguyenvanb@gmail.com', password: '123456789', user_type: 'Admin', type_id: 2)
+Employee.create(name: FFaker::Name.name, email: FFaker::Internet.email, phonenumber: "01206146039", position: "booker", gender: "mail", bithday: DateTime.new(1994, 10, 25))
+Employee.create(name: FFaker::Name.name, email: FFaker::Internet.email, phonenumber: "01206146039", position: "Admin", gender: "mail", bithday: DateTime.new(1994, 10, 25))
 AllowAddressIp.create ip_address: '127.0.0.1'
 AllowAddressIp.create ip_address: '10.168.63.68'
 
-Employee.create(name: FFaker::Name.name, email: FFaker::Internet.email)
 
 (1..100).each do |i|
   Booking.create(check_in: "#{i%30 + 1}-#{i%12 + 1}-2017", check_out: "#{i%30 + 2}-#{i%12 + 1}-2017",
