@@ -6,8 +6,11 @@
       <a href="../cms/rooms/new" class="btn btn-primary">New Room</a>
     <% end %>
       <%= render 'form_find_rooms' %>
-      <hr>
       <% if @rooms.present? %>
+        <% if params[:check_in].present? || params[:check_out].present? || params[:childrens].present? || params[:adults].present? %>
+          <h4 style="text-align: center;">We have <%= @number %> rooms in this plan</h4>
+          <hr>
+        <% end %>
         <div class="col-md-12">
           <div class="suggest_rooms_result">
             <%= render partial: "/cms/rooms/room_items", locals: {rooms: @rooms} %>

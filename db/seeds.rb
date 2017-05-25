@@ -54,7 +54,7 @@ AllowAddressIp.create ip_address: '10.168.63.68'
 
 (1..100).each do |i|
   Booking.create(check_in: "#{i%30 + 1}-#{i%12 + 1}-2017", check_out: "#{i%30 + 2}-#{i%12 + 1}-2017",
-                room_id: 1, customer_id: 1, adults: i%5, childrens: i%5, verified: true, status: :accepted, price: 500)
+                room_id: i, customer_id: 1, adults: i%5, childrens: i%5, verified: true, status: :accepted, price: 500)
 end
 
 
