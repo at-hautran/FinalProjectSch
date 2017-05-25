@@ -51,7 +51,7 @@
             <% end %>
           </tbody>
         </table>
-        <%= paginate @customers %>
+        <%= paginate @customers, window: 2, outer_window: 1 %>
         <div class="clearfix"></div>
         <%= %>
       </div>
