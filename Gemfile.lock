@@ -105,6 +105,12 @@ GEM
       request_store (>= 1.0)
     i18n (0.8.1)
     i18n_data (0.7.0)
+    invoice_printer (0.0.9)
+      json
+      prawn
+      prawn-layout
+    invoicing (1.0.1)
+      rails (>= 3.2.13)
     jbuilder (2.6.3)
       activesupport (>= 3.0.0, < 5.2)
       multi_json (~> 1.2)
@@ -156,6 +162,13 @@ GEM
     paypal-sdk-merchant (1.117.2)
       paypal-sdk-core (~> 0.3.0)
     pg (0.18.4)
+    prawn (0.8.4)
+      prawn-core (>= 0.8.4, < 0.9)
+      prawn-layout (>= 0.8.4, < 0.9)
+      prawn-security (>= 0.8.4, < 0.9)
+    prawn-core (0.8.4)
+    prawn-layout (0.8.4)
+    prawn-security (0.8.4)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -272,6 +285,8 @@ DEPENDENCIES
   countries
   ffaker
   gon
+  invoice_printer
+  invoicing
   jbuilder (~> 2.5)
   jquery-rails
   jquery-timepicker-addon-rails
@@ -282,6 +297,7 @@ DEPENDENCIES
   paypal-recurring
   paypal-sdk-merchant
   pg
+  prawn (~> 0.8.4)
   pry
   pry-rails
   puma (~> 3.0)
