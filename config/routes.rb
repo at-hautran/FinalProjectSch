@@ -45,6 +45,8 @@ Rails.application.routes.draw do
     post 'users/:id/changepassword' => 'users#changepassword', as: :changepassword
     post 'users/:id/update_avatar' => 'users#update_avatar', as: :update_avatar
     delete 'sessions#logout' => 'sessions#account_logout_out', as: :logout
+    put 'booking_services/chooseds/pay' => 'booking_services#pay_chooseds', as: :booking_services_pay_chooseds
+    put 'booking_services/invoice' => 'booking_services#invoice', as: :booking_services_invoice
   end
 
     get 'index' => 'homepages#index'

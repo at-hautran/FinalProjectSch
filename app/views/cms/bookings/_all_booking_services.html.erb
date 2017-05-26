@@ -2,52 +2,58 @@
 <%= render partial: 'cms/errors/errors', locals: {errors: @booking_service.errors} if @booking_service.present? %>
 <%= render partial: 'cms/errors/flash' , locals: { flash: flash } %>
 <h1>All Services</h1>
-<table class="table table-bordered table-striped table-hover">
-  <thead>
-  <tr>
-    <th width="100">Name</th>
-    <th width="200">Price</th>
-    <th width="10">Number</th>
-    <th width="200">Total Price</th>
-    <th width="400">Time Order</th>
-    <th width="400">Status</th>
-    <th width="800">Action</th>
-    <th width="200">Pay</th>
-    <th width="100"></th>
-    <th width="200">Booked_at</th>
-    <th width="200">Employee</th>
-  </tr>
-  </thead>
-  <tbody>
-  <% paid_total = 0 %>
-  <% unpaid_total = 0 %>
-  <% booking_services.each do |booking_service| %>
-  <% service = booking_service.service %>
-  <tr>
-    <% paid_total += booking_service.number*booking_service.price if booking_service.paid? && !(booking_service.cancel?) %>
-    <% unpaid_total += booking_service.number*booking_service.price if booking_service.unpaid? && !(booking_service.cancel?) %>
-    <td><%= service.name%></td>
-    <td><%= booking_service.price%></td>
-    <td><%= booking_service.number%>
-    <td><%= booking_service.number*booking_service.price%></td>
-    <td><%= booking_service.time.strftime('%Y-%m-%d %I:%M:%S %p') if booking_service.time.present? %></td>
-    <td><div class='box', style="background: <%=Cms::BookingServicesHelper::STATUS_COLOR[booking_service.status]%>; width: 60%"><%= booking_service.status%></div></td>
-    <td>
-      <%= link_to 'booked', cms_update_booking_services_path(booking_service.id, commit: :booked), disabled: !(booking_service.may_booked?), class: 'btn btn-success btn-xs', method: :post %>
-      <%= link_to 'cancel', cms_update_booking_services_path(booking_service.id, commit: :cancel), disabled: !(booking_service.may_cancel?), class: 'btn btn-danger btn-xs', method: :post %>
-    </td>
-    <td>
-      <%= booking_service.pay%>
-    </td>
-    <td>
-      <%= link_to 'paid', cms_update_booking_services_path(booking_service.id, commit: :paid), disabled: booking_service.paid? || booking_service.cancel?, class: 'btn btn-success btn-xs', method: :post %>
-    </td>
-    <td><%= booking_service.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
-    <td><%= determine(booking_service.user_id).name%></td>
-  </tr>
-  <% end %>
-  </tbody>
-</table>
+<form action="<%=cms_booking_services_invoice_path(format: :pdf)%>" method="post">
+  <input type="hidden" name="_method" value="put" />
+  <table class="table table-bordered table-striped table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th width="100">Name</th>
+      <th width="200">Price</th>
+      <th width="10">Number</th>
+      <th width="200">Total Price</th>
+      <th width="400">Time Order</th>
+      <th width="400">Status</th>
+      <th width="800">Action</th>
+      <th width="200">Pay</th>
+      <th width="100"></th>
+      <th width="200">Booked_at</th>
+      <th width="200">Employee</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% paid_total = 0 %>
+    <% unpaid_total = 0 %>
+    <% booking_services.each do |booking_service| %>
+    <% service = booking_service.service %>
+    <tr>
+      <% paid_total += booking_service.number*booking_service.price if booking_service.paid? && !(booking_service.cancel?) %>
+      <% unpaid_total += booking_service.number*booking_service.price if booking_service.unpaid? && !(booking_service.cancel?) %>
+      <td><%= check_box_tag "booking_service_ids[]", booking_service.id %></td>
+      <td><%= service.name%></td>
+      <td><%= booking_service.price%></td>
+      <td><%= booking_service.number%>
+      <td><%= booking_service.number*booking_service.price%></td>
+      <td><%= booking_service.time.strftime('%Y-%m-%d %I:%M:%S %p') if booking_service.time.present? %></td>
+      <td><div class='box', style="background: <%=Cms::BookingServicesHelper::STATUS_COLOR[booking_service.status]%>; width: 60%"><%= booking_service.status%></div></td>
+      <td>
+        <%= link_to 'booked', cms_update_booking_services_path(booking_service.id, commit: :booked), disabled: !(booking_service.may_booked?), class: 'btn btn-success btn-xs', method: :post %>
+        <%= link_to 'cancel', cms_update_booking_services_path(booking_service.id, commit: :cancel), disabled: !(booking_service.may_cancel?), class: 'btn btn-danger btn-xs', method: :post %>
+      </td>
+      <td>
+        <%= booking_service.pay%>
+      </td>
+      <td>
+        <%= link_to 'paid', cms_update_booking_services_path(booking_service.id, commit: :paid), disabled: booking_service.paid? || booking_service.cancel?, class: 'btn btn-success btn-xs', method: :post %>
+      </td>
+      <td><%= booking_service.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
+      <td><%= determine(booking_service.user_id).name%></td>
+    </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= submit_tag 'invoice' %>
+</form>
 
 <table class="table table-bordered table-striped table-hover">
   <thead>
@@ -60,4 +66,5 @@
     </tr>
   </tbody>
 </table>
+
 <%= link_to 'paid all', cms_paid_all_services_path(@booking.id, commit: :paid_all), disabled: !may_pay_all?(@booking.id), style: 'float: right;', class: 'btn btn-success', method: :put %>
