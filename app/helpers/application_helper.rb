@@ -10,11 +10,7 @@ module ApplicationHelper
   end
 
   def current_user_type
-    if current_user.user_type == 'Admin'
-      Admin.find(current_user.type_id)
-    elsif current_user.user_type = 'Employee'
-      Employee.find(current_user.type_id)
-    end
+    Employee.find(current_user.type_id) if current_user.present? && current_user.type_id.present?
   end
 
   def determine user_id

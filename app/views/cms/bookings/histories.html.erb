@@ -39,11 +39,53 @@
           <tbody>
             <% if @histories.present? %>
               <% @histories.each do |history| %>
+              <% audited_changes = history.audited_changes %>
                 <tr>
                   <% user = history.user %>
                   <td><%= @booking.id %></td>
-                  <td><%= user.present? ? user.username : "customer" %></td>
-                  <td><%= history.audited_changes %></td>
+                  <td><%= user.present? ? current_user_type.name : "customer" %></td>
+                  <td>
+                    <% if history.action == 'update' %>
+                      <% if audited_changes['check_in'].present? %>
+                        Check_in: <%= audited_changes['check_in'].first.strftime('%Y-%m-%d') %> to <%= audited_changes['check_in'].second.strftime('%Y-%m-%d') %> <br>
+                      <% end %>
+                      <% if audited_changes['check_out'].present? %>
+                        Check_out: <%= audited_changes['check_out'].first.strftime('%Y-%m-%d') %> to <%= audited_changes['check_out'].second.strftime('%Y-%m-%d') %> <br>
+                      <% end %>
+                      <% if audited_changes['childrens'].present? %>
+                        Childrens: <%= audited_changes['childrens'].first %> to <%= audited_changes['childrens'].second %> <br>
+                      <% end %>
+                      <% if audited_changes['adults'].present? %>
+                        Adults: <%= audited_changes['adults'].first %> to <%= audited_changes['adults'].second %> <br>
+                      <% end %>
+                      <% if audited_changes['status'].present? %>
+                        Status: <%= audited_changes['status'].first %> to <%= audited_changes['status'].second %> <br>
+                      <% end %>
+                      <% if audited_changes['total_payed'].present? %>
+                        Total payed: <%= audited_changes['total_payed'].first %> to <%= audited_changes['total_payed'].second %> <br>
+                      <% end %>
+                    <% end %>
+                    <% if history.action == 'create' %>
+                      <% if audited_changes['check_in'].present? %>
+                        Check_in: <%= audited_changes['check_in'].strftime('%Y-%m-%d') %> <br>
+                      <% end %>
+                      <% if audited_changes['check_out'].present? %>
+                        Check_out: <%= audited_changes['check_out'].strftime('%Y-%m-%d') %> <br>
+                      <% end %>
+                      <% if audited_changes['childrens'].present? %>
+                        Childrens: <%= audited_changes['childrens'].first %><br>
+                      <% end %>
+                      <% if audited_changes['adults'].present? %>
+                        Adults: <%= audited_changes['adults'] %> <br>
+                      <% end %>
+                      <% if audited_changes['status'].present? %>
+                        Status: <%= audited_changes['status']%><br>
+                      <% end %>
+                      <% if audited_changes['total_payed'].present? %>
+                        Total payed: <%= audited_changes['total_payed'].first %><br>
+                      <% end %>
+                    <% end %>
+                  </td>
                   <td><%= history.action %></td>
                   <td><%= history.created_at.strftime('%Y-%m-%d %I:%M:%S %p') %></td>
                 </tr>

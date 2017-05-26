@@ -1,5 +1,6 @@
 <div id="demo">
-  <h1>All Users</h1>
+  <h1>All employees</h1>
+  <%= link_to("New", new_cms_employee_path , class: 'btn btn-primary') %>
 
   <!-- Responsive table starts here -->
   <!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -8,29 +9,32 @@
   <table id="table" class="table table-hover table-mc-light-blue">
       <thead>
         <tr>
-          <th>Code</th>
+          <th>Employee code</th>
           <th>Name</th>
-          <th>Email</th>
-          <th>Password</th>
-          <th>Role</th>
+          <th>Gender</th>
+          <th>birthday</th>
+          <th>Phone number</th>
+          <th>Position</th>
+          <th>Add account</th>
           <th>Edit</th>
           <th>Delete</th>
         </tr>
       </thead>
       <tbody>
-      <% @users.each do |user| %>
+      <% @employees.each do |employee| %>
         <tr>
-          <td data-title="Name"><%= user.type_id %></td>
-          <td data-title="Name"><%= user.employee.name if user.employee.present? %></td>
-          <td data-title="Name"><%= user.email %></td>
-          <td data-title="Name"><%= user.password %></td>
-          <td data-title="Name"><%= user.user_type %></td>
+          <td><%= employee.id %></td>
+          <td><%= employee.name %></td>
+          <td><%= employee.gender %></td>
+          <td><%= employee.bithday %></td>
+          <td><%= employee.phonenumber %></td>
+          <td><%= employee.position %></td>
+          <td><%= link_to 'Add Account', new_cms_user_path(id: employee.id)%></td>
           <td data-title="Link">
-            <a href="/cms/users/<%= user.id %>/edit" target="_blank">Edit</a>
+            <a href="/cms/employees/<%= employee.id %>/edit" target="_blank">Edit</a>
           </td>
           <td data-title="Link">
-            <%= link_to("Delete", cms_user_path(user.id) , method: :delete) %>
-            <!-- <a href="/cms/users/<%= user.id %>" data-method: :delete>Delete</a> -->
+            <a href="/cms/employees/<%= employee.id %>" date-method: :delete, target="_blank">Delete</a>
           </td>
         </tr>
       <% end %>

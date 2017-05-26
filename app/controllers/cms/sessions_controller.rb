@@ -13,6 +13,13 @@ class Cms::SessionsController < Cms::ApplicationController
   end
 
   def destroy
+    logout
+    redirect_to cms_root_path
+  end
+
+  def account_logout_out
+    logout
+    redirect_to cms_root_path
   end
 
   def login_params

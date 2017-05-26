@@ -17,7 +17,7 @@
   </div>
 </div>
     <div style="margin-bottom: 10px;"></div>
-  <% @rooms.each do |room| %>
+  <% @rooms.each_with_index do |room, idx| %>
     <% bookings = room.bookings %>
     <%= week_calendar partial: 'cms/rooms/week_calendar', attribute: :check_in, end_attribute: :check_out, events: bookings do |date, bookings| %>
 

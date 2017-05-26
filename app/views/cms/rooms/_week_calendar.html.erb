@@ -1,3 +1,4 @@
+
 <% first_room_name = @rooms.first.name %>
   <% if sorted_events.values().present? && (first_room_name == sorted_events.values().flatten.first.room.name) %>
     <div class="calendar-heading">
@@ -25,7 +26,7 @@
     <tbody>
       <% date_range.each_slice(7) do |week| %>
         <tr>
-        <th width="10%"><%= sorted_events.values().flatten.first.room.name%></th>
+        <th width="5%"><%= sorted_events.values().flatten.first.room.name if sorted_events.values().flatten.first.present?%></th>
           <% week.each do |day| %>
             <%= content_tag :td, class: calendar.td_classes_for(day) do %>
               <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(block) %>
