@@ -1,151 +1,82 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-
     <!-- Website CSS style -->
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
-
     <!-- Website Font style -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
-
     <title>Admin</title>
   </head>
   <body>
     <div class="container">
       <div class="row main">
         <div class="panel-heading">
-                 <div class="panel-title text-center">
-                    <h1 class="title">Create new user</h1>
-                    <hr />
-                  </div>
-              </div>
+          <div class="panel-title text-center">
+            <h1 class="title">New user</h1>
+            <hr />
+          </div>
+          <%= render partial: 'cms/errors/errors', locals: {errors: @user.errors} if @user.present? %>
+        </div>
         <div class="main-login main-center">
-          <form action="../users", method="post" class="form-horizontal" method="post" action="#">
-
-            <div class="form-group">
-              <label for="name" class="cols-sm-2 control-label">User Name</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="user[user_name]" id="name"  placeholder="Name"/>
+          <form action="/cms/users", method="post" class="form-horizontal" method="post">
+            <input type="hidden" class="form-control" name="user[type_id]" id="position" value="<%=params[:id] || @id%>" placeholder="Id"/>
+            <div class="col-md-4"></div>
+            <div class = "col-md-4">
+              <div class="form-group">
+                <label for="email" class="cols-sm-2 control-label">Email</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+                    <input name="user[email]" type="text" class="form-control" name="user[email]" id="email"  placeholder="Email"/>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="email" class="cols-sm-2 control-label">Email</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="user[email]" id="email"  placeholder="Email"/>
+              <div class="form-group">
+                <label for="password" class="cols-sm-2 control-label">Password</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <input name= "user[password]" type="password" class="form-control" name="user[password]" id="password"  placeholder="Password"/>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="password" class="cols-sm-2 control-label">Password</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="user[password]" id="password"  placeholder="Password"/>
+              <div class="form-group">
+                <label for="confirm" class="cols-sm-2 control-label">Role</label>
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
+                    <select name= "user[user_type]" class="form-control">
+                      <option disabled selected value> -- select role -- </option>
+                      <option>Admin</option>
+                      <option>Employee</option>
+                    </select>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Confirm Password</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="password" class="form-control" name="user[confirm_password]" id="confirm"  placeholder="Confirm Password"/>
+              <div class="form-group">
+                <!-- <label for="confirm" class="cols-sm-2 control-label">Id</label> -->
+                <div class="cols-sm-10">
+                  <div class="input-group">
+                    <!-- <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span> -->
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Birthday</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="date" class="form-control" name="user[birthday]" id="birthday"  placeholder="birthday"/>
-                </div>
+              <div class="form-group ">
+                <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
               </div>
             </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Gender</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <!-- <input type="password" class="form-control" name="gender" id="confirm"  placeholder="Confirm your Password"/> -->
-                  <select class="selectpicker form-control", name="user[gender]">
-                    <option value="" disabled selected>Gender</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Phone Number</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="" class="form-control" name="user[phone_number]" id="confirm"  placeholder="Phone Number"/>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Address</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <textarea rows="5" type="" class="form-control" name="user[address]" id="confirm"  placeholder="Address"/></textarea>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Role</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="user[role]" id="role"  placeholder="Role"/>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="confirm" class="cols-sm-2 control-label">Position</label>
-              <div class="cols-sm-10">
-                <div class="input-group">
-                  <span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-                  <input type="text" class="form-control" name="user[position]" id="position"  placeholder="Confirm your Password"/>
-                </div>
-              </div>
-            </div>
-
-
-
-            <div class="form-group ">
-              <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
-            </div>
-            <div class="login-register">
-                    <a href="index.php">Login</a>
-                 </div>
           </form>
         </div>
       </div>
     </div>
-
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
   </body>
 </html>
+

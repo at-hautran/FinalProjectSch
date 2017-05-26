@@ -3,19 +3,19 @@
         <div class="w3-row-padding">
           <div class="w3-col m3">
             <label><i class="fa fa-calendar-o"></i> Check In</label>
-            <input name='check_in'  class="w3-input w3-border check_in" type="date">
+            <input name='check_in' value="<%=params[:check_in]%>"  class="w3-input w3-border check_in" type="date">
           </div>
           <div class="w3-col m3">
             <label><i class="fa fa-calendar-o"></i> Check Out</label>
-            <input name='check_out' class="w3-input w3-border check_out" type="date">
+            <input name='check_out' value="<%=params[:check_out]%>" class="w3-input w3-border check_out" type="date">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-male"></i> Adults</label>
-            <input name='adults' class="w3-input w3-border" type="number" placeholder="Adults">
+            <input name='adults' value="<%=params[:adults]%>" class="w3-input w3-border" type="number" placeholder="Adults">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-child"></i>Childrens</label>
-            <input name='childrens' class="w3-input w3-border" type="number" placeholder="Childrens">
+            <input name='childrens' value="<%=params[:childrens]%>" class="w3-input w3-border" type="number" placeholder="Childrens">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-search" ></i> Search</label>

@@ -1,5 +1,6 @@
 require 'csv'
 class Booking < ApplicationRecord
+  # validate_inclusion_of :country, in:lambda{ |user| Country[user.country].states.keys}, if: lambda{ |user| Country[user.country]}
 
   include AASM
 
@@ -48,7 +49,6 @@ class Booking < ApplicationRecord
   validate :check_check_out_greater_than_check_in
   validate :check_plan_present
   validate :time_booking_can_not_in_past
-
 
   # has_secure_password
 

@@ -1,52 +1,50 @@
 <head>
-    <title>FinalProjectSch</title>
-    <%= csrf_meta_tags %>
-
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <title>FinalProjectSch</title>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 <%= include_gon(:init => true) %>
-  <%= Gon::Base.render_data({})  %>
-
+<%= Gon::Base.render_data({})  %>
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 <body class="home">
+  <% unless requestlogin? %>
   <div class="container-fluid display-table">
     <div class="row display-table-row">
-      <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+      <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box fix-size" id="navigation">
         <div class="logo">
-          <a hef="home.html"><img src="http://jskrishna.com/work/merkury/images/logo.png" alt="merkery_logo" class="hidden-xs hidden-sm">
           <img src="http://jskrishna.com/work/merkury/images/circle-logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo">
           </a>
         </div>
-        <% unless requestlogin? %>
+
           <div class="navi">
             <ul>
               <li class="active"><a href="/cms"><i class="fa fa-home" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Home</span></a></li>
               <% if  current_user.user_type == 'Admin' %>
-                li><a href="/cms/top_images"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Top Images</span></a></li>
-                <li><a href="/cms/top_image_chooses"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Headline Images</span></a></li>
-                <li><a href="/cms/image_room_tops"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Top Room Images</span></a></li>
-                <li><a href="/cms/allow_ip_addresses"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Allow IP</span></a></li>
-                <li><a href="/cms/users"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
-                <li><a href="/cms/employees"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Employee</span></a></li>
-                <li><a href="/cms/services"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Services</span></a></li>
+              <li><a href="/cms/top_images"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Top Images</span></a></li>
+              <li><a href="/cms/top_image_chooses"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Headline Images</span></a></li>
+              <li><a href="/cms/image_room_tops"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Top Room Images</span></a></li>
+              <li><a href="/cms/allow_ip_addresses"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Allow IP</span></a></li>
+              <li><a href="/cms/users"><i class="fa fa-user" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Users</span></a></li>
+              <li><a href="/cms/employees"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Employee</span></a></li>
+              <li><a href="/cms/services"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Services</span></a></li>
               <% end %>
               <li><a href="/cms/customers"><i class="fa fa-tasks" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Customer</span></a></li>
               <li><a href="/cms/rooms"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms</span></a></li>
-              <!-- <li><a href="/cms/all_rooms/bookings"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms Schedule</span></a></li> -->
+              <li><a href="/cms/all_rooms/bookings"><i class="fa fa-bar-chart" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Rooms Schedule</span></a></li>
               <li><a href="/cms/bookings"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Bookings</span></a></li>
               <li><a href="/cms/booking_services"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Booking Services</span></a></li>
               <li><a href="/cms//bookings_services_watting"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Booking Services Waitting</span></a></li>
               <li><a href="/cms//watting_bookings"><i class="fa fa-calendar" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Waitting Booking</span></a></li>
-              <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Setting</span></a></li>
+              <!-- <li><a href="#"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-xs hidden-sm">Setting</span></a></li> -->
             </ul>
           </div>
-        <% end %>
       </div>
       <div class="col-md-10 col-sm-11 display-table-cell v-align">
         <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
         <div class="row">
-          <header>
+          <header style="margin-bottom: 30px">
             <div class="col-md-7">
               <nav class="navbar-default pull-left">
                 <div class="navbar-header">
@@ -58,45 +56,56 @@
                   </button>
                 </div>
               </nav>
-              <div class="search hidden-xs hidden-sm">
+              <!-- <div class="search hidden-xs hidden-sm">
                 <input type="text" placeholder="Search" id="search">
-              </div>
+                </div> -->
             </div>
             <div class="col-md-5">
               <div class="header-rightside">
                 <ul class="list-inline header-top pull-right">
-                  <li class="hidden-xs"><a href="#" class="add-project" data-toggle="modal" data-target="#add_project">Add Project</a></li>
-                  <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
-                  <li>
+                  <!-- <li class="hidden-xs"><a href="#" class="add-project" data-toggle="modal" data-target="#add_project">Add Project</a></li> -->
+                  <!-- <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a></li> -->
+                  <!-- <li>
                     <a href="#" class="icon-info">
                     <i class="fa fa-bell" aria-hidden="true"></i>
                     <span class="label label-primary">3</span>
                     </a>
-                  </li>
-                  <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="http://jskrishna.com/work/merkury/images/user-pic.jpg" alt="user">
-                    <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                      <li>
-                        <div class="navbar-content">
-                          <span>JS Krishna</span>
-                          <p class="text-muted small">
-                            me@jskrishna.com
-                          </p>
-                          <div class="divider">
+                  </li> -->
+                  <div class="col-md-5">
+                    <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <%= user_avartar current_user %>
+                      <b class="caret"></b></a>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <div class="navbar-content">
+                            <span><%= current_user_type.name %></span>
+                            <p class="text-muted small">
+                              <%= current_user.email %>
+                            </p>
+                            <div class="divider">
+                            </div>
+                            <%= link_to("View Profile", cms_user_path(current_user.id), class: "view btn-sm active") %>
                           </div>
-                          <a href="#" class="view btn-sm active">View Profile</a>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
+                        </li>
+                      </ul>
+                    </li>
+                  </div>
+                  <div class="col-md-5">
+                  <a href="<%=cms_logout_path%>" data-method="delete"><i class="fa fa-sign-out"></i>Logout</a>
+                  </div>
                 </ul>
               </div>
             </div>
           </header>
         </div>
         <div class="user-dashboard">
+        <% end %>
+        <div class="" style="">
           <%= yield %>
+        </div>
+
+<% unless requestlogin? %>
         </div>
       </div>
     </div>
@@ -123,5 +132,13 @@
       </div>
     </div>
   </div>
+  <% end %>
 </body>
-
+<style type="text/css">
+  .fix-size {
+    /*min-width:100px;*/
+    /*max-width: 100px;*/
+    /*width: 100px;*/
+    font-family: initial;
+  }
+</style>

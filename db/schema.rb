@@ -160,14 +160,13 @@ ActiveRecord::Schema.define(version: 20171408001025) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "username"
+    t.string   "user_icon"
     t.string   "email"
     t.string   "password"
-    t.string   "confirm_password"
     t.string   "user_type"
     t.integer  "type_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

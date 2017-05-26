@@ -1,6 +1,6 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12">
+<!-- <div class="container"> -->
+  <!-- <div class="row"> -->
+    <!-- <div class="col-md-12"> -->
       <h3 style="text-align: center;">Bookings</h3>
       <%= render 'form_find' %>
       <div class="table-responsive">
@@ -17,9 +17,7 @@
             <th>Adults</th>
             <th>Childrens</th>
             <th>Status</th>
-            <% if current_user.user_type == "Admin" %>
             <th>History</th>
-            <% end %>
             <th>Edit</th>
             <th>Delete</th>
           </thead>
@@ -31,14 +29,14 @@
               <td class="name1"><%= customer.name %></td>
               <td><%= customer.phonenumber %></td>
               <td><%= customer.email %></td>
-              <td><%= customer.country %></td>
+              <td><%= Country[customer.country].name %></td>
               <td><%= booking.room.name%></td>
               <td><%= booking.check_in.strftime("%Y/%m/%d") %></td>
               <td><%= booking.check_out.strftime("%Y/%m/%d") %></td>
               <td><%= booking.adults %></td>
               <td><%= booking.childrens %></td>
               <td><%= booking.status%></td>
-              <td><%= link_to("History", "/cms/histories/bookings/#{booking.id}") %></td>
+                <td><%= link_to("History", "/cms/histories/bookings/#{booking.id}") %></td>
               <td>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
                   <button onclick="location.href='/cms/bookings/<%=booking.id%>/edit';" class="btn btn-primary btn-xs modalpop" data-title="Edit" >
@@ -56,11 +54,11 @@
           </tbody>
         </table>
         <div class="clearfix"></div>
-        <%= paginate @bookings %>
+        <%= paginate @bookings, window: 2, outer_window: 1 %>
       </div>
-    </div>
-  </div>
-</div>
+    <!-- </div> -->
+  <!-- </div> -->
+<!-- </div> -->
 <form id ="update-bookings" action = "" method="post">
   <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
     <div class="modal-dialog">

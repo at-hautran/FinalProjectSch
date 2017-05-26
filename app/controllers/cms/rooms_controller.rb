@@ -65,6 +65,7 @@ class Cms::RoomsController < Cms::ApplicationController
     @rooms = @rooms.where("adults >= ?", params[:adults]) if params[:adults].present?
     @rooms = @rooms.where("childrens >= ?", params[:childrens]) if params[:childrens].present?
     @rooms = @rooms.order(created_at: :desc).page(params[:page]).per(10)
+    @number = @rooms.count
     render 'index'
   end
 

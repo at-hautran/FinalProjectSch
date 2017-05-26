@@ -6,9 +6,10 @@ class Cms::UsersController < Cms::ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to cms_user_path(id: @user.id)
       flash[:success] = "New user was created"
+      redirect_to cms_users_path
     else
+      @id = user_params[:type_id]
       render :new
     end
   end
@@ -33,14 +34,47 @@ class Cms::UsersController < Cms::ApplicationController
   end
 
   def index
-    @users = User.all
+    @users = User.includes(:employee).all
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+    @user.delete
+    redirect_to cms_users_path
+  end
+
+  def update_avatar
+    user = User.find(params[:id])
+    user.update_attributes(avatar_param)
+    redirect_to cms_user_path(user.id)
+  end
+
+  def changepassword
+    user = User.find(params[:id])
+    if user.password == change_password_params[:current_password]
+      if change_password_params[:password] == change_password_params[:password_confirmation]
+        user.update_attribute(:password, change_password_params[:password])
+      else
+        flash[:errors] = "password confirm is not exact"
+      end
+    else
+      flash[:errors] = "current password is not exact"
+    end
+    redirect_to cms_user_path(user.id)
   end
 
   private
 
     def user_params
-      params.require(:user).permit(:id, :user_name, :email, :password, :confirm,
-                                   :birthday, :phone_number, :address, :role, :position)
+      params.require(:user).permit(:email, :password, :user_type, :type_id)
+    end
+
+    def change_password_params
+      params.permit(:current_password, :password, :password_confirmation)
+    end
+
+    def avatar_param
+      params.require(:current_user).permit(:user_icon)
     end
 
 end

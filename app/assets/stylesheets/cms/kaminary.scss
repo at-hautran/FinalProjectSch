@@ -1,0 +1,55 @@
+.pagination a, .pagination span.current, .pagination span.gap {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid #DDD;
+    border-left-width: 0;
+}
+
+.pagination {
+    border-left: 1px solid #ddd;
+    .first{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .prev {
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .page{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .next{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+    .last{
+        padding : 0;
+        float: none;
+        border: none;
+    }
+}
+
+    .wrapper {
+        text-align: center;
+    }
+    .wrapper ul {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        /* For IE, the outcast */
+        zoom:1;
+        *display: inline;
+    }
+    .wrapper li {
+        float: left;
+        padding: 2px 5px;
+        border: 1px solid black;
+    }
