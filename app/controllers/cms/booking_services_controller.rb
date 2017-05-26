@@ -53,6 +53,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
         name: service.name,
         quantity: booking_service.number,
         price: booking_service.price*85/100,
+        #amount before tax
         amount: '$ ' + (amount_after_tax*85/100).to_s
         # tax: amount_after_tax*10/100,
         # tax2: amount_after_tax*5/100,
@@ -61,47 +62,42 @@ class Cms::BookingServicesController < Cms::ApplicationController
       totlal_prices = totlal_prices + amount_after_tax
       items<<item
     end
+    customer = booking_services.first.booking.customer
 
     invoice = InvoicePrinter::Document.new(
       number: '201604030001',
-      provider_name: 'Business s.r.o.',
+      provider_name: 'My Hotel',
       provider_tax_id: '56565656',
       provider_tax_id2: '465454',
-      provider_street: 'Rolnicka',
+      provider_street: 'Cua Dai',
       provider_street_number: '1',
-      provider_postcode: '747 05',
-      provider_city: 'Opava',
-      provider_city_part: 'Katerinky',
-      provider_extra_address_line: 'Czech Republic',
-      purchaser_name: 'Adam',
-      purchaser_tax_id: '',
-      purchaser_tax_id2: '',
-      purchaser_street: 'Ostravska',
-      purchaser_street_number: '1',
-      purchaser_postcode: '747 70',
-      purchaser_city: 'Opava',
-      purchaser_city_part: '',
-      purchaser_extra_address_line: '',
-      issue_date: '19/03/3939',
-      due_date: '19/03/3939',
+      provider_city: 'Hoi An',
+      purchaser_name: customer.name,
+      # purchaser_tax_id: '',
+      # purchaser_tax_id2: '',
+      purchaser_street: customer.street,
+      purchaser_street_number: customer.number_street,
+      purchaser_city: customer.city,
+      purchaser_postcode: customer.postcode,
+      due_date: Time.zone.now.strftime('%Y-%m-%d %I:%M:%S %p'),
       subtotal: totlal_prices*85/100,
       tax: totlal_prices*10/100,
       tax2: totlal_prices*5/100,
       total: '$ ' + totlal_prices.to_s,
-      bank_account_number: '156546546465',
-      account_iban: 'IBAN464545645',
-      account_swift: 'SWIFT5456',
+      # bank_account_number: '156546546465',
+      # account_iban: 'IBAN464545645',
+      # account_swift: 'SWIFT5456',
       items: items,
       note: 'A note...'
     )
 
       respond_to do |format|
-    format.pdf {
-      @pdf = InvoicePrinter.render(
-        document: invoice
-      )
-      send_data @pdf, type: 'application/pdf', disposition: 'inline'
-    }
+        format.pdf {
+          @pdf = InvoicePrinter.render(
+            document: invoice
+          )
+          send_data @pdf, type: 'application/pdf', disposition: 'inline'
+        }
   end
   end
 
