@@ -147,7 +147,9 @@ class Cms::BookingsController < Cms::ApplicationController
 
   def new_services
     @booking = Booking.find(params[:id])
-    @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: params[:id])
+    @booking_services = BookingService.order("CASE status WHEN 'watting' THEN 1
+                                              WHEN 'booked' THEN 2
+                                              WHEN 'cancel' THEN 3 END, created_at desc").includes(:service).where(booking_id: params[:id])
     @services = Service.order(status: :desc)
     @services = @services.page(params[:page]).per(25)
   end
