@@ -34,6 +34,14 @@
   room.save
 end
 
+(1..5).each do |i|
+  top_image = TopImage.new(title: "tophotel#{i}", content: "Hotelhotel#{i}", top_choosed_number: i)
+  File.open("public/#{i}.jpg") do |top_icon|
+    top_image.top_icon = top_icon
+  end
+  top_image.save
+end
+
 (1..100).each do |i|
   Customer.create(name: FFaker::Name.name, email: FFaker::Internet.email, phonenumber: FFaker::PhoneNumber.phone_number,
                  country: FFaker::Address.country_code, street: FFaker::Address.street_name,
@@ -89,3 +97,7 @@ end
 Service.create(status: 'open', service_icon: 'a', name: 'breakfast', price: 500)
 Service.create(status: 'open', service_icon: 'b', name: 'lunch', price: 500)
 Service.create(status: 'open', service_icon: 'c', name: 'dinner', price: 500)
+
+ImageRoomTop.create(image_room_top_number: 1, room_id: 1)
+ImageRoomTop.create(image_room_top_number: 2, room_id: 2)
+ImageRoomTop.create(image_room_top_number: 3, room_id: 3)
