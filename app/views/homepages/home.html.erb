@@ -53,12 +53,12 @@
       <form action="/rooms" onsubmit="return must_type_depart()">
         <div class="w3-row-padding">
           <div class="w3-col m3">
-            <label><i class="fa fa-calendar-o"></i> Check In</label>
-            <input name='check_in'  class="w3-input w3-border check_in" type="date">
+            <label><i class="fa fa-calendar-o"></i> Check In(*)</label>
+            <input name='check_in' id="checkIn" class="w3-input w3-border check_in" type="date" min="<%=Time.zone.now.strftime('%Y-%m-%d')%>" value="<%= (Time.zone.now + 7.hour).strftime('%Y-%m-%d')%>" onchange="updatedate();">
           </div>
           <div class="w3-col m3">
-            <label><i class="fa fa-calendar-o"></i> Check Out</label>
-            <input name='check_out' class="w3-input w3-border check_out" type="date">
+            <label><i class="fa fa-calendar-o"></i> Check Out(*)</label>
+            <input name='check_out' id="checkOut" class="w3-input w3-border check_out" type="date" min="<%=Time.zone.now.strftime('%Y-%m-%d')%>" value="<%= (Time.zone.now + 7.hour).strftime('%Y-%m-%d')%>">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-male"></i> Adults</label>
@@ -198,6 +198,12 @@
           }, 600);
         });
       });
+
+       function updatedate() {
+        var firstdate = document.getElementById("checkIn").value;
+        document.getElementById("checkOut").value = "";
+        document.getElementById("checkOut").setAttribute("min",firstdate);
+      }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6hH_CRiZzGj9BkK3pQjuZ1o6uFTIzgQ&callback=myMap"></script>
   </body>
