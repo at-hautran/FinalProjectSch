@@ -65,10 +65,11 @@ class Cms::BookingServicesController < Cms::ApplicationController
         totlal_prices = totlal_prices + amount_after_tax
         items<<item
       end
-      customer = booking_services.first.booking.customer
+      booking = booking_services.first.booking
+      customer = booking.customer
 
       invoice = InvoicePrinter::Document.new(
-        number: '201604030001',
+        number: booking.id,
         provider_name: 'My Hotel',
         provider_tax_id: '56565656',
         provider_tax_id2: '465454',
@@ -82,7 +83,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
         purchaser_street_number: customer.number_street,
         purchaser_city: customer.city,
         purchaser_postcode: customer.postcode,
-        due_date: Time.zone.now.strftime('%Y-%m-%d %I:%M:%S %p'),
+        due_date: (Time.zone.now + 7.hour).strftime('%Y-%m-%d %I:%M:%S %p'),
         subtotal: totlal_prices*85/100,
         tax: totlal_prices*10/100,
         tax2: totlal_prices*5/100,
