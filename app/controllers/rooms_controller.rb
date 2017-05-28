@@ -9,6 +9,6 @@ class RoomsController < ApplicationController
   end
 
   def check_valid_params
-    redirect_to root_url if params[:check_in].blank? || params[:check_out].blank? || params[:check_in] > params[:check_out] || Time.zone.now.strftime('%Y-%m-%d') > params[:check_in] || Time.zone.now > params[:check_out]
+    redirect_to root_url if params[:check_in].blank? || params[:check_out].blank? || params[:check_in] > params[:check_out] || (Time.zone.now + 7.hour).strftime('%Y-%m-%d') > params[:check_in] || (Time.zone.now + 7.hour).strftime('%Y-%m-%d') > params[:check_out]
   end
 end

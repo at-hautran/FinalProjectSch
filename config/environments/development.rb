@@ -34,10 +34,10 @@ Rails.application.configure do
     authentication: "plain",
     enable_starttls_auto: true,
     user_name: "h0977534303@gmail.com",
-    password: "Achxhcnvn@a"
+    password: "Achxhcnvn@1"
   }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { :host => 'localhost:80' }
+  config.action_mailer.default_url_options = { :host => '127.0.0.1:80' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   # Send email in development mode.
