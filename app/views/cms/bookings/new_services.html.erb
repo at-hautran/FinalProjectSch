@@ -13,7 +13,6 @@
     <th width="300">Check out</th>
     <th width="200">Total Price</th>
     <th width="200">Total payed</th>
-    <th width="100"></th>
     <th width="200">Action</th>
     <th width="200">Booked at</th>
   </tr>
@@ -28,7 +27,6 @@
       <td><%= (((@booking.check_out - @booking.check_in + 1.day)/1.day)*@booking.price.to_i).to_i%>$/<%=((@booking.check_out - @booking.check_in + 1.day)/1.day).to_i%>days</td>
       <td><%= @booking.total_payed %></td>
       <td><%= pay_link_to @booking %></td>
-      <td><div class='box' style="background: blue;" width: 50%"><%= %></div></td>
       <td><%= @booking.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
     </tr>
   </tbody>
