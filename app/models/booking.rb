@@ -1,6 +1,5 @@
 require 'csv'
 class Booking < ApplicationRecord
-  # validate_inclusion_of :country, in:lambda{ |user| Country[user.country].states.keys}, if: lambda{ |user| Country[user.country]}
 
   include AASM
 
