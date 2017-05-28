@@ -71,6 +71,8 @@ class Cms::BookingsController < Cms::ApplicationController
         end
         if params[:commit] == 'finish' && @booking.may_finish?
           @booking.finish
+          @booking.finished_at = Time.zone.now
+          @booking.total_services_payed = service_prices(@booking)
           @booking.save
           redirect_to edit_cms_booking_path(params[:id])
         end

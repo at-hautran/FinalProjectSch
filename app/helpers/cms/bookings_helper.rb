@@ -14,4 +14,24 @@ module Cms::BookingsHelper
     else
     end
   end
+
+  def cal_prices(booking)
+    booking.total_payed
+  end
+
+  def get_incomes(bookings)
+    incomes = 0
+    bookings.each do |booking|
+      incomes = incomes + cal_prices(booking) + booking.total_services_payed
+    end
+    incomes
+  end
+
+  def get_incomes_services(booking)
+    service_incomes = 0
+    booking.each do |booking|
+      service_incomes = service_incomes + booking.total_services_payed
+    end
+    service_incomes
+  end
 end

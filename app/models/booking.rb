@@ -126,7 +126,7 @@ class Booking < ApplicationRecord
     if search_params[:check_in].present? && search_params[:check_out].present?
       bookings = bookings.where("strftime('%Y-%m-%d', check_in) >= ? AND strftime('%Y-%m-%d', check_out) <= ? ", search_params[:check_in].to_date, search_params[:check_out].to_date)
     elsif search_params[:check_in].present? && search_params[:check_out].blank?
-      bookings = bookings.where("strftime('%Y-%m-%d', check_in) = ?", search_params[:check_in].to_date)
+      bookings = bookings.where("strftime('%Y-%m-%d', check_in) = ?", search_params[:check_in].to_date.strftime('%Y-%m-%d'))
     elsif search_params[:check_in].blank? && search_params[:check_out].present?
       bookings = bookings.where("strftime('%Y-%m-%d', check_out) = ?", search_params[:check_out].to_date)
     end
@@ -154,5 +154,29 @@ class Booking < ApplicationRecord
     booking.paypal_payment_token = token
     booking.paypal_customer_token = payer_id
     booking.save
+  end
+
+  def self.get_current_in_comes(start_date)
+    if start_date.blank?
+      start_date = Time.zone.now.strftime('%Y-%m-%d')
+    end
+    in_comes = self.get_finished(start_date)
+  end
+
+  def self.get_last_in_comes(start_date)
+    in_comes = []
+    if start_date.blank?
+      start_date = Time.zone.now.strftime('%Y-%m-%d')
+    end
+    two_year_ago = (start_date.to_date - 2.year).strftime('%Y-%m-%d')
+    in_comes << self.get_finished(two_year_ago)
+    one_year_ago = (start_date.to_date - 1.year).strftime('%Y-%m-%d')
+    in_comes << self.get_finished(one_year_ago)
+
+    in_comes
+  end
+
+  def self.get_finished(start_date)
+    Booking.where("(STRFTIME('%Y-%m', finished_at)) = ?", start_date.to_date.strftime('%Y-%m'))
   end
 end

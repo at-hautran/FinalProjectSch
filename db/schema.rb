@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171408001028) do
+ActiveRecord::Schema.define(version: 20171408001025) do
 
   create_table "admins", force: :cascade do |t|
     t.string   "name"
@@ -71,11 +71,13 @@ ActiveRecord::Schema.define(version: 20171408001028) do
     t.integer  "adults"
     t.integer  "room_id"
     t.string   "pay"
+    t.datetime "finished_at"
     t.boolean  "pay_online",            default: false
     t.string   "paypal_customer_token"
     t.string   "paypal_payment_token"
     t.integer  "price"
-    t.integer  "total_payed"
+    t.integer  "total_payed",           default: 0
+    t.integer  "total_services_payed",  default: 0
     t.integer  "customer_id"
     t.string   "comments"
     t.integer  "user_id"
@@ -118,50 +120,6 @@ ActiveRecord::Schema.define(version: 20171408001028) do
     t.integer  "image_room_top_number"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-  end
-
-  create_table "invoicing_ledger_items", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "recipient_id"
-    t.string   "type"
-    t.datetime "issue_date"
-    t.string   "currency",     limit: 3,                           null: false
-    t.decimal  "total_amount",            precision: 20, scale: 4
-    t.decimal  "tax_amount",              precision: 20, scale: 4
-    t.string   "status",       limit: 20
-    t.string   "identifier",   limit: 50
-    t.string   "description"
-    t.datetime "period_start"
-    t.datetime "period_end"
-    t.string   "uuid",         limit: 40
-    t.datetime "due_date"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "invoicing_line_items", force: :cascade do |t|
-    t.integer  "ledger_item_id"
-    t.string   "type"
-    t.decimal  "net_amount",                precision: 20, scale: 4
-    t.decimal  "tax_amount",                precision: 20, scale: 4
-    t.string   "description"
-    t.string   "uuid",           limit: 40
-    t.datetime "tax_point"
-    t.decimal  "quantity",                  precision: 20, scale: 4
-    t.integer  "creator_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "invoicing_tax_rates", force: :cascade do |t|
-    t.string   "description"
-    t.decimal  "rate",           precision: 20, scale: 4
-    t.datetime "valid_from",                              null: false
-    t.datetime "valid_until"
-    t.integer  "replaced_by_id"
-    t.boolean  "is_default"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "room_cannot_chooses", force: :cascade do |t|

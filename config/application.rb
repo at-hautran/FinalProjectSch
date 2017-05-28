@@ -14,6 +14,6 @@ module FinalProjectSch
     # -- all .rb files in that directory are automatically loaded.
     config.i18n.available_locales = [:en, :vn]
     config.i18n.default_locale = :en
-    config.time_zone = "Hanoi"
+    # config.time_zone = "Hanoi"
   end
 end
