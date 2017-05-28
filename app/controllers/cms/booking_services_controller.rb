@@ -19,10 +19,6 @@ class Cms::BookingServicesController < Cms::ApplicationController
       @booking_service.cancel if params[:commit] == 'cancel' && @booking_service.may_cancel?
       @booking_service.paid   if params[:commit] == 'paid'   && @booking_service.may_paid?
       @booking_service.save
-      # @booking = @booking_service.booking
-      # @booking_services = BookingService.includes(:service).where(booking_id: @booking.id)
-      # @services = Service.order(status: :desc)
-      # @services = @services.page(params[:page]).per(25)
       redirect_to cms_booking_new_services_url(@booking_service.booking_id)
     end
   end
@@ -33,9 +29,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
   end
 
   def paid_all
-    # if params[:commit] == 'paid_all'
-      BookingService.paid_all(params[:booking_id])
-  # end
+    BookingService.paid_all(params[:booking_id])
     redirect_to cms_booking_new_services_url(params[:booking_id])
   end
 
@@ -56,11 +50,7 @@ class Cms::BookingServicesController < Cms::ApplicationController
           name: service.name,
           quantity: booking_service.number,
           price: booking_service.price*85/100,
-          #amount before tax
           amount: '$ ' + (amount_after_tax*85/100).to_s
-          # tax: amount_after_tax*10/100,
-          # tax2: amount_after_tax*5/100,
-          # amount_after_tax: amount_after_tax
         )
         totlal_prices = totlal_prices + amount_after_tax
         items<<item
@@ -77,8 +67,6 @@ class Cms::BookingServicesController < Cms::ApplicationController
         provider_street_number: '1',
         provider_city: 'Hoi An',
         purchaser_name: customer.name,
-        # purchaser_tax_id: '',
-        # purchaser_tax_id2: '',
         purchaser_street: customer.street,
         purchaser_street_number: customer.number_street,
         purchaser_city: customer.city,
@@ -88,9 +76,6 @@ class Cms::BookingServicesController < Cms::ApplicationController
         tax: totlal_prices*10/100,
         tax2: totlal_prices*5/100,
         total: '$ ' + totlal_prices.to_s,
-        # bank_account_number: '156546546465',
-        # account_iban: 'IBAN464545645',
-        # account_swift: 'SWIFT5456',
         items: items,
         note: 'A note...'
       )
@@ -115,10 +100,6 @@ class Cms::BookingServicesController < Cms::ApplicationController
   def destroy
     BookingService.find(params[:id]).delete
   end
-
-  # def booking_service_params
-  #   params.require(:booking_service).permit()
-  # end
 
   def booking_service_params
     params.permit(:commit)

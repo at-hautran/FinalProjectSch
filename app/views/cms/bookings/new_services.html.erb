@@ -1,4 +1,4 @@
-  <h1>Booking #<%=@booking.id%></h1>
+  <h1>Booking #<%= link_to(@booking.id, edit_cms_booking_path(@booking.id))%></h1>
   <h1>Service used in room <%= @booking.room.name %></h1>
 <% room = @booking.room %>
 <h1>You are in booking room <% room.name %>

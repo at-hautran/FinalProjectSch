@@ -36,10 +36,6 @@ class Cms::BookingsController < Cms::ApplicationController
       @room = Room.find(booking_params[:room_id])
       render action: :new
     end
-    # respond_to do |format|
-    #   format.html
-    #   format.js
-    # end
   end
 
   def update
@@ -89,62 +85,10 @@ class Cms::BookingsController < Cms::ApplicationController
   end
 
   def show
-    item = InvoicePrinter::Document::Item.new(
-      name: 'Web consultation',
-      quantity: nil,
-      unit: 'hours',
-      price: '$ 25',
-      tax: '$ 1',
-      amount: '$ 100'
-    )
-
-    invoice = InvoicePrinter::Document.new(
-      number: '201604030001',
-      provider_name: 'Business s.r.o.',
-      provider_tax_id: '56565656',
-      provider_tax_id2: '465454',
-      provider_street: 'Rolnicka',
-      provider_street_number: '1',
-      provider_postcode: '747 05',
-      provider_city: 'Opava',
-      provider_city_part: 'Katerinky',
-      provider_extra_address_line: 'Czech Republic',
-      purchaser_name: 'Adam',
-      purchaser_tax_id: '',
-      purchaser_tax_id2: '',
-      purchaser_street: 'Ostravska',
-      purchaser_street_number: '1',
-      purchaser_postcode: '747 70',
-      purchaser_city: 'Opava',
-      purchaser_city_part: '',
-      purchaser_extra_address_line: '',
-      issue_date: '19/03/3939',
-      due_date: '19/03/3939',
-      subtotal: '175',
-      tax: '5',
-      tax2: '10',
-      tax3: '20',
-      total: '$ 200',
-      bank_account_number: '156546546465',
-      account_iban: 'IBAN464545645',
-      account_swift: 'SWIFT5456',
-      items: [item],
-      note: 'A note...'
-    )
-
-      respond_to do |format|
-    format.pdf {
-      @pdf = InvoicePrinter.render(
-        document: invoice
-      )
-      send_data @pdf, type: 'application/pdf', disposition: 'inline'
-    }
-  end
   end
 
   def edit
     @booking = Booking.find(params[:id])
-    # @avaiable_bookings = Booking.where(room_id: @booking.room_id)
   end
 
   def new_services
@@ -168,7 +112,6 @@ class Cms::BookingsController < Cms::ApplicationController
       end
       @booking = Booking.find(service_params[:booking_id])
       @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: service_params[:booking_id])
-      # redirect_to cms_booking_new_services_url service_params[:booking_id]
       respond_to do |format|
         format.html
         format.js
@@ -179,7 +122,6 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_services = BookingService.includes(:service).where(booking_id: params[:booking_id])
       @services = Service.order(status: :desc)
       @services = @services.page(params[:page]).per(25)
-      # render :new_services
       respond_to do |format|
         format.html
         format.js
@@ -212,14 +154,6 @@ class Cms::BookingsController < Cms::ApplicationController
 
   private
 
-    # def customer_params
-    #   params.require(:customer).permit(:name, :email, :phonenumber, :street,
-    #                                    :number_street, :city, :postcode, :country)
-    # end
-
-    # def booking_params
-    #   params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :comments)
-    # end
   def customer_params
     params.require(:customer).permit(:name, :email, :phonenumber, :street,
                                    :number_street, :city, :postcode, :country)
@@ -257,7 +191,6 @@ class Cms::BookingsController < Cms::ApplicationController
     end
 
     def service_params
-      #lack validate of booking_id and service_id present
       params.permit(:id, :booking_id, :service_id, :number, :time)
     end
 
