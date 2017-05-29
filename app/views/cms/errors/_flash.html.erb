@@ -1,5 +1,11 @@
 <% flash.each do |name, msg| %>
+<% if name == 'success' %>
+ <div class="alert alert-success">
+    <p><%= msg %></p>
+  </div>
+<% else %>
   <div class="alert alert-danger">
     <p><%= msg %></p>
   </div>
+<% end %>
 <% end %>
