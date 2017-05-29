@@ -44,6 +44,7 @@ Rails.application.routes.draw do
     delete 'sessions#logout' => 'sessions#account_logout_out', as: :logout
     put 'booking_services/chooseds/pay' => 'booking_services#pay_chooseds', as: :booking_services_pay_chooseds
     put 'booking_services/invoice' => 'booking_services#invoice', as: :booking_services_invoice
+    put 'bookings_invoice/:id' => 'bookings#invoice', as: :booking_invoice
     resources :revenues
   end
 

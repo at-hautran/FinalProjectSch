@@ -178,4 +178,40 @@ class Booking < ApplicationRecord
   def self.get_finished(start_date)
     Booking.where("(STRFTIME('%Y-%m', finished_at)) = ?", start_date.to_date.strftime('%Y-%m'))
   end
+
+  def self.get_p_invoice booking
+    customer = booking.customer
+    room = booking.room
+    days = ((booking.check_out.to_date - booking.check_in.to_date)/(1.day)).to_i + 1
+    total_price = booking.price*days - booking.total_payed
+    extra_days = total_price/booking.price
+    item = InvoicePrinter::Document::Item.new(
+      name: "Room#{room.name}",
+      quantity: days.to_s + " days(check in from)",
+      price: booking.price*85/100,
+      amount: '$ ' + (total_price*85/100).to_i.to_s
+    )
+
+    invoice = InvoicePrinter::Document.new(
+      number: "a",
+      provider_name: 'My Hotel',
+      provider_tax_id: '56565656',
+      provider_tax_id2: '465454',
+      provider_street: 'Cua Dai',
+      provider_street_number: '1',
+      provider_city: 'Hoi An',
+      purchaser_name: customer.name,
+      purchaser_street: customer.street,
+      purchaser_street_number: customer.number_street,
+      purchaser_city: customer.city,
+      purchaser_postcode: customer.postcode,
+      due_date: (Time.zone.now + 7.hour).strftime('%Y-%m-%d %I:%M:%S %p'),
+      subtotal: (total_price*85/100).to_i,
+      tax: (total_price*10/100).to_i,
+      tax2: (total_price*5/100).to_i,
+      total: '$ ' + total_price.to_i.to_s,
+      items: [item],
+      note: 'A note...'
+    )
+  end
 end
