@@ -29,7 +29,7 @@ class BookingService < ApplicationRecord
   end
 
   def check_time_must_in_future
-    errors.add(:time, "can not in the past") if time < (Time.zone.now + 7.hour)
+    errors.add(:time, "can not in the past") if time < (Time.zone.now + 7.hour) if time.present?
   end
 
   def self.paid_all(booking_id)
