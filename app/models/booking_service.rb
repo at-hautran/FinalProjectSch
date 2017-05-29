@@ -2,6 +2,7 @@ class BookingService < ApplicationRecord
   belongs_to :service
   belongs_to :booking
   validates :time, presence: true
+  validate :check_time_must_in_future
 
   validate
   include AASM
@@ -25,6 +26,10 @@ class BookingService < ApplicationRecord
     event :paid do
       transitions :from => :unpaid, :to => :paid
     end
+  end
+
+  def check_time_must_in_future
+    errors.add(:time, "can not in the past") if time < (Time.zone.now + 7.hour)
   end
 
   def self.paid_all(booking_id)
