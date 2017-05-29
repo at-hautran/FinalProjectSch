@@ -4,7 +4,7 @@
 <h1>All Services</h1>
 <form action="<%=cms_booking_services_invoice_path(format: :pdf)%>" id="new_services_form" method="post" target="_blank">
 <%= submit_tag 'Invoice', style: "margin-bottom: 10px" %>
-<%= button_tag 'Pay', class: 'pay_chooseds', id: "pay_chooseds_btn", style: "margin-bottom: 10px" %>
+<%= button_tag 'Pay', class: 'pay_chooseds', id: "pay_chooseds_btn", style: "margin-bottom: 10px", onclick: " return confirm_message_link()" %>
   <input type="hidden" name="_method" value="put" />
   <input type="hidden" name="booking_id" value="<%= @booking.id %>">
   <table class="table table-bordered table-striped table-hover">
@@ -92,6 +92,19 @@ document.getElementById('pay_chooseds_btn').onclick = function() {
     // form.removeAttribute("targer");
     $('form[target="_blank"]').removeAttr('target');
     form.submit();
+}
+
+function confirm_message_link() {
+    var txt;
+    var r = confirm("Press a button!");
+    if (r == true) {
+      alert("a");
+        txt = "You pressed OK!";
+    } else {
+        alert("a");
+        txt = "You pressed Cancel!";
+    }
+    document.getElementById("demo").innerHTML = txt;
 }
 
 </script>

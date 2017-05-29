@@ -17,7 +17,6 @@
             <th>Street</th>
             <th>Number Street</th>
             <!-- <th>Current booking</th> -->
-            <th width="50%">Postcode</th>
             <th>Detail</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -33,7 +32,6 @@
               <td><%=customer.city%></td>
               <td><%=customer.street%></td>
               <td><%=customer.number_street%></td>
-              <td><%=customer.postcode%></td>
               <td><%= link_to("detail", cms_customer_path(customer.id)) %></td>
               <td>
                 <p data-placement="top" data-toggle="tooltip" title="Edit">
