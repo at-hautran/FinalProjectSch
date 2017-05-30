@@ -26,7 +26,7 @@
   browser window, in order to prevent the content of the page from jumping up. */
 
 .header-fixed-placeholder{
-  height: 80px;
+  height: 70px;
   display: none;
 }
 
@@ -149,16 +149,17 @@ body {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
 <header class="header-fixed">
   <div class = "row">
   <div style="float: right; color: #fff;">
   <li>
+  <% if false %>
     <% if I18n.locale == I18n.default_locale %>
       <%= link_to "Vietnamese", locale: :vn%>
     <% else %>
       <%= link_to "English", locale: :en%>
     <%end%>
+  <% end %>
   </li>
   </div>
   </div>

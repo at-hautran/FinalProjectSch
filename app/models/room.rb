@@ -43,14 +43,6 @@ class Room < ApplicationRecord
                                                 check_in.to_date, check_out.to_date,
                                                 'accepted', 'in_use'])
     Room.joins(santitize_sql)
-    # statement_check_room_cannot_use = "(check_in <= ? AND check_out >= ?)
-    #                                   OR (check_in <= ? AND check_out >= ?)
-    #                                   OR (check_in >= ? AND check_out <= ?)"
-    # room_cannot_use_santitize       = sanitize_sql_for_conditions([statement_check_room_cannot_use,
-    #                                   check_in, check_in,
-    #                                   check_out, check_out,
-    #                                   check_in, check_out])
-    # Booking.where(room_cannot_use_santitize).uniq
   end
 
   def self.check_schedule(room, check_in, check_out, current_booking_id=nil)

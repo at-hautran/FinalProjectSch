@@ -14,8 +14,6 @@
             <th>Room</th>
             <th>Check in</th>
             <th>Check out</th>
-            <th>Adults</th>
-            <th>Childrens</th>
             <th>Status</th>
             <th>History</th>
             <th>Edit</th>
@@ -33,8 +31,6 @@
               <td><%= booking.room.name%></td>
               <td><%= booking.check_in.strftime("%Y/%m/%d") %></td>
               <td><%= booking.check_out.strftime("%Y/%m/%d") %></td>
-              <td><%= booking.adults %></td>
-              <td><%= booking.childrens %></td>
               <td><%= booking.status%></td>
                 <td><%= link_to("History", "/cms/histories/bookings/#{booking.id}") %></td>
               <td>

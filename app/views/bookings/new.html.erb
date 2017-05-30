@@ -8,15 +8,15 @@
     <%= render partial: 'cms/errors/flash' , locals: { flash: flash } if flash[:errors].present? %>
     <div class="controls">
       <input type="text" id="name" class="floatLabel" name="customer[name]">
-      <label for="name" class="top_negative active" style="top: -15px;">Name</label>
+      <label for="name" class="top_negative active" style="top: -15px;">Name(*)</label>
     </div>
     <div class="controls">
       <input type="text" id="email" class="floatLabel" name="customer[email]">
-      <label for="customer[email]" class="active" style="top: -15px;">Email</label>
+      <label for="customer[email]" class="active" style="top: -15px;">Email(*)</label>
     </div>
     <div class="controls">
       <input type="tel" id="phone" class="floatLabel" name="customer[phonenumber]">
-      <label for="phone" class="active" style="top: -15px;">Phone</label>
+      <label for="phone" class="active" style="top: -15px;">Phone(*)</label>
     </div>
     <div class="grid">
       <div class="col-2-3">
@@ -42,7 +42,7 @@
       <div class="col-1-3">
         <div class="controls">
           <input type="text" id="post-code" class="floatLabel" name="customer[postcode]">
-          <label for="post-code" class="active" style="top: -15px;">Post Code</label>
+          <label for="post-code" class="active" style="top: -15px;">Post Code(*)</label>
         </div>
       </div>
     </div>

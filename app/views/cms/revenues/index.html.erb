@@ -1,0 +1,84 @@
+  <h3 style="text-align: center;">Income management</h3>
+<%= month_calendar attribute: :check_in, end_attribute: :check_out, events: Booking.all do |date, meetings| %>
+<% end %>
+      <% current_year_data = get_incomes(@current_in_comes) %>
+      <% last_two_year_data = get_incomes(@last_in_comes.first) %>
+      <% last_one_year_data = get_incomes(@last_in_comes.second) %>
+      <% current_services_income_data = get_incomes_services(@last_in_comes.first) %>
+      <% last_two_year_services_income_data = get_incomes_services(@last_in_comes.first) %>
+      <% last_one_year_services_income_data = get_incomes_services(@last_in_comes.first) %>
+      <% current_room_income = current_year_data - current_services_income_data %>
+      <% last_two_year_room_income = last_two_year_data - last_two_year_services_income_data %>
+      <% last_one_year_room_income = last_one_year_data - last_one_year_services_income_data %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+</canvas><canvas id="myChart"></canvas>
+
+<div class="container">
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+<style type="text/css">
+ .container {
+    width: 30%;
+    height: 20%;
+  }
+</style>
+<script type="text/javascript">
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['..', <%= @dates_data.first %>, '|', <%= @dates_data.second %>, '|', <%= @dates_data.third %>, '..'],
+      datasets: [{
+        label: 'Total',
+        data: [0, <%= last_two_year_data %>, 0, <%= last_one_year_data %>, 0, <%= current_year_data %>, 0],
+        backgroundColor: "rgba(153,255,0,0.6)"
+      },
+      {
+        label: 'Room',
+        data: [0, <%= last_two_year_room_income %>, 0, <%= last_one_year_room_income %>, 0, <%= current_room_income %>, 0],
+        backgroundColor: "rgba(255,153,0,0.6)"
+      },
+       {
+        label: 'Services',
+        data: [0, <%= last_two_year_services_income_data %>, 0, <%= last_one_year_services_income_data %>, 0, <%= current_services_income_data %>, 0],
+        backgroundColor: "rgba(153,255,51,0.6)"
+      }
+      ]
+    }
+  });
+</script>
+  <% total_incomes = 0 %>
+      <div class="table-responsive">
+        <table id="mytable" class="table table-bordred table-striped">
+          <thead>
+            <th>Booking Id</th>
+            <th>Room Prices</th>
+            <th>Services Prices</th>
+            <th>Total Price</th>
+          </thead>
+          <tbody>
+            <% total_services = 0 %>
+            <% total_bookings = 0 %>
+            <% @current_in_comes.each do |booking| %>
+            <% customer = booking.customer %>
+            <tr class = "closesst1">
+              <td><%= link_to booking.id, "bookings/#{booking.id}/new_services" %></td>
+              <td class="name1"><%= booking_price = cal_prices(booking) %></td>
+              <td><%= service_prices = booking.total_services_payed %></td>
+              <td><%= booking_price + service_prices %></td>
+              <% total_bookings = total_bookings + booking_price %>
+              <% total_services = total_services + service_prices %>
+            </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <th>Total</th>
+            <th><%= total_bookings %> $</th>
+            <th><%= total_services  %> $</th>
+            <th><%= current_total_prices = total_bookings + total_services %> $</th>
+          </tfoot>
+        </table>
+        <div class="clearfix"></div>
+      </div>

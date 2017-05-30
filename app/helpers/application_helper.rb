@@ -14,12 +14,8 @@ module ApplicationHelper
   end
 
   def determine user_id
-    user = User.find(user_id)
-    if user.user_type == 'Admin'
-      Admin.find(user.type_id)
-    elsif user.user_type == 'Employee'
+      user = User.find(user_id)
       Employee.find(user.type_id)
-    end
   end
 
   def login?

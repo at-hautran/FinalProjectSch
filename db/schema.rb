@@ -71,11 +71,13 @@ ActiveRecord::Schema.define(version: 20171408001025) do
     t.integer  "adults"
     t.integer  "room_id"
     t.string   "pay"
+    t.datetime "finished_at"
     t.boolean  "pay_online",            default: false
     t.string   "paypal_customer_token"
     t.string   "paypal_payment_token"
     t.integer  "price"
-    t.integer  "total_payed"
+    t.integer  "total_payed",           default: 0
+    t.integer  "total_services_payed",  default: 0
     t.integer  "customer_id"
     t.string   "comments"
     t.integer  "user_id"

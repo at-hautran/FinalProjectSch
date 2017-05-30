@@ -1,4 +1,4 @@
-  <h1>Booking #<%=@booking.id%></h1>
+  <h1>Booking #<%= link_to(@booking.id, edit_cms_booking_path(@booking.id))%></h1>
   <h1>Service used in room <%= @booking.room.name %></h1>
 <% room = @booking.room %>
 <h1>You are in booking room <% room.name %>
@@ -13,8 +13,7 @@
     <th width="300">Check out</th>
     <th width="200">Total Price</th>
     <th width="200">Total payed</th>
-    <th width="100"></th>
-    <th width="200">Action</th>
+    <th width="300">Action</th>
     <th width="200">Booked at</th>
   </tr>
   </thead>
@@ -27,8 +26,10 @@
       <td><%= @booking.check_out.strftime('%Y-%m-%d')%></td>
       <td><%= (((@booking.check_out - @booking.check_in + 1.day)/1.day)*@booking.price.to_i).to_i%>$/<%=((@booking.check_out - @booking.check_in + 1.day)/1.day).to_i%>days</td>
       <td><%= @booking.total_payed %></td>
-      <td><%= pay_link_to @booking %></td>
-      <td><div class='box' style="background: blue;" width: 50%"><%= %></div></td>
+      <td>
+        <%= link_to("invoice", cms_booking_invoice_path(@booking.id, format: :pdf), method: :put, target: "_blank", class: 'btn btn-success btn-xs') %>
+        <%= pay_link_to @booking %>
+      </td>
       <td><%= @booking.created_at.strftime('%Y-%m-%d %I:%M:%S %p')%></td>
     </tr>
   </tbody>
@@ -52,5 +53,4 @@ This below is service for you choose?
         alert('time has changed');
         });
   }
-
 </script>

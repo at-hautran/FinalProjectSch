@@ -36,10 +36,6 @@ class Cms::BookingsController < Cms::ApplicationController
       @room = Room.find(booking_params[:room_id])
       render action: :new
     end
-    # respond_to do |format|
-    #   format.html
-    #   format.js
-    # end
   end
 
   def update
@@ -71,6 +67,8 @@ class Cms::BookingsController < Cms::ApplicationController
         end
         if params[:commit] == 'finish' && @booking.may_finish?
           @booking.finish
+          @booking.finished_at = Time.zone.now
+          @booking.total_services_payed = service_prices(@booking)
           @booking.save
           redirect_to edit_cms_booking_path(params[:id])
         end
@@ -82,24 +80,76 @@ class Cms::BookingsController < Cms::ApplicationController
     @booking = Booking.find(params[:id])
     total_price = (((@booking.check_out - @booking.check_in)/1.day.to_i + 1).to_i)*(@booking.price.to_i)
     @booking.total_payed = total_price
-    @booking.save
+    @booking.save(validate: false)
     redirect_to cms_booking_new_services_url(params[:id])
   end
 
   def show
-    @booking = Booking.find(params[:id])
   end
 
   def edit
     @booking = Booking.find(params[:id])
-    # @avaiable_bookings = Booking.where(room_id: @booking.room_id)
   end
 
   def new_services
     @booking = Booking.find(params[:id])
-    @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: params[:id])
+    @booking_services = BookingService.order("CASE status WHEN 'watting' THEN 1
+                                              WHEN 'booked' THEN 2
+                                              WHEN 'cancel' THEN 3 END, created_at desc").includes(:service).where(booking_id: params[:id])
     @services = Service.order(status: :desc)
     @services = @services.page(params[:page]).per(25)
+  end
+
+  def invoice
+    booking = Booking.find(params[:id])
+    customer = booking.customer
+    room = booking.room
+    total_days = ((booking.check_out- booking.check_in)/(1.day)).to_i + 1
+    unless booking.total_payed == booking.price*total_days
+      total_price = booking.price*total_days - booking.total_payed
+      extra_days = total_price/booking.price
+      i_check_out = booking.check_out
+      i_check_in = booking.check_out - extra_days.to_i.day
+      days = ((i_check_out - i_check_in)/(1.day)).to_i
+      item = InvoicePrinter::Document::Item.new(
+        name: "Room#{room.name}",
+        quantity: days.to_s + " days(check in from #{(i_check_in + 1.day).strftime('%Y-%m-%d')} to #{i_check_out.strftime('%Y-%m-%d')})",
+        price: booking.price*85/100,
+        amount: '$ ' + (total_price*85/100).to_i.to_s
+      )
+
+      invoice = InvoicePrinter::Document.new(
+        number: "a",
+        provider_name: 'My Hotel',
+        provider_tax_id: '56565656',
+        provider_tax_id2: '465454',
+        provider_street: 'Cua Dai',
+        provider_street_number: '1',
+        provider_city: 'Hoi An',
+        purchaser_name: customer.name,
+        purchaser_street: customer.street,
+        purchaser_street_number: customer.number_street,
+        purchaser_city: customer.city,
+        purchaser_postcode: customer.postcode,
+        due_date: (Time.zone.now + 7.hour).strftime('%Y-%m-%d %I:%M:%S %p'),
+        subtotal: (total_price*85/100).to_i,
+        tax: (total_price*10/100).to_i,
+        tax2: (total_price*5/100).to_i,
+        total: '$ ' + total_price.to_i.to_s,
+        items: [item],
+        note: 'A note...'
+      )
+      respond_to do |format|
+        format.pdf {
+          @pdf = InvoicePrinter.render(
+            document: invoice
+          )
+          send_data @pdf, type: 'application/pdf', disposition: 'inline'
+        }
+      end
+    else
+      redirect_to cms_booking_new_services_url(params[:id])
+    end
   end
 
   def create_services
@@ -114,7 +164,6 @@ class Cms::BookingsController < Cms::ApplicationController
       end
       @booking = Booking.find(service_params[:booking_id])
       @booking_services = BookingService.order(created_at: :desc).includes(:service).where(booking_id: service_params[:booking_id])
-      # redirect_to cms_booking_new_services_url service_params[:booking_id]
       respond_to do |format|
         format.html
         format.js
@@ -125,7 +174,6 @@ class Cms::BookingsController < Cms::ApplicationController
       @booking_services = BookingService.includes(:service).where(booking_id: params[:booking_id])
       @services = Service.order(status: :desc)
       @services = @services.page(params[:page]).per(25)
-      # render :new_services
       respond_to do |format|
         format.html
         format.js
@@ -158,14 +206,6 @@ class Cms::BookingsController < Cms::ApplicationController
 
   private
 
-    # def customer_params
-    #   params.require(:customer).permit(:name, :email, :phonenumber, :street,
-    #                                    :number_street, :city, :postcode, :country)
-    # end
-
-    # def booking_params
-    #   params.require(:booking).permit(:adults, :childrens, :check_in, :check_out, :comments)
-    # end
   def customer_params
     params.require(:customer).permit(:name, :email, :phonenumber, :street,
                                    :number_street, :city, :postcode, :country)
@@ -203,7 +243,6 @@ class Cms::BookingsController < Cms::ApplicationController
     end
 
     def service_params
-      #lack validate of booking_id and service_id present
       params.permit(:id, :booking_id, :service_id, :number, :time)
     end
 

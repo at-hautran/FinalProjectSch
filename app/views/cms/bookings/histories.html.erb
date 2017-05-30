@@ -73,7 +73,7 @@
                         Check_out: <%= audited_changes['check_out'].strftime('%Y-%m-%d') %> <br>
                       <% end %>
                       <% if audited_changes['childrens'].present? %>
-                        Childrens: <%= audited_changes['childrens'].first %><br>
+                        Childrens: <%= audited_changes['childrens'] %><br>
                       <% end %>
                       <% if audited_changes['adults'].present? %>
                         Adults: <%= audited_changes['adults'] %> <br>
@@ -82,7 +82,7 @@
                         Status: <%= audited_changes['status']%><br>
                       <% end %>
                       <% if audited_changes['total_payed'].present? %>
-                        Total payed: <%= audited_changes['total_payed'].first %><br>
+                        Total payed: <%= audited_changes['total_payed'] %><br>
                       <% end %>
                     <% end %>
                   </td>

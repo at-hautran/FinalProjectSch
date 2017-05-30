@@ -25,6 +25,7 @@
           <img src="<%=image.top_icon.url%>" alt="Los Angeles" style="min-width:1000px; max-height: 500px;" width="1500" height="800">
           <div class="carousel-caption">
             <h3><%= image.title %></h3>
+            <input type="" id="search_room" style="height: 0px;width: 0px;overflow:hidden;">
             <p><%= image.content %></p>
           </div>
         </div>
@@ -44,7 +45,7 @@
     <!-- </div> -->
     </header>
     <!-- Page content -->
-    <div id='search_room' class="w3-content" style="max-width:1532px;">
+    <div id='' class="w3-content" style="max-width:1532px;">
       <div class="w3-container w3-margin-top" id="rooms">
         <h3>Rooms</h3>
         <p >Make yourself at home is our slogan. We offer the best beds in the industry. Sleep well and rest well.</p>
@@ -52,20 +53,20 @@
       <form action="/rooms" onsubmit="return must_type_depart()">
         <div class="w3-row-padding">
           <div class="w3-col m3">
-            <label><i class="fa fa-calendar-o"></i> Check In</label>
-            <input name='check_in'  class="w3-input w3-border check_in" type="date">
+            <label><i class="fa fa-calendar-o"></i> Check In(*)</label>
+            <input name='check_in' id="checkIn" class="w3-input w3-border check_in" type="date" min="<%=Time.zone.now.strftime('%Y-%m-%d')%>" value="<%= (Time.zone.now + 7.hour).strftime('%Y-%m-%d')%>" onchange="updatedate();">
           </div>
           <div class="w3-col m3">
-            <label><i class="fa fa-calendar-o"></i> Check Out</label>
-            <input name='check_out' class="w3-input w3-border check_out" type="date">
+            <label><i class="fa fa-calendar-o"></i> Check Out(*)</label>
+            <input name='check_out' id="checkOut" class="w3-input w3-border check_out" type="date" min="<%=Time.zone.now.strftime('%Y-%m-%d')%>" value="<%= (Time.zone.now + 7.hour).strftime('%Y-%m-%d')%>">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-male"></i> Adults</label>
-            <input name='adults' class="w3-input w3-border" type="number" placeholder="Adults">
+            <input name='adults' value='1' min='1' class="w3-input w3-border" type="number" placeholder="Adults">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-child"></i>Childrens</label>
-            <input name='childrens' class="w3-input w3-border" type="number" placeholder="Childrens">
+            <input value="0", min="0" name='childrens' class="w3-input w3-border" type="number" placeholder="Childrens">
           </div>
           <div class="w3-col m2">
             <label><i class="fa fa-search" ></i> Search</label>
@@ -96,7 +97,6 @@
         <div class="w3-col l4 m7">
           <h3>About</h3>
           <h6>Our hotel is one of a kind. It is truely amazing. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</h6>
-          <p>We accept: <i class="fa fa-credit-card w3-large"></i> <i class="fa fa-cc-mastercard w3-large"></i> <i class="fa fa-cc-amex w3-large"></i> <i class="fa fa-cc-cc-visa w3-large"></i><i class="fa fa-cc-paypal w3-large"></i></p>
         </div>
         <div class="w3-col l8 m5">
           <a href="https://www.google.com/maps/place/Hoi+An+Beach+Resort/@15.8964181,108.3650807,17z/data=!3m1!4b1!4m5!3m4!1s0x31420d970efaa355:0x9e3cb85ef42337d!8m2!3d15.896413!4d108.3672748" target="_blank">
@@ -105,14 +105,14 @@
         </div>
       </div>
       <div class="w3-row w3-large w3-center" style="margin:32px 0">
-        <div class="w3-third"><i class="fa fa-map-marker w3-text-red"></i> 423 Some adr, Chicago, US</div>
-        <div class="w3-third"><i class="fa fa-phone w3-text-red"></i> Phone: +00 151515</div>
-        <div class="w3-third"><i class="fa fa-envelope w3-text-red"></i> Email: mail@mail.com</div>
+        <div class="w3-third"><i class="fa fa-map-marker w3-text-red"></i> 1, Cua Dai, Hoi An</div>
+        <div class="w3-third"><i class="fa fa-phone w3-text-red"></i> Phone: +84 1206146039</div>
+        <div class="w3-third"><i class="fa fa-envelope w3-text-red"></i> Email: h0977534303@gmail.com</div>
       </div>
-      <div class="w3-panel w3-red w3-leftbar w3-padding-32">
+     <!--  <div class="w3-panel w3-red w3-leftbar w3-padding-32">
         <h6><i class="fa fa-info w3-deep-orange w3-padding w3-margin-right"></i> On demand, we can offer playstation, babycall, children care, dog equipment, etc.</h6>
-      </div>
-      <div class="w3-container">
+      </div> -->
+      <!-- <div class="w3-container">
         <h3>Our Hotels</h3>
         <h6>You can find our hotels anywhere in the world:</h6>
       </div>
@@ -137,8 +137,8 @@
                 <span class="w3-display-bottomleft w3-padding">San Francisco</span>
               </div>
             </div>
-          </div>
-          <div class="w3-row-padding" style="margin:0 -16px">
+          </div> -->
+          <!-- <div class="w3-row-padding" style="margin:0 -16px">
             <div class="w3-half w3-margin-bottom">
               <div class="w3-display-container">
                 <img src="/w3images/pisa.jpg" alt="Pisa" style="width:100%">
@@ -151,22 +151,22 @@
                 <span class="w3-display-bottomleft w3-padding">Paris</span>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
+          </div> -->
+       <!--  </div>
+      </div> -->
       <div class="w3-container w3-padding-32 w3-black w3-opacity w3-card-2 w3-hover-opacity-off" style="margin:32px 0;">
-        <h2>Get the best offers first!</h2>
-        <p>Join our newsletter.</p>
-        <label>E-mail</label>
-        <input class="w3-input w3-border" type="text" placeholder="Your Email address">
-        <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button>
+        <!-- <h2>Get the best offers first!</h2> -->
+        <!-- <p>Join our newsletter.</p> -->
+        <!-- <label>E-mail</label> -->
+        <!-- <input class="w3-input w3-border" type="text" placeholder="Your Email address"> -->
+        <!-- <button type="button" class="w3-button w3-red w3-margin-top">Subscribe</button> -->
       </div>
       <div class="w3-container" id="contact">
         <h2>Contact</h2>
         <p>If you have any questions, do not hesitate to ask them.</p>
-        <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Chicago, US<br>
-        <i class="fa fa-phone w3-text-red" style="width:30px"></i> Phone: +00 151515<br>
-        <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: mail@mail.com<br>
+        <i class="fa fa-map-marker w3-text-red" style="width:30px"></i> Hoi An<br>
+        <i class="fa fa-phone w3-text-red" style="width:30px"></i> Phone: +84 1206146039<br>
+        <i class="fa fa-envelope w3-text-red" style="width:30px"> </i> Email: h0977534303@gmail.com<br>
         <form action="/action_page.php" target="_blank">
           <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Name" required name="Name"></p>
           <p><input class="w3-input w3-padding-16 w3-border" type="text" placeholder="Email" required name="Email"></p>
@@ -198,6 +198,12 @@
           }, 600);
         });
       });
+
+       function updatedate() {
+        var firstdate = document.getElementById("checkIn").value;
+        document.getElementById("checkOut").value = "";
+        document.getElementById("checkOut").setAttribute("min",firstdate);
+      }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBi6hH_CRiZzGj9BkK3pQjuZ1o6uFTIzgQ&callback=myMap"></script>
   </body>

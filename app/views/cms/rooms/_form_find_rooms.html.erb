@@ -69,14 +69,18 @@
       <div class="form-group">
         <label class="col-md-1 control-label">Check in</label>
 
-        <div class="col-md-2">
-          <%= text_field_tag 'check_in', params[:check_in], type: :date, class: 'form-control' %>
+        <div class="col-md-3">
+          <div class="col-md-10">
+            <%= text_field_tag 'check_in', params[:check_in], type: :date, class: 'form-control' %>
+          </div>
         </div>
         <div class ='col-md-1'></div>
         <label class="col-md-1 control-label">Check out</label>
 
-        <div class="col-md-2">
-          <%= text_field_tag 'check_out', params[:check_out], type: :date, class: 'form-control' %>
+        <div class="col-md-3">
+          <div class="col-md-10">
+            <%= text_field_tag 'check_out', params[:check_out], type: :date, class: 'form-control' %>
+          </div>
         </div>
       </div>
     </div>
@@ -85,14 +89,18 @@
         <div class="form-group">
          <label class="col-md-1 control-label">Adults</label>
 
-        <div class="col-md-2">
-          <%= text_field_tag 'adults', params[:adults], class: 'form-control' %>
+        <div class="col-md-3">
+          <div class="col-md-10">
+           <%= text_field_tag 'adults', params[:adults], class: 'form-control' %>
+          </div>
         </div>
         <div class ='col-md-1'></div>
         <label class="col-md-1 control-label">Childrens</label>
 
-        <div class="col-md-2">
-          <%= text_field_tag 'childrens', params[:childrens], class: 'form-control' %>
+        <div class="col-md-3">
+          <div class="col-md-10">
+            <%= text_field_tag 'childrens', params[:childrens], class: 'form-control' %>
+          </div>
         </div>
         <div class="col-md-1">
           <input type="submit" class="btn btn-primary" value="Search">
